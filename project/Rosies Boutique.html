@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rosie's Boutique — Artificial Flowers & Gifts</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link id="gfont-Playfair-Display" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Abril-Fatface" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface:wght@300;400;500;600;700&amp;display=swap">
+<link id="gfont-Crimson-Text" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@300;400;500;600;700&amp;display=swap">
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Supabase JS (for admin dashboard product CRUD + auth) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  /* ===== SUPABASE CONFIG =====
+     Paste your project credentials below (Project Settings → API in Supabase dashboard).
+     Then create a table `products` with columns:
+       id          uuid    primary key default gen_random_uuid()
+       name        text
+       category    text     -- loại hoa (Bouquets, Dried, Gifts, ...)
+       event       text     -- dịp (Wedding, Birthday, Mother's Day, ...)
+       price       numeric
+       image_url   text
+       description text
+       created_at  timestamptz default now()
+
+     Until configured, the admin dashboard falls back to localStorage so you can
+     still preview the UI. ============================ */
+  window.__SUPABASE_URL = "";       // e.g. "https://xxxxx.supabase.co"
+  window.__SUPABASE_ANON_KEY = "";  // your public anon key
+
+  /* Demo admin credentials used only when Supabase is NOT configured */
+  window.__DEMO_ADMIN_EMAIL = "admin@rosie.co";
+  window.__DEMO_ADMIN_PASSWORD = "rosie2026";
+</script>
+
+<script type="text/babel" data-presets="env,react" src="components.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="pages-home-shop.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="pages-product-account.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="pages-cart-reviews.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="pages-info.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="pages-auth-admin.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="app.jsx"></script>
+
+</body>
+</html>

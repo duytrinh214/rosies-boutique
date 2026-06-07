@@ -1,0 +1,311 @@
+/* global React, PRODUCTS, Icon, Stars, ProductCard, useCart, useProducts, FALLBACK_BG */
+const { useState, useEffect, useMemo } = React;
+
+// =========================================================
+// PRODUCT DETAIL
+// =========================================================
+const ProductPage = ({ params, navigate }) => {
+  const products = useProducts();
+  const product = products.find(p => p.id === params.id) || products[0] || PRODUCTS[0];
+  const [size, setSize] = useState((product.sizes && product.sizes[1]) || 'Standard');
+  const [qty, setQty] = useState(1);
+  const [tab, setTab] = useState('details');
+  const [imgIdx, setImgIdx] = useState(0);
+  const [added, setAdded] = useState(false);
+  const cart = useCart();
+
+  // build gallery: main product image + 3 other product images for variety
+  const gallery = useMemo(() => {
+    const others = products.filter(p => p.id !== product.id).map(p => p.img);
+    return [product.img, ...others.slice(0, 3)];
+  }, [product]);
+
+  const sizes = product.sizes || ['Petite', 'Standard', 'Grand'];
+  const palette = product.palette || ['Blush', 'Ivory', 'Champagne'];
+  const description = product.description || "A botanically-accurate silk floral arrangement, hand-tied in our atelier. Designed to last a lifetime — no water, no wilting, just timeless beauty.";
+  const details = product.details || ['Hand-tied silk stems', 'Wrapped in raw silk ribbon', 'Approx. 30 × 26 cm', 'Made to last 5+ years'];
+
+  const onAdd = () => {
+    cart.add(product, qty, size);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1800);
+  };
+
+  return (
+    <div className="page-fade">
+      <section style={{ padding: '64px 56px 80px' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64 }}>
+            {/* Gallery */}
+            <div className="img-elevated product-zoom" style={{ borderRadius: 28, overflow: 'hidden', aspectRatio: '4/4.8', background: FALLBACK_BG, position: 'relative' }}
+              onMouseMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width) * 100;
+                const y = ((e.clientY - r.top) / r.height) * 100;
+                const img = e.currentTarget.querySelector('img');
+                if (img) { img.style.transformOrigin = x + '% ' + y + '%'; img.style.transform = 'scale(2)'; }
+              }}
+              onMouseLeave={(e) => {
+                const img = e.currentTarget.querySelector('img');
+                if (img) { img.style.transform = 'scale(1)'; }
+              }}>
+              <img src={gallery[imgIdx]} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { e.target.style.display = 'none'; }} />
+              {product.tag && <span className="tag" style={{ position: 'absolute', top: 22, left: 22, background: '#fff', padding: '8px 14px', borderRadius: 9999, fontSize: 10.5, letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>{product.tag}</span>}
+            </div>
+
+            {/* Right pane */}
+            <div style={{ paddingTop: 8 }}>
+              <span className="eyebrow muted">{product.category} · made-to-order</span>
+              <h1 className="serif" style={{ fontSize: 56, lineHeight: 1.05, margin: '16px 0 14px', fontWeight: 500, letterSpacing: '-0.02em' }}>
+                {product.name}
+              </h1>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 22 }}>
+                <Stars value={product.rating} size={15} />
+                <span style={{ color: 'var(--muted)', fontSize: 13.5 }}>{product.rating} · {product.reviews} reviews</span>
+              </div>
+              <div className="serif" style={{ fontSize: 36, fontWeight: 600, marginBottom: 28 }}>${product.price}</div>
+              <p style={{ fontSize: 16, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 32 }}>{description}</p>
+
+              {/* Qty + Add */}
+              <div style={{ display: 'flex', gap: 14, marginBottom: 28 }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 0, border: '1px solid var(--ink)', borderRadius: 9999, overflow: 'hidden' }}>
+                  <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ background: 'none', border: 'none', padding: '14px 18px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="minus" size={14} /></button>
+                  <span style={{ padding: '0 16px', fontWeight: 500, minWidth: 24, textAlign: 'center' }}>{qty}</span>
+                  <button onClick={() => setQty(qty + 1)} style={{ background: 'none', border: 'none', padding: '14px 18px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="plus" size={14} /></button>
+                </div>
+                <button className="btn btn-primary" onClick={onAdd} style={{ flex: 1, justifyContent: 'center' }}>
+                  {added ? <><Icon name="check" size={16} /> Added to bag</> : <>Add to bag — ${product.price * qty}</>}
+                </button>
+              </div>
+              <button className="btn btn-secondary btn-block" onClick={() => { cart.add(product, qty, size); navigate('cart'); }}>
+                Buy now <Icon name="arrow-right" size={16} />
+              </button>
+
+              {/* Trust strip */}
+              <div style={{ marginTop: 32, padding: '20px 0', borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)', display: 'flex', gap: 32 }}>
+                <TrustLine icon="truck" label="Free shipping over $80" />
+                <TrustLine icon="shield" label="Lifetime atelier guarantee" />
+                <TrustLine icon="leaf" label="Plastic-free packaging" />
+              </div>
+
+              {/* Tabs */}
+              <div style={{ marginTop: 32 }}>
+                <div style={{ display: 'flex', gap: 32, borderBottom: '1px solid var(--hairline)', marginBottom: 20 }}>
+                  {['details', 'care', 'shipping'].map(t => (
+                    <button key={t} onClick={() => setTab(t)}
+                      style={{
+                        background: 'none', border: 'none', padding: '12px 0',
+                        borderBottom: tab === t ? '2px solid var(--ink)' : '2px solid transparent',
+                        cursor: 'pointer', textTransform: 'capitalize', fontSize: 14,
+                        fontWeight: tab === t ? 600 : 400, color: 'var(--ink)', fontFamily: 'inherit'
+                      }}>{t}</button>
+                  ))}
+                </div>
+                {tab === 'details' && (
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 10 }}>
+                    {details.map((d, i) => (
+                      <li key={i} style={{ display: 'flex', gap: 12, fontSize: 14, color: 'var(--ink-soft)' }}>
+                        <Icon name="check" size={16} /> {d}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {tab === 'care' && <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>Dust with a soft brush every few weeks. Keep out of direct sunlight to preserve the dyed petals. Refresh with the atelier annually — free for life.</p>}
+                {tab === 'shipping' && <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>Same-day delivery within the city (orders before 2pm). 2–4 business days nationwide. Free shipping on orders over $80. All pieces ship in custom protective packaging.</p>}
+              </div>
+            </div>
+          </div>
+
+          {/* Related */}
+          <div style={{ marginTop: 100 }}>
+            <h2 className="serif" style={{ fontSize: 40, fontWeight: 500, marginBottom: 32, letterSpacing: '-0.02em' }}>
+              You may also <span className="italic">love</span>
+            </h2>
+            <div className="grid-4">
+              {products.filter(p => p.id !== product.id).slice(0, 4).map(p => <ProductCard key={p.id} product={p} navigate={navigate} />)}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const TrustLine = ({ icon, label }) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--ink-soft)' }}>
+    <Icon name={icon} size={18} /> {label}
+  </div>
+);
+
+// =========================================================
+// MY ACCOUNT
+// =========================================================
+const AccountPage = ({ navigate }) => {
+  const [tab, setTab] = useState('orders');
+
+  const orders = [
+    { id: 'RB-2841', date: 'Mar 22, 2026', status: 'Delivered', total: 167, items: [{ name: 'Sunset Atelier', qty: 1, img: PRODUCTS[0].img }, { name: 'Ivory Tulip Pot', qty: 2, img: PRODUCTS[6].img }] },
+    { id: 'RB-2776', date: 'Mar 02, 2026', status: 'Delivered', total: 96, items: [{ name: 'Studio Pink Bundle', qty: 1, img: PRODUCTS[4].img }] },
+    { id: 'RB-2624', date: 'Feb 14, 2026', status: 'Delivered', total: 142, items: [{ name: 'Magenta Garden', qty: 1, img: PRODUCTS[1].img }, { name: 'Spring Lush', qty: 1, img: PRODUCTS[11].img }] },
+  ];
+
+  return (
+    <div className="page-fade">
+      <section style={{ padding: '64px 56px 90px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 48 }}>
+            <div style={{ width: 84, height: 84, borderRadius: '50%', background: 'var(--bg-pill)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 500, color: 'var(--ink)' }}>R</div>
+            <div>
+              <span className="eyebrow muted">Welcome back</span>
+              <h1 className="serif" style={{ fontSize: 56, lineHeight: 1.02, margin: '8px 0 0', fontWeight: 500, letterSpacing: '-0.02em' }}>
+                Hello, <span className="italic" style={{ color: '#5a4a40', fontWeight: 400 }}>Rosie.</span>
+              </h1>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: 56 }}>
+            {/* Sidebar */}
+            <aside>
+              {[
+                { id: 'orders', label: 'Orders', icon: 'bag' },
+                { id: 'profile', label: 'Profile', icon: 'user' },
+                { id: 'addresses', label: 'Addresses', icon: 'truck' },
+                { id: 'favorites', label: 'Favorites', icon: 'heart' },
+                { id: 'rewards', label: 'Rewards', icon: 'sparkle' },
+              ].map(it => (
+                <button key={it.id} onClick={() => setTab(it.id)} style={{
+                  width: '100%', display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '14px 18px', borderRadius: 12, marginBottom: 4,
+                  background: tab === it.id ? 'var(--ink)' : 'transparent',
+                  color: tab === it.id ? '#fff' : 'var(--ink)',
+                  border: 'none', cursor: 'pointer', fontSize: 14.5, textAlign: 'left',
+                  fontFamily: 'inherit', fontWeight: tab === it.id ? 500 : 400,
+                }}>
+                  <Icon name={it.icon} size={18} /> {it.label}
+                </button>
+              ))}
+              <hr className="divider" />
+              <button
+                onClick={() => { try { localStorage.removeItem('rosie_customer'); } catch (e) {} navigate('login'); }}
+                style={{ width: '100%', padding: '14px 18px', borderRadius: 12, background: 'transparent', color: 'var(--muted)', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', fontSize: 14 }}>
+                Sign out
+              </button>
+            </aside>
+
+            {/* Content */}
+            <div>
+              {tab === 'orders' && (
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+                    <h2 className="serif" style={{ fontSize: 32, fontWeight: 500, margin: 0 }}>Recent orders</h2>
+                    <span className="muted" style={{ fontSize: 13 }}>{orders.length} orders · last 90 days</span>
+                  </div>
+                  <div style={{ display: 'grid', gap: 16 }}>
+                    {orders.map(o => (
+                      <div key={o.id} className="card" style={{ padding: 0 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid var(--hairline)' }}>
+                          <div>
+                            <div className="serif" style={{ fontSize: 18, fontWeight: 500 }}>Order {o.id}</div>
+                            <div className="muted" style={{ fontSize: 13, marginTop: 2 }}>Placed {o.date}</div>
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <span style={{ padding: '6px 12px', background: 'var(--bg-pill)', borderRadius: 9999, fontSize: 12, fontWeight: 500 }}>{o.status}</span>
+                            <div className="serif" style={{ fontSize: 20, fontWeight: 600, marginTop: 6 }}>${o.total}</div>
+                          </div>
+                        </div>
+                        <div style={{ padding: 24, display: 'flex', gap: 16, alignItems: 'center' }}>
+                          <div style={{ display: 'flex' }}>
+                            {o.items.map((it, i) => (
+                              <div key={i} style={{ width: 56, height: 56, borderRadius: 12, overflow: 'hidden', marginLeft: i > 0 ? -10 : 0, border: '2px solid #fff', background: FALLBACK_BG }}>
+                                <img src={it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
+                              </div>
+                            ))}
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: 14 }}>{o.items.map(i => i.name).join(' · ')}</div>
+                          </div>
+                          <button className="btn btn-secondary btn-sm">View details</button>
+                          <button className="btn btn-ghost btn-sm">Reorder</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {tab === 'profile' && (
+                <div>
+                  <h2 className="serif" style={{ fontSize: 32, fontWeight: 500, marginBottom: 28 }}>Your profile</h2>
+                  <div className="card" style={{ padding: 32 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                      <div><label className="input-label">First name</label><input className="input" defaultValue="Rosie" /></div>
+                      <div><label className="input-label">Last name</label><input className="input" defaultValue="Tran" /></div>
+                      <div style={{ gridColumn: 'span 2' }}><label className="input-label">Email</label><input className="input" defaultValue="rosie@boutique.co" /></div>
+                      <div><label className="input-label">Phone</label><input className="input" defaultValue="+84 90 234 7891" /></div>
+                      <div><label className="input-label">Birthday</label><input className="input" defaultValue="May 18, 1996" /></div>
+                    </div>
+                    <button className="btn btn-primary" style={{ marginTop: 28 }}>Save changes</button>
+                  </div>
+                </div>
+              )}
+
+              {tab === 'addresses' && (
+                <div>
+                  <h2 className="serif" style={{ fontSize: 32, fontWeight: 500, marginBottom: 28 }}>Saved addresses</h2>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                    {[
+                      { label: 'Home', name: 'Rosie Tran', line1: '42 Ngô Đức Kế, District 1', line2: 'Ho Chi Minh City, Vietnam', tag: 'Default' },
+                      { label: 'Studio', name: 'Rosie Tran', line1: '8 Thảo Điền Floor 3', line2: 'Ho Chi Minh City, Vietnam' },
+                    ].map((a, i) => (
+                      <div key={i} className="card" style={{ padding: 24 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
+                          <span className="serif" style={{ fontSize: 18, fontWeight: 500 }}>{a.label}</span>
+                          {a.tag && <span style={{ padding: '4px 10px', background: 'var(--bg-pill)', borderRadius: 9999, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{a.tag}</span>}
+                        </div>
+                        <div style={{ color: 'var(--ink-soft)', fontSize: 14, lineHeight: 1.6 }}>
+                          {a.name}<br />{a.line1}<br />{a.line2}
+                        </div>
+                        <div style={{ marginTop: 18, display: 'flex', gap: 12 }}>
+                          <button className="btn btn-ghost btn-sm" style={{ padding: '6px 0' }}>Edit</button>
+                          <button className="btn btn-ghost btn-sm" style={{ padding: '6px 0', color: 'var(--muted)' }}>Remove</button>
+                        </div>
+                      </div>
+                    ))}
+                    <button className="card" style={{ padding: 24, border: '1.5px dashed var(--hairline-strong)', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: 'var(--ink)', fontFamily: 'inherit', fontSize: 14, minHeight: 160 }}>
+                      <Icon name="plus" size={16} /> Add address
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {tab === 'favorites' && (
+                <div>
+                  <h2 className="serif" style={{ fontSize: 32, fontWeight: 500, marginBottom: 28 }}>Your favorites</h2>
+                  <div className="grid-3">
+                    {PRODUCTS.slice(0, 3).map(p => <ProductCard key={p.id} product={p} navigate={navigate} />)}
+                  </div>
+                </div>
+              )}
+
+              {tab === 'rewards' && (
+                <div>
+                  <h2 className="serif" style={{ fontSize: 32, fontWeight: 500, marginBottom: 28 }}>Atelier rewards</h2>
+                  <div className="card" style={{ padding: 36, background: 'linear-gradient(135deg, #f6d6cd 0%, #e7c9a7 100%)' }}>
+                    <span className="eyebrow">Gold member</span>
+                    <div className="serif" style={{ fontSize: 64, fontWeight: 600, marginTop: 8, letterSpacing: '-0.02em' }}>2,840 <span style={{ fontSize: 24, fontWeight: 400 }}>petals</span></div>
+                    <div style={{ height: 6, background: 'rgba(43,29,24,0.1)', borderRadius: 999, marginTop: 16, overflow: 'hidden' }}>
+                      <div style={{ width: '72%', height: '100%', background: 'var(--ink)' }}></div>
+                    </div>
+                    <p style={{ marginTop: 12, fontSize: 13, color: 'var(--ink-soft)' }}>1,160 petals to Platinum · unlock free express delivery for life</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+Object.assign(window, { ProductPage, AccountPage });
