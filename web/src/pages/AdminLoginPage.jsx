@@ -7,14 +7,14 @@ import { getSupabase, isSupabaseConfigured } from '../lib/supabase';
 // SHARED AUTH SHELL (two-column: image left, form right)
 // =========================================================
 export const AuthShell = ({ accent = 'pink', children }) => (
-  <div style={{
+  <div className="auth-shell" style={{
     minHeight: '100vh',
     display: 'grid',
     gridTemplateColumns: '1.05fr 1fr',
     background: 'var(--bg-pink)',
   }}>
     {/* Left art panel */}
-    <div style={{
+    <div className="auth-shell-art" style={{
       position: 'relative',
       background: accent === 'dark'
         ? 'linear-gradient(160deg, #2b1d18 0%, #4a3a32 60%, #7a4f3a 100%)'
@@ -71,7 +71,7 @@ export const AuthShell = ({ accent = 'pink', children }) => (
     </div>
 
     {/* Right form panel */}
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 56px', background: 'var(--bg-cream)' }}>
+    <div className="auth-shell-form" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 56px', background: 'var(--bg-cream)' }}>
       <div style={{ width: '100%', maxWidth: 460 }}>
         {children}
       </div>

@@ -136,19 +136,21 @@ const AdminPage = () => {
   return (
     <div className="admin-page" style={{ minHeight: '100vh', background: '#faf6f1', color: 'var(--ink)' }}>
       {/* Admin top bar */}
-      <header style={{
+      <header className="admin-header" style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '20px 40px', borderBottom: '1px solid var(--hairline)', background: '#fff',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+        <div className="admin-header-brand" style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
           <a href="#admin" style={{ fontFamily: 'var(--font-serif)', fontSize: 24, fontWeight: 600, color: 'var(--ink)', textDecoration: 'none', letterSpacing: '-0.01em' }}>
             Rosie's Boutique<span style={{ color: 'var(--accent)' }}>.</span>
           </a>
-          <span style={{ width: 1, height: 22, background: 'var(--hairline)' }}></span>
-          <span style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600 }}>Atelier Console</span>
+          <span className="admin-header-eyebrow" style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+            <span style={{ width: 1, height: 22, background: 'var(--hairline)' }}></span>
+            <span style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--muted)', fontWeight: 600 }}>Atelier Console</span>
+          </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <span style={{
+        <div className="admin-header-actions" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span className="admin-status-badge" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '6px 12px', borderRadius: 9999, fontSize: 12,
             background: isSupabaseConfigured ? '#e8f4ea' : '#fff4e6',
@@ -157,28 +159,28 @@ const AdminPage = () => {
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: isSupabaseConfigured ? '#3ea25a' : '#d99a3a' }}></span>
             {isSupabaseConfigured ? 'Supabase connected' : 'Local demo mode'}
           </span>
-          <a onClick={() => navigate('home')} style={{ fontSize: 14, color: 'var(--muted)', cursor: 'pointer', textDecoration: 'none' }}>View storefront ↗</a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px 6px 6px', background: 'var(--bg-cream)', borderRadius: 9999 }}>
-            <span style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600 }}>
+          <a className="admin-view-link" onClick={() => navigate('home')} style={{ fontSize: 14, color: 'var(--muted)', cursor: 'pointer', textDecoration: 'none' }}>View storefront ↗</a>
+          <div className="admin-user-chip" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px 6px 6px', background: 'var(--bg-cream)', borderRadius: 9999 }}>
+            <span style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600, flexShrink: 0 }}>
               {(session?.user?.email || 'A')[0].toUpperCase()}
             </span>
-            <span style={{ fontSize: 13 }}>{session?.user?.email || 'Admin'}</span>
+            <span className="admin-user-email" style={{ fontSize: 13 }}>{session?.user?.email || 'Admin'}</span>
             <button onClick={signOut} className="btn btn-ghost btn-sm" style={{ padding: '4px 10px' }}>Sign out</button>
           </div>
         </div>
       </header>
 
       {/* Body */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', minHeight: 'calc(100vh - 72px)' }}>
+      <div className="admin-body" style={{ display: 'grid', gridTemplateColumns: '240px 1fr', minHeight: 'calc(100vh - 72px)' }}>
         {/* Sidebar */}
-        <aside style={{ padding: '24px 16px', borderRight: '1px solid var(--hairline)', background: '#fff' }}>
+        <aside className="admin-sidebar" style={{ padding: '24px 16px', borderRight: '1px solid var(--hairline)', background: '#fff' }}>
           {[
             { id: 'products', label: 'Products', icon: 'bag' },
             { id: 'overview', label: 'Overview', icon: 'sparkle' },
             { id: 'categories', label: 'Categories & Events', icon: 'leaf' },
             { id: 'settings', label: 'Settings', icon: 'shield' },
           ].map(it => (
-            <button key={it.id} onClick={() => setTab(it.id)} style={{
+            <button key={it.id} onClick={() => setTab(it.id)} className="admin-sidebar-btn" style={{
               width: '100%', display: 'flex', alignItems: 'center', gap: 12,
               padding: '12px 16px', borderRadius: 12, marginBottom: 4,
               background: tab === it.id ? 'var(--ink)' : 'transparent',
@@ -200,14 +202,14 @@ const AdminPage = () => {
         </aside>
 
         {/* Main */}
-        <main style={{ padding: '32px 40px 80px' }}>
+        <main className="admin-main" style={{ padding: '32px 40px 80px' }}>
           {tab === 'overview' && (
             <AdminOverview stats={stats} items={items} />
           )}
 
           {tab === 'products' && (
             <div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24, gap: 16 }}>
+              <div className="admin-products-head" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24, gap: 16 }}>
                 <div>
                   <span className="eyebrow muted">Catalog</span>
                   <h1 className="serif" style={{ fontSize: 40, fontWeight: 500, margin: '8px 0 0', letterSpacing: '-0.02em' }}>
@@ -235,8 +237,9 @@ const AdminPage = () => {
               </div>
 
               {/* Table */}
-              <div style={{ background: '#fff', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-card)' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <div className="admin-table-card" style={{ background: '#fff', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-card)' }}>
+                <div className="admin-table-scroll">
+                <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg-cream)', textAlign: 'left' }}>
                       <th style={thStyle}>Product</th>
@@ -279,13 +282,16 @@ const AdminPage = () => {
                           {p.created_at ? new Date(p.created_at).toLocaleDateString() : '—'}
                         </td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>
-                          <button className="btn btn-ghost btn-sm" onClick={() => setEditing(p)}>Edit</button>
-                          <button className="btn btn-ghost btn-sm" style={{ color: '#9a3a2a' }} onClick={() => handleDelete(p.id)}>Delete</button>
+                          <div className="admin-row-actions" style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
+                            <button className="btn btn-ghost btn-sm" onClick={() => setEditing(p)}>Edit</button>
+                            <button className="btn btn-ghost btn-sm" style={{ color: '#9a3a2a' }} onClick={() => handleDelete(p.id)}>Delete</button>
+                          </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
           )}
@@ -546,9 +552,9 @@ const ProductEditor = ({ initial, onClose, onSave }) => {
   };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 900, display: 'flex', justifyContent: 'flex-end' }}>
+    <div className="admin-editor-overlay" style={{ position: 'fixed', inset: 0, zIndex: 900, display: 'flex', justifyContent: 'flex-end' }}>
       <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(43,29,24,0.4)', backdropFilter: 'blur(4px)' }}></div>
-      <form onSubmit={submit} style={{
+      <form onSubmit={submit} className="admin-editor-form" style={{
         position: 'relative', width: 540, maxWidth: '95vw', background: '#fff',
         padding: '32px 36px', overflowY: 'auto', boxShadow: '-30px 0 60px rgba(0,0,0,0.15)',
       }}>
