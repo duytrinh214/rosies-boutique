@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PRODUCTS, normaliseProduct } from './products';
+import { getSupabase } from './supabase';
 
 // ============ PRODUCT STORE ============
 // Single source of truth for the catalog. Seeded from PRODUCTS on first load;
@@ -43,6 +44,19 @@ export const ProductStore = (() => {
     },
     remove: async (id) => { items = items.filter((x) => x.id !== id); persist(); },
   };
+})();
+
+// Pull the live catalog from Supabase once on app start (when configured) so
+// every page — not just the admin console — shows the real database catalog.
+// Falls back to the localStorage-seeded PRODUCTS if Supabase is unreachable.
+(async () => {
+  const sb = getSupabase();
+  if (!sb) return;
+  try {
+    const { data, error } = await sb.from('products').select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    if (data && data.length) ProductStore.sync(data);
+  } catch (e) { console.error('Failed to load products from Supabase:', e); }
 })();
 
 export const useProducts = () => {

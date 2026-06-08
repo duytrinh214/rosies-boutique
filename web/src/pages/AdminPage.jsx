@@ -438,22 +438,32 @@ create policy "public can read"
       <p style={{ color: 'var(--muted)', fontSize: 14, margin: '0 0 16px' }}>Run this SQL in your Supabase project's SQL editor to create the products table:</p>
       <pre style={{ background: '#2b1d18', color: '#f1e6dc', padding: 20, borderRadius: 12, fontSize: 12.5, overflow: 'auto', lineHeight: 1.6, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace' }}>
 {`create table products (
-  id          uuid primary key default gen_random_uuid(),
+  id          text primary key default gen_random_uuid()::text,
   name        text not null,
+  description text,
+  price       numeric not null default 0,
   category    text,
   event       text,
-  price       numeric,
   image_url   text,
-  description text,
-  created_at  timestamptz default now()
+  images      jsonb not null default '[]'::jsonb,
+  tag         text,
+  rating      numeric not null default 4.8,
+  reviews     integer not null default 0,
+  stock       integer not null default 0,
+  palette     jsonb not null default '[]'::jsonb,
+  details     jsonb not null default '[]'::jsonb,
+  sizes       jsonb not null default '[]'::jsonb,
+  created_at  timestamptz not null default now()
 );
 
--- Allow the public anon role to read & write (for demo):
+-- Public can read the catalog; only authenticated admins can write:
 alter table products enable row level security;
 create policy "anyone can read"    on products for select using (true);
 create policy "authed can write"   on products for all
   using (auth.role() = 'authenticated')
-  with check (auth.role() = 'authenticated');`}
+  with check (auth.role() = 'authenticated');
+
+-- Full table + RLS + seed data: supabase/migrations/20260608120000_create_products_table.sql`}
       </pre>
     </div>
   </div>

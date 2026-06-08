@@ -32,8 +32,13 @@ export const FALLBACK_BG = 'linear-gradient(135deg, #f6d6cd 0%, #e7c9a7 50%, #dc
 
 export const normaliseProduct = (p) => ({
   ...p,
-  img: p.img || p.image_url || '',
+  img: p.img || p.image_url || (p.images && p.images[0]) || '',
   image_url: p.image_url || p.img || '',
+  images: p.images && p.images.length ? p.images : (p.img || p.image_url ? [p.img || p.image_url] : []),
   event: p.event || '',
+  stock: p.stock ?? 0,
+  palette: p.palette || [],
+  details: p.details || [],
+  sizes: p.sizes || [],
   created_at: p.created_at || new Date().toISOString(),
 });

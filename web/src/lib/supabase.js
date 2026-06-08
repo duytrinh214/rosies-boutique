@@ -5,15 +5,10 @@ import { createClient } from '@supabase/supabase-js';
 // (see .env.example). Find these under Project Settings → API in your
 // Supabase dashboard.
 //
-// Expected schema — create a `products` table with:
-//   id          uuid    primary key default gen_random_uuid()
-//   name        text
-//   category    text     -- Bouquets, Gifts, ...
-//   event       text     -- occasion (Wedding, Birthday, Mother's Day, ...)
-//   price       numeric
-//   image_url   text
-//   description text
-//   created_at  timestamptz default now()
+// Expected schema — see supabase/migrations/20260608120000_create_products_table.sql
+// for the full `products` table definition (name, description, price, category,
+// event, image_url, images, tag, rating, reviews, stock, palette, details, sizes,
+// created_at) plus row-level security policies and sample seed data.
 //
 // Plus a public Storage bucket named `product-images` for uploaded photos.
 // Full setup SQL is shown in the admin dashboard's Settings tab.
