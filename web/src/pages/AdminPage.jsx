@@ -62,11 +62,21 @@ const AdminPage = () => {
   const handleSave = async (row) => {
     try {
       const sb = getSupabase();
+      if (sb) {
+        const { data: { session: liveSession } } = await sb.auth.getSession();
+        console.log('[admin] session at save time:', liveSession ? {
+          email: liveSession.user?.email,
+          role: liveSession.user?.role,
+          aud: liveSession.user?.aud,
+          expires_at: liveSession.expires_at,
+          has_access_token: Boolean(liveSession.access_token),
+        } : null);
+      }
       if (row.id) {
         const { id, created_at, ...patch } = row;
         if (sb) {
           const { error } = await sb.from('products').update(patch).eq('id', id);
-          if (error) throw error;
+          if (error) { console.error('[admin] update error:', error.code, error.message, error.details, error.hint); throw error; }
         }
         await ProductStore.update(id, patch); // always sync local store
         showToast('Saved changes.');
@@ -74,7 +84,7 @@ const AdminPage = () => {
         const { id, created_at, ...insertRow } = row;
         if (sb) {
           const { data, error } = await sb.from('products').insert(insertRow).select().single();
-          if (error) throw error;
+          if (error) { console.error('[admin] insert error:', error.code, error.message, error.details, error.hint); throw error; }
           await ProductStore.insert(data || insertRow);
         } else {
           await ProductStore.insert(insertRow);
@@ -91,8 +101,10 @@ const AdminPage = () => {
     try {
       const sb = getSupabase();
       if (sb) {
+        const { data: { session: liveSession } } = await sb.auth.getSession();
+        console.log('[admin] session at delete time:', liveSession ? { email: liveSession.user?.email, role: liveSession.user?.role } : null);
         const { error } = await sb.from('products').delete().eq('id', id);
-        if (error) throw error;
+        if (error) { console.error('[admin] delete error:', error.code, error.message, error.details, error.hint); throw error; }
       }
       await ProductStore.remove(id); // always remove from local store
       showToast('Deleted.');
