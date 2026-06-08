@@ -97,10 +97,16 @@ const CartPage = () => {
                   {appliedDiscount &&
                 <SummaryRow label={`Discount · ${appliedDiscount.code}`} value={`−$${discountAmount}`} accent />
                 }
-                  <SummaryRow label={`Shipping (${shipping.method})`} value={shippingCost === 0 ? 'Free' : `$${shippingCost}`} />
-                  <SummaryRow label="Tax" value={`$${tax}`} />
-                  <hr className="divider" />
-                  <SummaryRow label="Total" value={`$${total}`} bold large />
+                  {step === 'cart' ?
+                <div style={{ marginTop: 10, fontSize: 12.5, color: 'var(--muted)' }}>Shipping calculated at checkout</div> :
+
+                <>
+                      <SummaryRow label={`Shipping (${shipping.method})`} value={shippingCost === 0 ? 'Free' : `$${shippingCost}`} />
+                      <SummaryRow label="Tax" value={`$${tax}`} />
+                      <hr className="divider" />
+                      <SummaryRow label="Total" value={`$${total}`} bold large />
+                    </>
+                }
 
                   {step === 'payment' &&
                 <div style={{ marginTop: 20, paddingTop: 20, borderTop: '1px solid var(--hairline)' }}>

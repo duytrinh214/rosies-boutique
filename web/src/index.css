@@ -1058,6 +1058,7 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 
   .grid-4, .grid-3, .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .g-stack-sm { grid-template-columns: 1fr !important; }
+  .g-stack-sm > * { grid-column: 1 / -1 !important; }
   .g-stack-2 { grid-template-columns: repeat(2, 1fr) !important; }
 
   .product-card .meta { padding: 14px 16px 18px; }
