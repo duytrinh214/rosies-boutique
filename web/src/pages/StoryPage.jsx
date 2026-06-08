@@ -66,7 +66,7 @@ const StoryPage = () => {
 
     {/* Stat strip */}
     <section style={{ background: '#fff', padding: '56px 56px', margin: '0 56px 88px', borderRadius: 28, boxShadow: '0 16px 30px -22px rgba(43,29,24,0.22)' }}>
-      <div style={{ maxWidth: 1080, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center', color: STORY_INK }}>
+      <div className="g-stack-2" style={{ maxWidth: 1080, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center', color: STORY_INK }}>
         <StoryStat big="84" unit="min" label="to compose a single peony" />
         <StoryStat big="5+" unit="yr" label="colour-fast lifespan" />
         <StoryStat big="0" unit="" label="dyes, no allergens, no waste" />
@@ -90,7 +90,7 @@ const StoryPage = () => {
 
     {/* Atelier image pair — two photos with caption between */}
     <section style={{ padding: '0 56px 88px' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+      <div className="g-stack" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
         <div className="img-elevated" style={{ borderRadius: 18, overflow: 'hidden', aspectRatio: '4/5', background: FALLBACK_BG }}>
           <img src="/products/ivory-tulip.jpg" alt="Hand-cutting petals" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
         </div>
@@ -163,7 +163,8 @@ const StoryChapter = ({ no, eyebrow, title, body, img, imgRight }) =>
     <div style={{
     maxWidth: 1200, margin: '0 auto',
     display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center'
-  }}>
+  }}
+  className="g-stack">
       <div className="card" style={{
       padding: '48px 52px', color: STORY_INK,
       order: imgRight ? 1 : 2

@@ -75,7 +75,7 @@ const CartPage = () => {
           {step === 'done' ?
           <ConfirmedView navigate={navigate} order={order} /> :
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, marginTop: 32 }}>
+          <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56, marginTop: 32 }}>
               {/* LEFT */}
               <div>
                 {step === 'cart' && <CartItems cart={cart} navigate={navigate} />}
@@ -290,7 +290,7 @@ const CartItems = ({ cart, navigate }) => {
   return (
     <div className="card" style={{ padding: 0 }}>
       {cart.items.map((it, i) =>
-      <div key={it.key} style={{
+      <div key={it.key} className="cart-item-row" style={{
         display: 'grid', gridTemplateColumns: '110px 1fr auto', gap: 24, alignItems: 'center',
         padding: 24, borderBottom: i < cart.items.length - 1 ? '1px solid var(--hairline)' : 'none'
       }}>
@@ -307,7 +307,7 @@ const CartItems = ({ cart, navigate }) => {
             </div>
             <button onClick={() => cart.remove(it.key)} style={{ background: 'none', border: 'none', marginLeft: 16, color: 'var(--muted)', cursor: 'pointer', fontSize: 13, textDecoration: 'underline', fontFamily: 'inherit' }}>Remove</button>
           </div>
-          <div className="serif" style={{ fontSize: 22, fontWeight: 600 }}>${it.price * it.qty}</div>
+          <div className="serif cart-item-price" style={{ fontSize: 22, fontWeight: 600 }}>${it.price * it.qty}</div>
         </div>
       )}
     </div>);
@@ -432,7 +432,7 @@ const ShippingForm = ({ shipping, setShipping }) => {
       <p className="muted" style={{ fontSize: 14, margin: '0 0 24px' }}>Where should we send your flowers? We deliver Australia-wide.</p>
 
       <div style={{ fontSize: 11.5, letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, color: 'var(--muted)', marginBottom: 14 }}>Contact</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+      <div className="g-stack-sm" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
         <CheckoutField label="First name" value={shipping.firstName} onChange={(v) => set('firstName', v)} placeholder="Charlotte" required />
         <CheckoutField label="Last name" value={shipping.lastName} onChange={(v) => set('lastName', v)} placeholder="Nguyen" required />
         <CheckoutField label="Email" type="email" value={shipping.email} onChange={(v) => set('email', v)} placeholder="charlotte@email.com" span={2} required />
@@ -440,11 +440,11 @@ const ShippingForm = ({ shipping, setShipping }) => {
       </div>
 
       <div style={{ fontSize: 11.5, letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600, color: 'var(--muted)', margin: '30px 0 14px' }}>Delivery address</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 18 }}>
+      <div className="g-stack-sm" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 18 }}>
         <AddressAutocomplete shipping={shipping} setShipping={setShipping} set={set} />
         <CheckoutField label="Unit / Apt" value={shipping.unit} onChange={(v) => set('unit', v)} placeholder="Optional" />
         <CheckoutField label="Suburb" value={shipping.suburb} onChange={(v) => set('suburb', v)} placeholder="Melbourne" required />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+        <div className="g-stack-sm" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
           <SelectField label="State" value={shipping.state} onChange={(v) => set('state', v)} options={AU_STATES} placeholder="State" required />
           <CheckoutField label="Postcode" type="text" value={shipping.postcode} onChange={(v) => set('postcode', v)} placeholder="3000" required />
         </div>
@@ -556,7 +556,7 @@ const PaymentForm = ({ payment, setPayment, total }) => {
               <input value={card.number} onChange={(e) => setC('number', e.target.value)} placeholder="Card number" inputMode="numeric" style={stripeInputStyle} />
               <CardBrandDots />
             </StripeRow>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <div className="g-stack-sm" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
               <StripeRow>
                 <input value={card.expiry} onChange={(e) => setC('expiry', e.target.value)} placeholder="MM / YY" inputMode="numeric" style={stripeInputStyle} />
               </StripeRow>

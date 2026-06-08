@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Icon from './Icon';
 import { useCart } from '../lib/stores';
 
@@ -67,15 +68,21 @@ const SHOP_DROPDOWN = [
 
 const Nav = ({ current, navigate }) => {
   const cart = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
   const items = [
     { id: 'home', label: 'Home' },
     { id: 'shop', label: 'Shop' },
     { id: 'reviews', label: 'Reviews' },
   ];
 
+  const go = (page, params) => {
+    setMenuOpen(false);
+    navigate(page, params);
+  };
+
   return (
     <nav className="nav">
-      <a className="logo logo-img" onClick={(e) => { e.preventDefault(); navigate('home'); }} href="#home" aria-label="Rosie's Boutique">
+      <a className="logo logo-img" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
         <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
       </a>
       <div className="nav-links" style={{ fontFamily: '"Playfair Display"' }}>
@@ -132,7 +139,41 @@ const Nav = ({ current, navigate }) => {
           <Icon name="bag" />
           {cart.count > 0 && <span className="badge">{cart.count}</span>}
         </button>
+        <button
+          className={'icon-btn nav-burger' + (menuOpen ? ' active' : '')}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}>
+          <Icon name={menuOpen ? 'close' : 'menu'} />
+        </button>
       </div>
+
+      {/* Mobile slide-down menu */}
+      <div className={'nav-mobile' + (menuOpen ? ' is-open' : '')} role="menu" aria-label="Mobile navigation">
+        <div className="nav-mobile-links">
+          {items.map((it) => (
+            <button
+              key={it.id}
+              className={'nav-mobile-link' + (current === it.id || (it.id === 'shop' && current === 'product') ? ' active' : '')}
+              onClick={() => go(it.id)}>
+              {it.label}
+            </button>
+          ))}
+        </div>
+        <div className="nav-mobile-eyebrow">Curated Collections</div>
+        <div className="nav-mobile-collections">
+          {SHOP_DROPDOWN.map((d) => (
+            <button key={d.key} className="nav-mobile-collection" onClick={() => go('shop', { id: d.key })}>
+              <span className="shop-mega-icon" aria-hidden="true">{d.icon}</span>
+              <span className="shop-mega-body">
+                <span className="shop-mega-title">{d.title}</span>
+                <span className="shop-mega-sub">{d.sub}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {menuOpen && <div className="nav-mobile-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true"></div>}
     </nav>
   );
 };

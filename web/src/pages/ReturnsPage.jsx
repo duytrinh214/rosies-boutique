@@ -25,7 +25,7 @@ const ReturnsPage = () => {
 
       <section style={{ padding: '0 56px 64px' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+          <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
             {RETURN_STEPS.map((s) =>
             <div key={s.no} className="card" style={{ padding: '36px 40px' }}>
                 <div className="serif italic" style={{ fontSize: 30, color: 'var(--muted)', fontWeight: 500, marginBottom: 14 }}>Nº {s.no}</div>
@@ -39,7 +39,7 @@ const ReturnsPage = () => {
 
       {/* Eligibility */}
       <section style={{ padding: '0 56px 72px' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+        <div className="g-stack" style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
           <div className="card" style={{ padding: '40px 44px' }}>
             <div style={{ fontSize: 11.5, letterSpacing: '0.24em', textTransform: 'uppercase', fontWeight: 600, color: '#5a7a4a', marginBottom: 18 }}>What we accept</div>
             {['Unused pieces in original packaging', 'Damaged or faulty items — always', 'Wrong item received', 'Change of mind within 14 days'].map((t) =>

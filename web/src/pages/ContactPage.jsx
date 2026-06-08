@@ -20,7 +20,7 @@ const ContactPage = () => {
         intro="Our atelier doors are open seven days a week. Drop by for a coffee and a browse, or send a note and a real florist will reply within one business day." />
 
       <section style={{ padding: '0 56px 56px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36, alignItems: 'start' }}>
+        <div className="g-stack" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36, alignItems: 'start' }}>
 
           {/* LEFT — details */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>

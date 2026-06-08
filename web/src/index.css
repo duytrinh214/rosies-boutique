@@ -928,3 +928,146 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 }
 .chip:hover { border-color: var(--ink); }
 .chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* =========================================================
+   Mobile navigation — hamburger + slide-down panel
+   ========================================================= */
+.nav-burger { display: none; }
+.nav-mobile, .nav-mobile-backdrop { display: none; }
+
+@media (max-width: 880px) {
+  .nav { padding: 18px 20px; gap: 14px; }
+  .nav .logo-img img { width: 104px; height: 54px; }
+  .nav-links { display: none; }
+  .nav-right { gap: 10px; }
+  .nav-burger { display: inline-flex; position: relative; z-index: 61; }
+
+  .nav-mobile {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: var(--bg-cream);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: 0 28px 60px -24px rgba(43, 29, 24, 0.3);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 360ms cubic-bezier(.2,.8,.2,1), opacity 260ms ease;
+    z-index: 60;
+  }
+  .nav-mobile.is-open {
+    max-height: 80vh;
+    opacity: 1;
+    overflow-y: auto;
+  }
+  .nav-mobile-links { display: flex; flex-direction: column; padding: 8px 24px 0; }
+  .nav-mobile-link {
+    font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+    font-size: 21px;
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--hairline);
+    cursor: pointer;
+    color: var(--ink);
+    padding: 16px 2px;
+  }
+  .nav-mobile-link.active { font-weight: 600; font-style: italic; }
+  .nav-mobile-eyebrow {
+    padding: 22px 24px 10px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .nav-mobile-collections { display: flex; flex-direction: column; padding: 0 24px 24px; }
+  .nav-mobile-collection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--hairline);
+    cursor: pointer;
+    color: var(--ink);
+    padding: 14px 2px;
+  }
+  .nav-mobile-collection:first-child { border-top: none; }
+  .nav-mobile-collection .shop-mega-icon { opacity: 0.6; flex-shrink: 0; }
+
+  .nav-mobile-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 29, 24, 0.32);
+    z-index: 55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-mobile { transition: none; }
+}
+
+/* =========================================================
+   Mobile layout fixes — containers, grids, sections, footer
+   ========================================================= */
+@media (max-width: 860px) {
+  .container, .container-tight { padding: 0 32px; }
+  .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .g-stack, .g-stack-3 { grid-template-columns: 1fr !important; }
+  .g-stack-3 { gap: 14px !important; }
+
+  .footer .container { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
+}
+
+@media (max-width: 640px) {
+  .container, .container-tight { padding: 0 20px; }
+  .section { padding: 56px 0; }
+  .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 32px; }
+  .section-head h2 { font-size: 36px; }
+
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .g-stack-sm { grid-template-columns: 1fr !important; }
+  .g-stack-2 { grid-template-columns: repeat(2, 1fr) !important; }
+
+  .product-card .meta { padding: 14px 16px 18px; }
+  .product-card .meta .name { font-size: 16px; }
+  .product-card .meta .sub { font-size: 12px; }
+  .product-card .meta .price { font-size: 16px; }
+
+  .drag-row { gap: 16px; }
+  .drag-item { flex: 0 0 72vw; max-width: 72vw; }
+
+  .footer { padding: 56px 0 28px; }
+  .footer .container { grid-template-columns: 1fr; gap: 36px; padding: 0 20px; }
+  .footer .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 22px 20px 0;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .g-stack-2 { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 520px) {
+  .cart-item-row {
+    grid-template-columns: 84px 1fr !important;
+    gap: 16px !important;
+    padding: 18px !important;
+  }
+  .cart-item-price {
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin-top: -6px;
+  }
+}

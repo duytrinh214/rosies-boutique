@@ -130,7 +130,7 @@ const HomePage = () => {
     <div className="page-fade">
       {/* HERO */}
       <section style={{ padding: '90px 56px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'center', maxWidth: 1440, margin: '0 auto' }}>
+        <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'center', maxWidth: 1440, margin: '0 auto' }}>
           {/* Left */}
           <div>
             <span className="pill" style={{ textAlign: "left", flexDirection: "row" }}><span className="pill-dot"></span>Hand-tied in our atelier</span>
@@ -275,7 +275,7 @@ const HomePage = () => {
 
       {/* Editorial split */}
       <section style={{ padding: '100px 0', background: 'var(--bg-pink)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div className="container g-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
           <div className="img-elevated" style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', aspectRatio: '1/1', background: '#fff', boxShadow: '0 20px 40px -18px rgba(43,29,24,0.28), 0 50px 90px -40px rgba(43,29,24,0.18)', padding: "6px" }}>
             <img src="/products/atelier-watercolor.jpg"
             alt="Watercolour painting of a hand-tied bouquet from our atelier" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 10, display: 'block' }} />

@@ -28,6 +28,8 @@ const Icon = ({ name, size = 20, stroke = 1.6 }) => {
     case 'instagram': return <svg {...props}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" /></svg>;
     case 'facebook': return <svg {...props}><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3V3z" /></svg>;
     case 'tiktok': return <svg {...props}><path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5" /><path d="M14 4c.5 2.5 2.5 4.5 5 5" /></svg>;
+    case 'menu': return <svg {...props}><path d="M4 7h16M4 12h16M4 17h16" /></svg>;
+    case 'close': return <svg {...props}><path d="M6 6l12 12M18 6 6 18" /></svg>;
     default: return null;
   }
 };

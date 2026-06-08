@@ -39,7 +39,7 @@ const ProductPage = () => {
     <div className="page-fade">
       <section style={{ padding: '64px 56px 80px' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64 }}>
+          <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64 }}>
             {/* Gallery */}
             <div className="img-elevated product-zoom" style={{ borderRadius: 28, overflow: 'hidden', aspectRatio: '4/4.8', background: FALLBACK_BG, position: 'relative' }}
               onMouseMove={(e) => {

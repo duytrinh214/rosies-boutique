@@ -57,7 +57,7 @@ const ReviewsPage = () => {
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: hasReviews ? '1.2fr 1fr' : '1fr', gap: 56, alignItems: 'start', marginBottom: 56 }}>
+          <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: hasReviews ? '1.2fr 1fr' : '1fr', gap: 56, alignItems: 'start', marginBottom: 56 }}>
             <div>
               <span className="pill"><span className="pill-dot"></span>From our community</span>
               <h1 className="serif" style={{ fontSize: 80, fontWeight: 500, lineHeight: 1.02, margin: '24px 0 18px', letterSpacing: '-0.02em' }}>
@@ -118,7 +118,7 @@ const ReviewsPage = () => {
               </div>
 
               {/* Reviews grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 48 }}>
+              <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginBottom: 48 }}>
                 {reviews.map((r, i) => <ReviewCard key={i} review={r} />)}
               </div>
 

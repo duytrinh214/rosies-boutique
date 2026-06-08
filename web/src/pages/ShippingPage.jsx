@@ -29,7 +29,7 @@ const ShippingPage = () => {
           {/* Tiers table */}
           <div className="card" style={{ padding: 0, overflow: 'hidden', marginBottom: 36 }}>
             {SHIPPING_TIERS.map((t, i) =>
-            <div key={t.name} style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.4fr 1fr', gap: 24, alignItems: 'center', padding: '26px 36px', borderTop: i === 0 ? 'none' : '1px solid var(--hairline)' }}>
+            <div key={t.name} className="g-stack-3" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.4fr 1fr', gap: 24, alignItems: 'center', padding: '26px 36px', borderTop: i === 0 ? 'none' : '1px solid var(--hairline)' }}>
                 <div>
                   <div className="serif" style={{ fontSize: 22, fontWeight: 500, color: INFO_INK }}>{t.name}</div>
                   <div style={{ fontSize: 14, color: 'var(--muted)', marginTop: 4 }}>{t.area}</div>
@@ -41,7 +41,7 @@ const ShippingPage = () => {
           </div>
 
           {/* Detail prose */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+          <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
             <InfoBlock icon="clock" title="Processing time"
               body="Ready-made bouquets are dispatched within 24 hours. Made-to-order and wedding pieces are crafted by hand and take 3 – 7 days before they ship — we will email you a dispatch date at checkout." />
             <InfoBlock icon="truck" title="Tracking"
