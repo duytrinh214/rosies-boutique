@@ -1021,6 +1021,8 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 
   .g-stack, .g-stack-3 { grid-template-columns: 1fr !important; }
   .g-stack-3 { gap: 14px !important; }
+  .g-stack > *, .g-stack-sm > *, .g-stack-2 > *, .g-stack-3 > *,
+  .grid-4 > *, .grid-3 > *, .grid-2 > * { min-width: 0; }
 
   .footer .container { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
 }
@@ -1040,8 +1042,12 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .product-card .meta .sub { font-size: 12px; }
   .product-card .meta .price { font-size: 16px; }
 
-  .drag-row { gap: 16px; }
-  .drag-item { flex: 0 0 72vw; max-width: 72vw; }
+  .carousel-head { gap: 14px !important; }
+  .carousel-head h2 { font-size: 28px !important; }
+  .carousel-head-arrows { display: none !important; }
+  .carousel-head-actions { gap: 0 !important; }
+  .drag-row { gap: 16px; padding-left: 0; padding-right: 0; }
+  .drag-item { flex: 0 0 calc(100vw - 40px); max-width: calc(100vw - 40px); }
 
   .footer { padding: 56px 0 28px; }
   .footer .container { grid-template-columns: 1fr; gap: 36px; padding: 0 20px; }

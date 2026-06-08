@@ -27,7 +27,7 @@ export const HeroSlideshow = () => {
 
   return (
     <div className="hero-frame"
-    onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ width: "100%", height: "760px", margin: "0 auto", padding: "5px" }}>
+    onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ width: "100%", margin: "0 auto", padding: "5px" }}>
       <div className="hero-window hero-slideshow">
         {HERO_SLIDES.map((s, i) =>
         <img key={s.src} src={s.src} alt={s.name}
@@ -134,9 +134,9 @@ const HomePage = () => {
           {/* Left */}
           <div>
             <span className="pill" style={{ textAlign: "left", flexDirection: "row" }}><span className="pill-dot"></span>Hand-tied in our atelier</span>
-            <h1 className="serif" style={{ lineHeight: 1.02, margin: '36px 0 28px', fontWeight: 500, letterSpacing: '-0.02em', fontSize: "120px" }}>
+            <h1 className="serif" style={{ lineHeight: 1.02, margin: '36px 0 28px', fontWeight: 500, letterSpacing: '-0.02em', fontSize: "clamp(44px, 11vw, 120px)" }}>
               Everlasting,<br />
-              <span className="italic" style={{ color: '#5a4a40', fontWeight: 400, fontSize: "100px" }}>Floral.</span>
+              <span className="italic" style={{ color: '#5a4a40', fontWeight: 400, fontSize: "clamp(36px, 9vw, 100px)" }}>Floral.</span>
             </h1>
             <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.55, maxWidth: 460, margin: '0 0 38px' }}>
 

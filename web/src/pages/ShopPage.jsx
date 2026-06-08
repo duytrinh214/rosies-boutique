@@ -70,13 +70,13 @@ export const CollectionCarousel = ({ collectionKey, eyebrow, title, navigate, pr
   return (
     <section style={{ padding: last ? '0 0 96px' : '0 0 72px' }}>
       <div className="container">
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, marginBottom: 28 }}>
+        <div className="carousel-head" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, marginBottom: 28 }}>
           <div>
             <span className="eyebrow muted">{eyebrow}</span>
             <h2 className="serif" style={{ fontSize: 44, fontWeight: 500, margin: '12px 0 0', letterSpacing: '-0.02em', lineHeight: 1.05 }}>{title}</h2>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
-            <div style={{ display: 'flex', gap: 8 }}>
+          <div className="carousel-head-actions" style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+            <div className="carousel-head-arrows" style={{ display: 'flex', gap: 8 }}>
               <button className="carousel-arrow" aria-label="Scroll left" onClick={() => nudge(-1)}><Icon name="arrow-left" size={16} /></button>
               <button className="carousel-arrow" aria-label="Scroll right" onClick={() => nudge(1)}><Icon name="arrow-right" size={16} /></button>
             </div>
