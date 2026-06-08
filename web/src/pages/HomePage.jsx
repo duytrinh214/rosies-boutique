@@ -147,14 +147,9 @@ const HomePage = () => {
               </button>
               <button className="btn btn-secondary" onClick={() => navigate('shop')}>Explore Collections</button>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 18, padding: '14px 22px 14px 18px', borderRadius: 999, background: 'rgba(43,29,24,0.04)', border: '1px solid rgba(43,29,24,0.14)' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: '50%', background: 'var(--ink)', color: 'var(--bg-pink)' }}>
-                <Icon name="clock" size={20} stroke={1.5} />
-              </span>
-              <span style={{ display: 'inline-flex', flexDirection: 'column', lineHeight: 1.15 }}>
-                <span style={{ fontSize: 10.5, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--ink-soft)', fontWeight: 600, marginBottom: 4 }}>Atelier Courier</span>
-                <span className="serif italic" style={{ fontSize: 19, color: 'var(--ink)', letterSpacing: '-0.01em', fontFamily: "Inter", lineHeight: "1" }}>Same day delivery, order before 12pm</span>
-              </span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, padding: '14px 24px', borderRadius: 999, background: 'rgba(43,29,24,0.04)', border: '1px solid rgba(43,29,24,0.14)' }}>
+              <span style={{ color: 'var(--accent)', fontSize: 17 }}>✦</span>
+              <span className="serif italic" style={{ fontSize: 17, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Hand-tied with care, delivered to your door</span>
             </div>
           </div>
           {/* Right */}

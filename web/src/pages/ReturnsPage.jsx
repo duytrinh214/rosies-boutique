@@ -5,7 +5,7 @@ import { InfoHero, CheckRow, InfoCTA, INFO_INK } from './info-shared';
 // RETURNS
 // ============================================================
 const RETURN_STEPS = [
-{ no: '01', title: 'Get in touch', body: 'Email hello@rosie.co or use the contact form within 14 days of delivery. Tell us your order number and what went wrong.' },
+{ no: '01', title: 'Get in touch', body: 'Email enqiry.rosiesboutique@outlook.com or use the contact form within 14 days of delivery. Tell us your order number and what went wrong.' },
 { no: '02', title: 'We send a label', body: 'We email a prepaid return label within one business day. Re-box the flowers in their original packaging if you can.' },
 { no: '03', title: 'Post it back', body: 'Drop the parcel at any courier point. Tracking keeps both of us updated the whole way back to the atelier.' },
 { no: '04', title: 'Refund or swap', body: 'Once we receive and inspect the return, your refund is issued to the original payment method within 5 – 7 business days — or we send a replacement, your choice.' }];

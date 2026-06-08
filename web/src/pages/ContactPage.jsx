@@ -17,7 +17,7 @@ const ContactPage = () => {
         pill="Say hello"
         title="Come visit,"
         titleItalic="or write to us."
-        intro="Our atelier doors are open seven days a week. Drop by for a coffee and a browse, or send a note and a real florist will reply within one business day." />
+        intro="Our atelier doors are open through the week. Drop by for a coffee and a browse, or send a note and a real florist will reply within one business day." />
 
       <section style={{ padding: '0 56px 56px' }}>
         <div className="g-stack" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36, alignItems: 'start' }}>
@@ -32,22 +32,27 @@ const ContactPage = () => {
                 </span>
                 <h3 className="serif" style={{ fontSize: 26, fontWeight: 500, margin: 0, color: INFO_INK }}>Opening hours</h3>
               </div>
-              {/* TODO: replace with real business info before launch — placeholder opening hours */}
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--hairline)' }}>
-                <span style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>Monday — Sunday</span>
-                <span className="serif" style={{ fontSize: 20, fontWeight: 500, color: INFO_INK }}>7:00 — 19:00</span>
+                <span style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>Monday — Friday</span>
+                <span className="serif" style={{ fontSize: 20, fontWeight: 500, color: INFO_INK }}>9:00am — 5:00pm</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid var(--hairline)' }}>
+                <span style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>Saturday</span>
+                <span className="serif" style={{ fontSize: 20, fontWeight: 500, color: INFO_INK }}>10:00am — 3:00pm</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '12px 0' }}>
+                <span style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>Sunday</span>
+                <span className="serif" style={{ fontSize: 20, fontWeight: 500, color: INFO_INK }}>Closed</span>
               </div>
               <p style={{ fontSize: 14, color: 'var(--muted)', margin: '16px 0 0', lineHeight: 1.6 }}>
-                Open every day of the week, including public holidays. Last orders for same-day delivery are taken at 14:00.
+                Drop by during opening hours, or send a note any time — a real florist will reply within one business day.
               </p>
             </div>
 
             {/* Contact lines */}
             <div className="card" style={{ padding: '36px 40px', display: 'flex', flexDirection: 'column', gap: 22 }}>
-              {/* TODO: replace with real business info before launch — placeholder address, phone and email */}
-              <ContactLine icon="map-pin" label="Atelier & store" value={<>12 Tr&#7847;n Qu&#7889;c Th&#7842;o, Ward 7,<br />District 3, Ho Chi Minh City</>} />
-              <ContactLine icon="phone" label="Phone & Zalo" value="+84 28 3930 1234" />
-              <ContactLine icon="mail" label="Email" value="hello@rosie.co" />
+              <ContactLine icon="map-pin" label="Atelier & store" value={<>87 President Rd,<br />Albanvale, Melbourne VIC 3021</>} />
+              <ContactLine icon="mail" label="Email" value="enqiry.rosiesboutique@outlook.com" />
             </div>
           </div>
 
@@ -85,12 +90,11 @@ const ContactPage = () => {
       </section>
 
       {/* MAP — full width */}
-      {/* TODO: replace with real Google Maps embed for the shop's actual address before launch */}
       <section style={{ padding: '0 56px 88px' }}>
         <div className="img-elevated" style={{ maxWidth: 1100, margin: '0 auto', borderRadius: 22, overflow: 'hidden', boxShadow: '0 20px 40px -18px rgba(43,29,24,0.28)' }}>
           <iframe
             title="Rosie's Boutique location"
-            src="https://maps.google.com/maps?q=District%203%20Ho%20Chi%20Minh%20City&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=87+President+Rd%2C+Albanvale+VIC+3021&t=&z=15&ie=UTF8&iwloc=&output=embed"
             style={{ width: '100%', height: 420, border: 0, display: 'block' }}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"></iframe>

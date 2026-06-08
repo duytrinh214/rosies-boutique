@@ -4,11 +4,10 @@ import { InfoHero, InfoBlock, InfoCTA, INFO_INK } from './info-shared';
 // ============================================================
 // SHIPPING
 // ============================================================
-// TODO: replace with real shipping rates and tiers before launch
 const SHIPPING_TIERS = [
-{ name: 'Same-day express', area: 'Within Ho Chi Minh City', time: 'Ordered before 2pm · delivered by dusk', price: '₫45,000' },
-{ name: 'Standard delivery', area: 'Nationwide · Vietnam', time: '2 – 4 working days', price: '₫30,000' },
-{ name: 'Free shipping', area: 'Orders over ₫1,500,000', time: 'Standard nationwide', price: 'Free' }];
+{ name: 'Same-day express', area: 'Within Melbourne metro', time: 'Ordered before 12pm · delivered by evening', price: '$12' },
+{ name: 'Standard delivery', area: 'Nationwide · Australia', time: '2 – 4 working days', price: '$9' },
+{ name: 'Free shipping', area: 'Orders over $150', time: 'Standard nationwide', price: 'Free' }];
 
 
 const ShippingPage = () => {

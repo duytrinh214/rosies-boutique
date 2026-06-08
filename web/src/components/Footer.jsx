@@ -12,8 +12,6 @@ const Footer = ({ navigate, current }) => (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 18 }}>
           <a href="https://www.instagram.com/rosie.sboutique/" aria-label="Instagram" target="_blank" rel="noopener noreferrer" style={{ color: '#e9d8c9', display: 'inline-flex' }}><Icon name="instagram" size={26} /></a>
           <a href="https://www.facebook.com/profile.php?id=61572040978693" aria-label="Facebook" target="_blank" rel="noopener noreferrer" style={{ color: '#e9d8c9', display: 'inline-flex' }}><Icon name="facebook" size={26} /></a>
-          {/* TODO: replace with the shop's real TikTok URL */}
-          <a href="#" aria-label="TikTok" style={{ color: '#e9d8c9', display: 'inline-flex' }}><Icon name="tiktok" size={26} /></a>
         </span>
       </div>
       <div>
