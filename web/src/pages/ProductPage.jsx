@@ -35,6 +35,15 @@ const ProductPage = () => {
     setTimeout(() => setAdded(false), 1800);
   };
 
+  const onBuyNow = () => {
+    // Only add if this exact product/size isn't already in the cart —
+    // cart.add() merges quantities, so calling it unconditionally here
+    // would bump an existing line to qty 2 instead of going straight to checkout.
+    const key = product.id + ':' + size;
+    if (!cart.items.some((it) => it.key === key)) cart.add(product, qty, size);
+    navigate('cart');
+  };
+
   return (
     <div className="page-fade">
       <section style={{ padding: '64px 56px 80px' }}>
@@ -81,7 +90,7 @@ const ProductPage = () => {
                   {added ? <><Icon name="check" size={16} /> Added to bag</> : <>Add to bag — ${product.price * qty}</>}
                 </button>
               </div>
-              <button className="btn btn-secondary btn-block" onClick={() => { cart.add(product, qty, size); navigate('cart'); }}>
+              <button className="btn btn-secondary btn-block" onClick={onBuyNow}>
                 Buy now <Icon name="arrow-right" size={16} />
               </button>
 
