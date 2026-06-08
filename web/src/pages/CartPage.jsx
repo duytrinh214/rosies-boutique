@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
 import { useCart, DiscountStore } from '../lib/stores';
-import { PRODUCTS, FALLBACK_BG } from '../lib/products';
+import { FALLBACK_BG } from '../lib/products';
 
 const DELIVERY_LABELS = {
   standard: 'Standard delivery · 2–4 business days',
@@ -24,15 +24,6 @@ const CartPage = () => {
   const [discountInput, setDiscountInput] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [discountError, setDiscountError] = useState('');
-
-  // seed cart if empty (so screen always has content for demo)
-  useEffect(() => {
-    if (cart.items.length === 0 && step === 'cart') {
-      cart.add(PRODUCTS[0], 1, 'Standard');
-      cart.add(PRODUCTS[6], 2, 'One size');
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const applyDiscount = (e) => {
     if (e) e.preventDefault();
@@ -294,20 +285,22 @@ const CartItems = ({ cart, navigate }) => {
         display: 'grid', gridTemplateColumns: '110px 1fr auto', gap: 24, alignItems: 'center',
         padding: 24, borderBottom: i < cart.items.length - 1 ? '1px solid var(--hairline)' : 'none'
       }}>
-          <div className="img-elevated-sm" style={{ width: 110, height: 130, borderRadius: 14, overflow: 'hidden', background: FALLBACK_BG }}>
-            <img src={'/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
+          <div className="img-elevated-sm cart-item-img" style={{ borderRadius: 14, overflow: 'hidden', background: FALLBACK_BG, flexShrink: 0 }}>
+            <img src={'/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => {e.target.style.display = 'none';}} />
           </div>
-          <div>
+          <div className="cart-item-body" style={{ minWidth: 0 }}>
             <div className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>{it.name}</div>
             <div className="muted" style={{ fontSize: 13, marginBottom: 14 }}>Size: {it.size}</div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid var(--hairline-strong)', borderRadius: 9999 }}>
-              <button onClick={() => cart.setQty(it.key, it.qty - 1)} style={{ background: 'none', border: 'none', padding: '8px 14px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="minus" size={12} /></button>
-              <span style={{ padding: '0 10px', minWidth: 20, textAlign: 'center', fontSize: 14 }}>{it.qty}</span>
-              <button onClick={() => cart.setQty(it.key, it.qty + 1)} style={{ background: 'none', border: 'none', padding: '8px 14px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="plus" size={12} /></button>
+            <div className="cart-item-controls" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', border: '1px solid var(--hairline-strong)', borderRadius: 9999 }}>
+                <button onClick={() => cart.setQty(it.key, it.qty - 1)} style={{ background: 'none', border: 'none', padding: '8px 14px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="minus" size={12} /></button>
+                <span style={{ padding: '0 10px', minWidth: 20, textAlign: 'center', fontSize: 14 }}>{it.qty}</span>
+                <button onClick={() => cart.setQty(it.key, it.qty + 1)} style={{ background: 'none', border: 'none', padding: '8px 14px', cursor: 'pointer', color: 'var(--ink)' }}><Icon name="plus" size={12} /></button>
+              </div>
+              <button onClick={() => cart.remove(it.key)} style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', fontSize: 13, textDecoration: 'underline', fontFamily: 'inherit' }}>Remove</button>
             </div>
-            <button onClick={() => cart.remove(it.key)} style={{ background: 'none', border: 'none', marginLeft: 16, color: 'var(--muted)', cursor: 'pointer', fontSize: 13, textDecoration: 'underline', fontFamily: 'inherit' }}>Remove</button>
           </div>
-          <div className="serif cart-item-price" style={{ fontSize: 22, fontWeight: 600 }}>${it.price * it.qty}</div>
+          <div className="serif cart-item-price" style={{ fontSize: 22, fontWeight: 600, textAlign: 'right' }}>${it.price * it.qty}</div>
         </div>
       )}
     </div>);

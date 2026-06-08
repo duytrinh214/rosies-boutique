@@ -108,7 +108,7 @@ export const CollectionCarousel = ({ collectionKey, eyebrow, title, navigate, pr
 const ShopPage = () => {
   const { navigate, params = {} } = useNav();
   const products = useProducts();
-  const collectionKey = params.id && COLLECTIONS[params.id] ? params.id : 'everyday';
+  const collectionKey = params.id && COLLECTIONS[params.id] ? params.id : null;
   const collection = collectionKey ? COLLECTIONS[collectionKey] : null;
   const [category, setCategory] = useState('All');
   const [sort] = useState('featured');
@@ -137,13 +137,9 @@ const ShopPage = () => {
         <div style={{ maxWidth: 1440, margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'end', gap: 32 }}>
             <div>
-              <span className="pill"><span className="pill-dot"></span>{collection ? collection.eyebrow : 'Season 2026 · Spring'}</span>
-              <h1 className="serif" style={{ fontSize: 84, lineHeight: 1.02, margin: '24px 0 16px', fontWeight: 500, letterSpacing: '-0.02em' }}>
+              <h1 className="serif shop-hero-title" style={{ lineHeight: 1.02, margin: '0 0 16px', fontWeight: 500, letterSpacing: '-0.02em' }}>
                 {collection ? <>The <span className="italic" style={{ color: '#5a4a40', fontWeight: 400 }}>{collection.title.toLowerCase()}</span> edit.</> : <>The full <span className="italic" style={{ color: '#5a4a40', fontWeight: 400 }}>atelier.</span></>}
               </h1>
-              <p style={{ fontSize: 17, color: 'var(--ink-soft)', maxWidth: 540, lineHeight: 1.5, margin: 0 }}>
-                {collection ? collection.blurb : `${filtered.length} pieces · artificial flowers, dried florals, and gifts hand-finished in our studio.`}
-              </p>
             </div>
             <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             </div>

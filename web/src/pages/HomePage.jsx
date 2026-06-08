@@ -185,7 +185,7 @@ const HomePage = () => {
             </div>
           </div>
           <div className="grid-4">
-            <CollectionCard title="Bouquets" img="/images/cat-bouquets.png" collection="everyday" navigate={navigate}
+            <CollectionCard title="Bouquets" img="/images/cat-bouquets.png" collection="bouquets" navigate={navigate}
             centerIcon={
             <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="5.5" r="2.1" />
@@ -199,7 +199,7 @@ const HomePage = () => {
                   <path d="M14.4 15 15.3 19.4" />
                 </svg>
             } />
-            <CollectionCard title="Luxe Vase Arrangements" img="/images/cat-vase.png" collection="wedding" navigate={navigate}
+            <CollectionCard title="Luxe Vase Arrangements" img="/images/cat-vase.png" collection="luxe-vase-arrangements" navigate={navigate}
             centerIcon={
             <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="4.6" r="1.6" />
@@ -211,7 +211,7 @@ const HomePage = () => {
                   <path d="M8.4 12h7.2l-1 8a1 1 0 0 1-1 1h-3.2a1 1 0 0 1-1-1Z" />
                 </svg>
             } />
-            <CollectionCard title="Event and Corporate Hire" img="/images/cat-event.png" collection="gifts" navigate={navigate}
+            <CollectionCard title="Event and Corporate Hire" img="/images/cat-event.png" collection="event-corporate-hire" navigate={navigate}
             centerIcon={
             <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="4.4" r="1.5" />
@@ -227,7 +227,7 @@ const HomePage = () => {
                   <path d="M8.6 19.6h6.8" />
                 </svg>
             } />
-            <CollectionCard title="Wedding Hire" img="/images/cat-wedding.png" collection="weddinghire" navigate={navigate}
+            <CollectionCard title="Wedding Hire" img="/images/cat-wedding.png" collection="wedding-hire" navigate={navigate}
             centerIcon={
             <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 21V11a7 7 0 0 1 14 0v10" />

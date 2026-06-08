@@ -4,7 +4,7 @@ import { useCart } from '../lib/stores';
 
 const SHOP_DROPDOWN = [
   {
-    key: 'everyday', eyebrow: 'Nº 01 · Hand-tied', title: 'Bouquets', sub: 'Joyful blooms for the table.', img: 'products/magenta-garden.jpg',
+    key: 'bouquets', eyebrow: 'Nº 01 · Hand-tied', title: 'Bouquets', img: 'products/magenta-garden.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="5.5" r="2.1" />
@@ -20,7 +20,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'wedding', eyebrow: 'Nº 02 · Statement', title: 'Luxe Vase Arrangements', sub: 'Sculptural stems in glass.', img: 'products/ivory-tulip.jpg',
+    key: 'luxe-vase-arrangements', eyebrow: 'Nº 02 · Statement', title: 'Luxe Vase Arrangements', img: 'products/ivory-tulip.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="4.6" r="1.6" />
@@ -34,7 +34,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'gifts', eyebrow: 'Nº 03 · At scale', title: 'Event and Corporate Hire', sub: 'Installations for any space.', img: 'products/sunset-atelier.jpg',
+    key: 'event-corporate-hire', eyebrow: 'Nº 03 · At scale', title: 'Event and Corporate Hire', img: 'products/sunset-atelier.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="4.4" r="1.5" />
@@ -52,7 +52,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'weddinghire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding Hire', sub: 'Arches, aisles & centrepieces.', img: 'products/calla-cascade.jpg',
+    key: 'wedding-hire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding Hire', img: 'products/calla-cascade.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M5 21V11a7 7 0 0 1 14 0v10" />
@@ -112,7 +112,6 @@ const Nav = ({ current, navigate }) => {
                           role="menuitem">
                           <span className="shop-mega-body">
                             <span className="shop-mega-title">{d.title}</span>
-                            <span className="shop-mega-sub">{d.sub}</span>
                           </span>
                           <span className="shop-mega-icon" aria-hidden="true">{d.icon}</span>
                         </a>
@@ -167,7 +166,6 @@ const Nav = ({ current, navigate }) => {
               <span className="shop-mega-icon" aria-hidden="true">{d.icon}</span>
               <span className="shop-mega-body">
                 <span className="shop-mega-title">{d.title}</span>
-                <span className="shop-mega-sub">{d.sub}</span>
               </span>
             </button>
           ))}
