@@ -133,7 +133,7 @@ const HomePage = () => {
         <div className="g-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '72px', alignItems: 'center', maxWidth: 1440, margin: '0 auto' }}>
           {/* Left */}
           <div>
-            <span className="pill" style={{ textAlign: "left", flexDirection: "row" }}><span className="pill-dot"></span>Hand-tied in our atelier</span>
+            <span className="pill" style={{ textAlign: "left", flexDirection: "row" }}><span className="pill-dot"></span>Rosie's Boutique · Melbourne</span>
             <h1 className="serif" style={{ lineHeight: 1.02, margin: '36px 0 28px', fontWeight: 500, letterSpacing: '-0.02em', fontSize: "clamp(44px, 11vw, 120px)" }}>
               Everlasting,<br />
               <span className="italic" style={{ color: '#5a4a40', fontWeight: 400, fontSize: "clamp(36px, 9vw, 100px)" }}>Floral.</span>
@@ -149,7 +149,7 @@ const HomePage = () => {
             </div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, padding: '14px 24px', borderRadius: 999, background: 'rgba(43,29,24,0.04)', border: '1px solid rgba(43,29,24,0.14)' }}>
               <span style={{ color: 'var(--accent)', fontSize: 17 }}>✦</span>
-              <span className="serif italic" style={{ fontSize: 17, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Hand-tied with care, delivered to your door</span>
+              <span className="serif italic" style={{ fontSize: 17, color: 'var(--ink)', letterSpacing: '-0.01em' }}>Crafted to be cherished, gifted to be remembered</span>
             </div>
           </div>
           {/* Right */}
@@ -245,9 +245,8 @@ const HomePage = () => {
       {/* Value props */}
       <section style={{ background: 'var(--bg-pink)', padding: "44px 0" }}>
         <div className="container" style={{ padding: "0px 56px" }}>
-          <div className="grid-4" style={{ gap: 32 }}>
+          <div className="grid-3" style={{ gap: 32, maxWidth: 880, margin: '0 auto', justifyItems: 'center' }}>
             <ValueProp icon="leaf" title="Botanically accurate" body="Petal-perfect silk replicas designed from real blooms." />
-            <ValueProp icon="truck" title="Same day delivery" body="Same-day delivery across the city, hand-couriered." />
             <ValueProp icon="sparkle" title="Lasts a lifetime" body="Artificial florals that hold their colour 5+ years." />
             <ValueProp icon="shield" title="Easy care" body="Keep away from dust, humid and direct sun light." />
           </div>
@@ -283,7 +282,7 @@ const HomePage = () => {
               <span className="italic" style={{ color: '#5a4a40', fontWeight: 400 }}>placed by hand.</span>
             </h2>
             <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 32, maxWidth: 480 }}>
-              Our atelier in the old quarter is where each piece begins. Florists trained over decades tie every bouquet using techniques refined since 1972 — never rushed, never mass produced.
+              Each arrangement is composed with an artist's eye for colour, form and balance — designed to feel like a living bouquet, without ever fading. It's a small, considered luxury: beauty that stays exactly as you fell in love with it, season after season.
             </p>
             <button className="btn btn-primary" onClick={() => navigate('story')}>Read our story <Icon name="arrow-right" size={16} /></button>
           </div>
@@ -294,7 +293,7 @@ const HomePage = () => {
       <section style={{ padding: '90px 0', background: 'var(--bg-cream)' }}>
         <div className="container text-center" style={{ maxWidth: 680, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 56, fontWeight: 500, margin: '0 0 18px', letterSpacing: '-0.02em' }}>
-            Letters from the <span className="italic">atelier</span>
+            Letters from <span className="italic">us</span>
           </h2>
           <p style={{ fontSize: 16, color: 'var(--ink-soft)', marginBottom: 32 }}>Seasonal stories, new arrivals and a 10% welcome gift.</p>
           <NewsletterSignup />

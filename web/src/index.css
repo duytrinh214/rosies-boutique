@@ -585,7 +585,20 @@ select.input {
   padding: 80px 0 36px;
   margin-top: 0;
 }
-.footer .container { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; align-items: start; }
+.footer .container.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 56px; align-items: start; }
+.footer-col-contact .brand-line { margin-bottom: 22px; }
+.footer-input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  color: #f6ede4;
+  font-family: inherit;
+}
+.footer-input::placeholder { color: #b6a08f; }
+.footer-input:focus { outline: none; border-color: var(--accent-soft); background: rgba(255,255,255,0.1); }
 .footer h4 {
   font-family: var(--font-sans);
   font-size: 11.5px;
@@ -598,12 +611,11 @@ select.input {
 .footer a { color: #e9d8c9; text-decoration: none; display: block; margin-bottom: 12px; font-size: 14px; cursor: pointer; }
 .footer a:hover { color: #fff; }
 .footer .brand-line { font-family: var(--font-serif); font-size: 28px; margin-bottom: 14px; }
-.footer .brand-desc { font-size: 14px; color: #d3bcab; line-height: 1.6; max-width: 320px; }
 .footer .bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
   margin-top: 56px;
   padding: 24px 56px 0;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: center; align-items: center;
   color: #b6a08f; font-size: 12.5px;
   max-width: 1440px; margin-left: auto; margin-right: auto;
 }
@@ -1024,7 +1036,8 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .g-stack > *, .g-stack-sm > *, .g-stack-2 > *, .g-stack-3 > *,
   .grid-4 > *, .grid-3 > *, .grid-2 > * { min-width: 0; }
 
-  .footer .container { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
+  .footer .container.footer-grid { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
+  .footer-col-contact { grid-column: 1 / -1; }
 }
 
 @media (max-width: 640px) {
@@ -1050,11 +1063,9 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .drag-item { flex: 0 0 calc(100vw - 40px); max-width: calc(100vw - 40px); }
 
   .footer { padding: 56px 0 28px; }
-  .footer .container { grid-template-columns: 1fr; gap: 36px; padding: 0 20px; }
+  .footer .container.footer-grid { grid-template-columns: 1fr; gap: 36px; padding: 0 20px; }
+  .footer-col-contact { grid-column: auto; }
   .footer .bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
     padding: 22px 20px 0;
     margin-top: 40px;
   }
@@ -1075,6 +1086,23 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
     grid-column: 1 / -1;
     justify-self: end;
     margin-top: -6px;
+  }
+}
+
+/* ---- Discount popup — mobile ---- */
+@media (max-width: 720px) {
+  .discount-modal {
+    grid-template-columns: 1fr !important;
+  }
+  .discount-modal-image { display: none; }
+  .discount-tab {
+    padding: 14px 8px !important;
+    font-size: 11px !important;
+  }
+  /* Clear the fixed, vertically-centered tab so it never sits on top of
+     the "Follow us" column when the footer scrolls into view. */
+  .footer .container.footer-grid {
+    padding-left: 48px;
   }
 }
 
