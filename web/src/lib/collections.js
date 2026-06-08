@@ -8,28 +8,28 @@ export const COLLECTIONS = {
     filter: (p) => p.category === 'Bouquets',
   },
   wedding: {
-    title: 'Luxe vase arrangements',
+    title: 'Luxe Vase Arrangements',
     eyebrow: 'Curated · Statement',
     blurb: 'Sculptural stems arranged in glass — ivory, champagne and blush palettes that hold a room.',
-    filter: (p) => p.category === 'Luxe vase arrangements',
+    filter: (p) => p.category === 'Luxe Vase Arrangements',
   },
   gifts: {
-    title: 'Event and corporate hire',
+    title: 'Event and Corporate Hire',
     eyebrow: 'Curated · At scale',
     blurb: 'Boxed arrangements, keepsakes and installation-ready pieces for events and corporate spaces.',
-    filter: (p) => p.category === 'Event and corporate hire' || p.category === 'Gifts',
+    filter: (p) => p.category === 'Event and Corporate Hire',
   },
   weddinghire: {
-    title: 'Wedding hire',
+    title: 'Wedding Hire',
     eyebrow: 'Curated · Celebrations',
     blurb: 'Arches, aisle florals and centrepieces available to hire for ceremonies and receptions.',
-    filter: (p) => p.category === 'Wedding hire',
+    filter: (p) => p.category === 'Wedding Hire',
   },
 };
 
 export const DRAG_ROWS = [
   { key: 'everyday', eyebrow: 'Nº 01 · Hand-tied', title: 'Bouquets' },
-  { key: 'wedding', eyebrow: 'Nº 02 · Statement', title: 'Luxe vase arrangements' },
-  { key: 'gifts', eyebrow: 'Nº 03 · At scale', title: 'Event and corporate hire' },
-  { key: 'weddinghire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding hire' },
+  { key: 'wedding', eyebrow: 'Nº 02 · Statement', title: 'Luxe Vase Arrangements' },
+  { key: 'gifts', eyebrow: 'Nº 03 · At scale', title: 'Event and Corporate Hire' },
+  { key: 'weddinghire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding Hire' },
 ];

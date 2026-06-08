@@ -8,7 +8,7 @@ import { getSupabase } from './supabase';
 // pages all stay in sync. `sync()` is called after a Supabase fetch to mirror
 // remote data into this local cache.
 export const ProductStore = (() => {
-  const KEY = 'rosie_products_v1';
+  const KEY = 'rosie_products_v2';
   let items = [];
   let listeners = [];
   const persist = () => {

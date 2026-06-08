@@ -20,7 +20,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'wedding', eyebrow: 'Nº 02 · Statement', title: 'Luxe vase arrangements', sub: 'Sculptural stems in glass.', img: 'products/ivory-tulip.jpg',
+    key: 'wedding', eyebrow: 'Nº 02 · Statement', title: 'Luxe Vase Arrangements', sub: 'Sculptural stems in glass.', img: 'products/ivory-tulip.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="4.6" r="1.6" />
@@ -34,7 +34,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'gifts', eyebrow: 'Nº 03 · At scale', title: 'Event and corporate hire', sub: 'Installations for any space.', img: 'products/sunset-atelier.jpg',
+    key: 'gifts', eyebrow: 'Nº 03 · At scale', title: 'Event and Corporate Hire', sub: 'Installations for any space.', img: 'products/sunset-atelier.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="12" cy="4.4" r="1.5" />
@@ -52,7 +52,7 @@ const SHOP_DROPDOWN = [
     ),
   },
   {
-    key: 'weddinghire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding hire', sub: 'Arches, aisles & centrepieces.', img: 'products/calla-cascade.jpg',
+    key: 'weddinghire', eyebrow: 'Nº 04 · Celebrations', title: 'Wedding Hire', sub: 'Arches, aisles & centrepieces.', img: 'products/calla-cascade.jpg',
     icon: (
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M5 21V11a7 7 0 0 1 14 0v10" />

@@ -204,7 +204,7 @@ const AdminPage = () => {
                   <input className="input" placeholder="Search products…" value={query} onChange={(e) => setQuery(e.target.value)} style={{ paddingLeft: 42 }} />
                 </div>
                 <div className="chip-strip" style={{ flex: '0 0 auto' }}>
-                  {['All', 'Bouquets', 'Luxe vase arrangements', 'Event and corporate hire', 'Wedding hire'].map(c => (
+                  {['All', 'Bouquets', 'Luxe Vase Arrangements', 'Event and Corporate Hire', 'Wedding Hire'].map(c => (
                     <button key={c} className={'chip' + (categoryFilter === c ? ' active' : '')} onClick={() => setCategoryFilter(c)}>{c}</button>
                   ))}
                 </div>
@@ -231,10 +231,11 @@ const AdminPage = () => {
                         No products yet. <a onClick={() => setEditing({ name: '', category: 'Bouquets', event: '', price: '', image_url: '', description: '' })} style={{ color: 'var(--ink)', textDecoration: 'underline', cursor: 'pointer' }}>Add the first one →</a>
                       </td></tr>
                     )}
-                    {filtered.map(p => (
+                    {filtered.map((p, idx) => (
                       <tr key={p.id} style={{ borderTop: '1px solid var(--hairline)' }}>
                         <td style={tdStyle}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                            <span style={{ fontSize: 12.5, color: 'var(--muted)', fontWeight: 600, minWidth: 28, textAlign: 'right' }}>#{idx + 1}</span>
                             <div style={{ width: 52, height: 52, borderRadius: 10, overflow: 'hidden', background: FALLBACK_BG, flexShrink: 0 }}>
                               {p.image_url && <img src={p.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />}
                             </div>
@@ -574,7 +575,7 @@ const ProductEditor = ({ initial, onClose, onSave }) => {
           <div>
             <label className="input-label">Category (loại hoa)</label>
             <select className="input" value={form.category} onChange={(e) => set('category', e.target.value)} style={{ appearance: 'none' }}>
-              {['Bouquets', 'Luxe vase arrangements', 'Event and corporate hire', 'Wedding hire'].map(c => <option key={c}>{c}</option>)}
+              {['Bouquets', 'Luxe Vase Arrangements', 'Event and Corporate Hire', 'Wedding Hire'].map(c => <option key={c}>{c}</option>)}
             </select>
           </div>
           <div>

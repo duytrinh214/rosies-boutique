@@ -19,9 +19,9 @@ const Footer = ({ navigate, current }) => (
       <div>
         <h4>Shop</h4>
         <a onClick={() => navigate('shop', { id: 'everyday' })}>Bouquets</a>
-        <a onClick={() => navigate('shop', { id: 'wedding' })}>Luxe vase arrangements</a>
-        <a onClick={() => navigate('shop', { id: 'gifts' })}>Event and corporate hire</a>
-        <a onClick={() => navigate('shop', { id: 'weddinghire' })}>Wedding hire</a>
+        <a onClick={() => navigate('shop', { id: 'wedding' })}>Luxe Vase Arrangements</a>
+        <a onClick={() => navigate('shop', { id: 'gifts' })}>Event and Corporate Hire</a>
+        <a onClick={() => navigate('shop', { id: 'weddinghire' })}>Wedding Hire</a>
       </div>
       <div>
         <h4>Help</h4>
