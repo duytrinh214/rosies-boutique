@@ -1110,6 +1110,11 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .admin-body {
     grid-template-columns: 1fr !important;
   }
+  /* Without this, the table's min-width forces the grid track (and the whole
+     page) wider than the viewport instead of scrolling within its own card —
+     the classic "squeezed into ~55% with empty space on the right" overflow. */
+  .admin-body > *, .admin-table-card { min-width: 0; }
+
   .admin-sidebar {
     display: flex;
     flex-direction: row;
@@ -1135,13 +1140,27 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   }
   .admin-products-head .btn { width: 100%; justify-content: center; }
 
+  /* Category chips: take the full row and scroll horizontally within
+     themselves rather than overflowing the page. */
+  .admin-chip-strip {
+    flex: 1 1 100% !important;
+    width: 100%;
+    min-width: 0;
+  }
+
   .admin-table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   .admin-table {
-    min-width: 640px;
+    min-width: 560px;
+    font-size: 13px !important;
   }
+  .admin-table th, .admin-table td {
+    padding: 12px 14px !important;
+  }
+  .admin-table .admin-col-product { min-width: 220px; }
+  .admin-table .admin-col-added { display: none; }
   .admin-row-actions {
     flex-direction: column;
     align-items: flex-end;

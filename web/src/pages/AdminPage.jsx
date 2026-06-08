@@ -229,7 +229,7 @@ const AdminPage = () => {
                   </span>
                   <input className="input" placeholder="Search products…" value={query} onChange={(e) => setQuery(e.target.value)} style={{ paddingLeft: 42 }} />
                 </div>
-                <div className="chip-strip" style={{ flex: '0 0 auto' }}>
+                <div className="chip-strip admin-chip-strip" style={{ flex: '0 0 auto' }}>
                   {['All', 'Bouquets', 'Luxe Vase Arrangements', 'Event and Corporate Hire', 'Wedding Hire'].map(c => (
                     <button key={c} className={'chip' + (categoryFilter === c ? ' active' : '')} onClick={() => setCategoryFilter(c)}>{c}</button>
                   ))}
@@ -242,10 +242,10 @@ const AdminPage = () => {
                 <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: 'var(--bg-cream)', textAlign: 'left' }}>
-                      <th style={thStyle}>Product</th>
-                      <th style={thStyle}>Category</th>
-                      <th style={{ ...thStyle, textAlign: 'right' }}>Price</th>
-                      <th style={thStyle}>Added</th>
+                      <th className="admin-col-product" style={thStyle}>Product</th>
+                      <th className="admin-col-category" style={thStyle}>Category</th>
+                      <th className="admin-col-price" style={{ ...thStyle, textAlign: 'right' }}>Price</th>
+                      <th className="admin-col-added" style={thStyle}>Added</th>
                       <th style={{ ...thStyle, textAlign: 'right' }}></th>
                     </tr>
                   </thead>
@@ -260,25 +260,25 @@ const AdminPage = () => {
                     )}
                     {filtered.map((p, idx) => (
                       <tr key={p.id} style={{ borderTop: '1px solid var(--hairline)' }}>
-                        <td style={tdStyle}>
+                        <td className="admin-col-product" style={tdStyle}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                             <span style={{ fontSize: 12.5, color: 'var(--muted)', fontWeight: 600, minWidth: 28, textAlign: 'right' }}>#{idx + 1}</span>
                             <div style={{ width: 52, height: 52, borderRadius: 10, overflow: 'hidden', background: FALLBACK_BG, flexShrink: 0 }}>
                               {p.image_url && <img src={p.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />}
                             </div>
-                            <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 3 }}>
-                              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, lineHeight: 1.25, wordBreak: 'break-word' }}>{p.name || 'Untitled'}</div>
+                            <div style={{ minWidth: 120, display: 'flex', flexDirection: 'column', gap: 3 }}>
+                              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, lineHeight: 1.25, overflowWrap: 'break-word' }}>{p.name || 'Untitled'}</div>
                               <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.2 }}>ID: {shortId(p.id)}</div>
                             </div>
                           </div>
                         </td>
-                        <td style={tdStyle}>
+                        <td className="admin-col-category" style={tdStyle}>
                           <span style={pillStyle}>{p.category || '—'}</span>
                         </td>
-                        <td style={{ ...tdStyle, textAlign: 'right', fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 600 }}>
+                        <td className="admin-col-price" style={{ ...tdStyle, textAlign: 'right', fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 600 }}>
                           ${Number(p.price || 0).toFixed(0)}
                         </td>
-                        <td style={{ ...tdStyle, color: 'var(--muted)', fontSize: 13 }}>
+                        <td className="admin-col-added" style={{ ...tdStyle, color: 'var(--muted)', fontSize: 13 }}>
                           {p.created_at ? new Date(p.created_at).toLocaleDateString() : '—'}
                         </td>
                         <td style={{ ...tdStyle, textAlign: 'right' }}>
