@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
-import { getSupabase, isSupabaseConfigured, DEMO_ADMIN_EMAIL, DEMO_ADMIN_PASSWORD } from '../lib/supabase';
+import { getSupabase, isSupabaseConfigured } from '../lib/supabase';
 
 // =========================================================
 // SHARED AUTH SHELL (two-column: image left, form right)
@@ -94,16 +94,9 @@ const AdminLoginPage = () => {
     setErr(''); setBusy(true);
     try {
       const sb = getSupabase();
-      if (sb) {
-        const { error } = await sb.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      } else {
-        // demo mode
-        if (email !== DEMO_ADMIN_EMAIL || password !== DEMO_ADMIN_PASSWORD) {
-          throw new Error('Invalid credentials. Use the demo credentials shown above, or configure Supabase.');
-        }
-      }
-      localStorage.setItem('rosie_admin', JSON.stringify({ email, at: Date.now() }));
+      if (!sb) throw new Error('Supabase is not configured — set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable admin sign-in.');
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) throw error;
       navigate('admin');
     } catch (e2) {
       setErr(e2.message || 'Sign-in failed.');
@@ -127,9 +120,7 @@ const AdminLoginPage = () => {
           padding: '14px 18px', background: '#fff4e6', border: '1px solid #f0d8b3',
           borderRadius: 14, fontSize: 13, color: '#5a4a32', marginBottom: 22, lineHeight: 1.5,
         }}>
-          <strong style={{ fontWeight: 600 }}>Demo mode.</strong> Supabase is not configured yet — sign in with:<br />
-          <code style={{ background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>{DEMO_ADMIN_EMAIL}</code>{' / '}
-          <code style={{ background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>{DEMO_ADMIN_PASSWORD}</code>
+          <strong style={{ fontWeight: 600 }}>Supabase not configured.</strong> Set <code style={{ background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>VITE_SUPABASE_URL</code> and <code style={{ background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4 }}>VITE_SUPABASE_ANON_KEY</code>, then create an admin user in Supabase Auth to sign in.
         </div>
       )}
 

@@ -10,12 +10,23 @@ import { getSupabase, isSupabaseConfigured } from '../lib/supabase';
 // =========================================================
 const AdminPage = () => {
   const { navigate } = useNav();
-  // gate: must be signed in (localStorage flag set by admin login)
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- `navigate` is stable for the component's lifetime
-  useEffect(() => { if (!localStorage.getItem('rosie_admin')) navigate('admin-login'); }, []);
-  const adminSession = (() => {
-    try { return JSON.parse(localStorage.getItem('rosie_admin') || 'null'); } catch { return null; }
-  })();
+
+  // gate: must hold a live Supabase Auth session
+  const [session, setSession] = useState(undefined); // undefined = checking, null = signed out
+  useEffect(() => {
+    const sb = getSupabase();
+    if (!sb) { navigate('admin-login'); return; }
+    sb.auth.getSession().then(({ data }) => {
+      if (!data.session) navigate('admin-login');
+      else setSession(data.session);
+    });
+    const { data: sub } = sb.auth.onAuthStateChange((_event, sess) => {
+      if (!sess) navigate('admin-login');
+      else setSession(sess);
+    });
+    return () => sub.subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- `navigate` is stable for the component's lifetime
+  }, []);
 
   const [tab, setTab] = useState('products');
   const [items, setItems] = useState([]);
@@ -92,7 +103,6 @@ const AdminPage = () => {
   const signOut = async () => {
     const sb = getSupabase();
     if (sb) await sb.auth.signOut();
-    localStorage.removeItem('rosie_admin');
     navigate('admin-login');
   };
 
@@ -108,6 +118,8 @@ const AdminPage = () => {
     const events = new Set(items.map(p => p.event).filter(Boolean));
     return { count: items.length, totalValue, byCat, eventsCount: events.size };
   }, [items]);
+
+  if (!session) return null; // checking session, or redirecting to admin-login
 
   return (
     <div className="admin-page" style={{ minHeight: '100vh', background: '#faf6f1', color: 'var(--ink)' }}>
@@ -136,9 +148,9 @@ const AdminPage = () => {
           <a onClick={() => navigate('home')} style={{ fontSize: 14, color: 'var(--muted)', cursor: 'pointer', textDecoration: 'none' }}>View storefront ↗</a>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px 6px 6px', background: 'var(--bg-cream)', borderRadius: 9999 }}>
             <span style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 600 }}>
-              {(adminSession?.email || 'A')[0].toUpperCase()}
+              {(session?.user?.email || 'A')[0].toUpperCase()}
             </span>
-            <span style={{ fontSize: 13 }}>{adminSession?.email || 'Admin'}</span>
+            <span style={{ fontSize: 13 }}>{session?.user?.email || 'Admin'}</span>
             <button onClick={signOut} className="btn btn-ghost btn-sm" style={{ padding: '4px 10px' }}>Sign out</button>
           </div>
         </div>

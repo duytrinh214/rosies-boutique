@@ -24,8 +24,3 @@ export const getSupabase = () => {
   if (!client) client = createClient(supabaseUrl, supabaseAnonKey);
   return client;
 };
-
-/* Demo admin credentials used only when Supabase is NOT configured, so the
-   admin dashboard can still be previewed without a backend. */
-export const DEMO_ADMIN_EMAIL = import.meta.env.VITE_DEMO_ADMIN_EMAIL || 'admin@rosie.co';
-export const DEMO_ADMIN_PASSWORD = import.meta.env.VITE_DEMO_ADMIN_PASSWORD || 'rosie2026';
