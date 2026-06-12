@@ -12,7 +12,7 @@ const StoryPage = () => {
   return (
   <div className="page-fade" style={{ color: STORY_INK }}>
     {/* HERO */}
-    <section style={{ padding: '64px 56px 24px' }}>
+    <section className="story-pad" style={{ padding: '64px 56px 24px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', maxWidth: 820, margin: '0 auto', padding: '40px 0 56px' }}>
           <span className="pill"><span className="pill-dot"></span>Saigon · est. 2022</span>
@@ -28,7 +28,7 @@ const StoryPage = () => {
     </section>
 
     {/* Hero image — wide editorial */}
-    <section style={{ padding: '0 56px 56px' }}>
+    <section className="story-pad" style={{ padding: '0 56px 56px' }}>
       <div className="img-elevated" style={{ maxWidth: 1200, margin: '0 auto', borderRadius: 22, overflow: 'hidden', aspectRatio: '21/9', background: FALLBACK_BG, boxShadow: '0 20px 40px -18px rgba(43,29,24,0.28), 0 50px 90px -40px rgba(43,29,24,0.18)' }}>
         <img src="/products/spring-lush.jpg" alt="The Rosie's Boutique atelier"
       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -65,7 +65,7 @@ const StoryPage = () => {
 
 
     {/* Stat strip */}
-    <section style={{ background: '#fff', padding: '56px 56px', margin: '0 56px 88px', borderRadius: 28, boxShadow: '0 16px 30px -22px rgba(43,29,24,0.22)' }}>
+    <section className="story-stat-strip" style={{ background: '#fff', padding: '56px 56px', margin: '0 56px 88px', borderRadius: 28, boxShadow: '0 16px 30px -22px rgba(43,29,24,0.22)' }}>
       <div className="g-stack-2" style={{ maxWidth: 1080, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center', color: STORY_INK }}>
         <StoryStat big="84" unit="min" label="to compose a single peony" />
         <StoryStat big="5+" unit="yr" label="colour-fast lifespan" />
@@ -89,7 +89,7 @@ const StoryPage = () => {
 
 
     {/* Atelier image pair — two photos with caption between */}
-    <section style={{ padding: '0 56px 88px' }}>
+    <section className="story-pad" style={{ padding: '0 56px 88px' }}>
       <div className="g-stack" style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
         <div className="img-elevated" style={{ borderRadius: 18, overflow: 'hidden', aspectRatio: '4/5', background: FALLBACK_BG }}>
           <img src="/products/ivory-tulip.jpg" alt="Hand-cutting petals" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
@@ -114,8 +114,8 @@ const StoryPage = () => {
 
 
     {/* Founder's note */}
-    <section style={{ padding: '0 56px 88px' }}>
-      <div className="card" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 72px', textAlign: 'center', color: STORY_INK }}>
+    <section className="story-pad" style={{ padding: '0 56px 88px' }}>
+      <div className="card story-card" style={{ maxWidth: 880, margin: '0 auto', padding: '64px 72px', textAlign: 'center', color: STORY_INK }}>
         <div style={{ fontSize: 11.5, letterSpacing: '0.28em', textTransform: 'uppercase', fontWeight: 600, color: 'var(--muted)', marginBottom: 18 }}>
           A note from the founder
         </div>
@@ -135,7 +135,7 @@ const StoryPage = () => {
     </section>
 
     {/* CTA back to shop */}
-    <section style={{ padding: '0 56px 100px' }}>
+    <section className="story-pad" style={{ padding: '0 56px 100px' }}>
       <div style={{ maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 14, color: 'var(--ink)', marginBottom: 22 }} aria-hidden="true">
           <span style={{ width: 60, height: 1, background: 'currentColor', opacity: 0.4 }}></span>
@@ -159,13 +159,13 @@ const StoryPage = () => {
 
 
 const StoryChapter = ({ no, eyebrow, title, body, img, imgRight }) =>
-<section style={{ padding: '24px 56px 88px' }}>
+<section className="story-pad" style={{ padding: '24px 56px 88px' }}>
     <div style={{
     maxWidth: 1200, margin: '0 auto',
     display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center'
   }}
   className="g-stack">
-      <div className="card" style={{
+      <div className="card story-card" style={{
       padding: '48px 52px', color: STORY_INK,
       order: imgRight ? 1 : 2
     }}>

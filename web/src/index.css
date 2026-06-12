@@ -1061,6 +1061,15 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .g-stack-sm > * { grid-column: 1 / -1 !important; }
   .g-stack-2 { grid-template-columns: repeat(2, 1fr) !important; }
 
+  /* Our Story — let text run close to full width on phones (the desktop
+     56px section padding + 52-72px card padding left only ~175px lines). */
+  .story-pad { padding-left: 16px !important; padding-right: 16px !important; }
+  .story-card { padding-left: 22px !important; padding-right: 22px !important; }
+  .story-stat-strip {
+    margin-left: 16px !important; margin-right: 16px !important;
+    padding-left: 20px !important; padding-right: 20px !important;
+  }
+
   .product-card .meta { padding: 14px 16px 18px; }
   .product-card .meta .name { font-size: 16px; }
   .product-card .meta .sub { font-size: 12px; }
