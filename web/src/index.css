@@ -1100,8 +1100,25 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
   .carousel-head h2 { font-size: 28px !important; }
   .carousel-head-arrows { display: none !important; }
   .carousel-head-actions { gap: 0 !important; }
-  .drag-row { gap: 16px; padding-left: 0; padding-right: 0; }
-  .drag-item { flex: 0 0 calc(100vw - 40px); max-width: calc(100vw - 40px); }
+  /* mobile: 2-column static grid instead of horizontal carousel */
+  .drag-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    overflow: visible;
+    padding: 6px 0 24px;
+    cursor: default;
+    scroll-snap-type: none;
+  }
+  .drag-item {
+    flex: none;
+    max-width: none;
+    width: auto;
+    min-width: 0;
+  }
+  /* only show the first 4 products (2 rows of 2) per section */
+  .drag-item:nth-child(n+5) { display: none; }
+  .product-card .meta .price-row { flex-wrap: wrap; gap: 4px 8px; }
 
   .footer { padding: 56px 0 28px; }
   .footer .container.footer-grid { grid-template-columns: 1fr; gap: 36px; padding: 0 20px; }
