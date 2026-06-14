@@ -6,6 +6,48 @@ import { CollectionCard, CollectionCarousel } from './ShopPage';
 import { DRAG_ROWS } from '../lib/collections';
 
 // =========================================================
+// CURTAIN DIVIDER — draped fabric transition pink → white
+// =========================================================
+const CurtainFloral = () =>
+<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 7 C13 7 11 14 15 18 C12 22 16 27 20 25 C24 27 28 22 25 18 C29 14 27 7 20 7 Z" />
+    <path d="M20 11 C17 12 16 16 19 18 C17 20 19 23 21 22 C24 22 24 18 22 17" />
+    <path d="M20 25 L20 35" />
+    <path d="M20 30 C16 29 13 31 12 34 C15 34 18 33 20 30 Z" />
+    <path d="M20 28 C24 27 27 29 28 32 C25 32 22 31 20 28 Z" />
+  </svg>;
+
+const CurtainDivider = () =>
+<div className="shop-curtain" aria-hidden="true">
+    <svg className="curtain-fabric" viewBox="0 0 1440 112" preserveAspectRatio="none">
+      {/* soft shadow cast onto the pink above */}
+      <path
+      d="M0 112 L0 80 C60 62 110 48 170 48 C250 48 300 62 360 60 C430 57 490 42 560 32 C620 24 670 20 720 20 C770 20 820 24 880 32 C950 42 1010 57 1080 60 C1140 62 1190 48 1270 48 C1330 48 1380 62 1440 80 L1440 112 Z"
+      fill="rgba(43,29,24,0.06)" transform="translate(0,5)" />
+      {/* cream fabric */}
+      <path
+      d="M0 112 L0 78 C60 60 110 46 170 46 C250 46 300 60 360 58 C430 55 490 40 560 30 C620 22 670 18 720 18 C770 18 820 22 880 30 C950 40 1010 55 1080 58 C1140 60 1190 46 1270 46 C1330 46 1380 60 1440 78 L1440 112 Z"
+      fill="var(--surface-soft)" />
+      {/* subtle pleat folds */}
+      <g stroke="rgba(43,29,24,0.045)" strokeWidth="1.5" fill="none">
+        <path d="M170 50 L150 112" />
+        <path d="M360 60 L370 112" />
+        <path d="M560 34 L545 112" />
+        <path d="M720 20 L720 112" />
+        <path d="M880 34 L895 112" />
+        <path d="M1080 60 L1070 112" />
+        <path d="M1270 50 L1290 112" />
+      </g>
+      {/* highlight sheen along the hem */}
+      <path
+      d="M0 78 C60 60 110 46 170 46 C250 46 300 60 360 58 C430 55 490 40 560 30 C620 22 670 18 720 18 C770 18 820 22 880 30 C950 40 1010 55 1080 58 C1140 60 1190 46 1270 46 C1330 46 1380 60 1440 78"
+      fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" />
+    </svg>
+    <span className="shop-curtain-floral left"><CurtainFloral /></span>
+    <span className="shop-curtain-floral right"><CurtainFloral /></span>
+  </div>;
+
+// =========================================================
 // HERO SLIDESHOW — best-sellers, crossfade + Ken Burns
 // =========================================================
 const HERO_SLIDES = [
@@ -176,7 +218,8 @@ const HomePage = () => {
       </div>
 
       {/* Featured collections strip */}
-      <section style={{ background: 'var(--surface-soft)', padding: '80px 0' }}>
+      <section style={{ background: 'var(--surface-soft)', padding: '80px 0', position: 'relative' }}>
+        <CurtainDivider />
         <div className="container">
           <div className="section-head">
             <div>
