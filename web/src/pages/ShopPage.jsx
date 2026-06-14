@@ -23,7 +23,7 @@ export const CollectionCard = ({ title, img, collection, navigate }) =>
 // =========================================================
 // HOME — collection carousels (drag-to-scroll, one per sub-menu)
 // =========================================================
-export const CollectionCarousel = ({ collectionKey, eyebrow, title, navigate, products, last }) => {
+export const CollectionCarousel = ({ collectionKey, title, navigate, products, last }) => {
   const collection = COLLECTIONS[collectionKey];
   const items = useMemo(() => products.filter(collection.filter), [products, collection.filter]);
   const scroller = useRef(null);
@@ -68,8 +68,7 @@ export const CollectionCarousel = ({ collectionKey, eyebrow, title, navigate, pr
       <div className="container">
         <div className="carousel-head" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, marginBottom: 28 }}>
           <div>
-            <span className="eyebrow muted">{eyebrow}</span>
-            <h2 className="serif" style={{ fontSize: 44, fontWeight: 500, margin: '12px 0 0', letterSpacing: '-0.02em', lineHeight: 1.05 }}>{title}</h2>
+            <h2 className="serif" style={{ fontSize: 44, fontWeight: 500, margin: 0, letterSpacing: '-0.02em', lineHeight: 1.05 }}>{title}</h2>
           </div>
           <div className="carousel-head-actions" style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
             <div className="carousel-head-arrows" style={{ display: 'flex', gap: 8 }}>
