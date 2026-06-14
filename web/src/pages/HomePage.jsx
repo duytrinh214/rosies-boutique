@@ -185,59 +185,10 @@ const HomePage = () => {
             </div>
           </div>
           <div className="grid-4">
-            <CollectionCard title="Bouquets" img="/images/cat-bouquets.png" collection="bouquets" navigate={navigate}
-            centerIcon={
-            <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="5.5" r="2.1" />
-                  <circle cx="7.7" cy="7.3" r="1.9" />
-                  <circle cx="16.3" cy="7.3" r="1.9" />
-                  <path d="M12 7.6V15" />
-                  <path d="M8.7 9 11.4 15" />
-                  <path d="M15.3 9 12.6 15" />
-                  <path d="M8.6 15h6.8" />
-                  <path d="M9.6 15 8.7 19.4" />
-                  <path d="M14.4 15 15.3 19.4" />
-                </svg>
-            } />
-            <CollectionCard title="Luxe Vase Arrangements" img="/images/cat-vase.png" collection="luxe-vase-arrangements" navigate={navigate}
-            centerIcon={
-            <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="4.6" r="1.6" />
-                  <circle cx="8.4" cy="6.2" r="1.4" />
-                  <circle cx="15.6" cy="6.2" r="1.4" />
-                  <path d="M12 6.2V12" />
-                  <path d="M9.2 7.4 11.2 12" />
-                  <path d="M14.8 7.4 12.8 12" />
-                  <path d="M8.4 12h7.2l-1 8a1 1 0 0 1-1 1h-3.2a1 1 0 0 1-1-1Z" />
-                </svg>
-            } />
-            <CollectionCard title="Event and Corporate Hire" img="/images/cat-event.png" collection="event-corporate-hire" navigate={navigate}
-            centerIcon={
-            <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="4.4" r="1.5" />
-                  <circle cx="8.7" cy="5.9" r="1.3" />
-                  <circle cx="15.3" cy="5.9" r="1.3" />
-                  <path d="M12 6v3" />
-                  <path d="M9.4 7 11.3 9.2" />
-                  <path d="M14.6 7 12.7 9.2" />
-                  <path d="M7.6 9.2h8.8" />
-                  <path d="M8.4 9.2c.5 3.2 6.7 3.2 7.2 0" />
-                  <path d="M11.4 12.4v2.6 M12.6 12.4v2.6" />
-                  <path d="M11.4 15 9 19.6 M12.6 15 15 19.6" />
-                  <path d="M8.6 19.6h6.8" />
-                </svg>
-            } />
-            <CollectionCard title="Wedding Hire" img="/images/cat-wedding.png" collection="wedding-hire" navigate={navigate}
-            centerIcon={
-            <svg viewBox="0 0 24 24" width="100" height="100" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 21V11a7 7 0 0 1 14 0v10" />
-                  <circle cx="12" cy="4.3" r="1.2" />
-                  <circle cx="7.4" cy="6.5" r="1" />
-                  <circle cx="16.6" cy="6.5" r="1" />
-                  <circle cx="5.4" cy="11.5" r="0.9" />
-                  <circle cx="18.6" cy="11.5" r="0.9" />
-                </svg>
-            } />
+            <CollectionCard title="Bouquets" img="/images/cat-bouquets.png" collection="bouquets" navigate={navigate} />
+            <CollectionCard title="Luxe Vase Arrangements" img="/images/cat-vase.png" collection="luxe-vase-arrangements" navigate={navigate} />
+            <CollectionCard title="Event and Corporate Hire" img="/images/cat-event.png" collection="event-corporate-hire" navigate={navigate} />
+            <CollectionCard title="Wedding Hire" img="/images/cat-wedding.png" collection="wedding-hire" navigate={navigate} />
           </div>
         </div>
       </section>

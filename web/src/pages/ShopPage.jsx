@@ -6,15 +6,11 @@ import { CATEGORIES, FALLBACK_BG } from '../lib/products';
 import { useProducts } from '../lib/stores';
 import { COLLECTIONS } from '../lib/collections';
 
-export const CollectionCard = ({ title, img, collection, navigate, centerIcon }) =>
-<div className={"img-elevated" + (centerIcon ? " collection-hover" : "")} style={{ cursor: 'pointer', position: 'relative', borderRadius: 22, overflow: 'hidden', aspectRatio: '1/1.15', background: FALLBACK_BG }} onClick={() => navigate('shop', collection ? { id: collection } : {})}>
+export const CollectionCard = ({ title, img, collection, navigate }) =>
+<div className="img-elevated" style={{ cursor: 'pointer', position: 'relative', borderRadius: 22, overflow: 'hidden', aspectRatio: '1/1.15', background: FALLBACK_BG }} onClick={() => navigate('shop', collection ? { id: collection } : {})}>
     <img src={img} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }}
   onError={(e) => {e.target.style.display = 'none';}} />
     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 50%, rgba(43,29,24,0.5) 100%)' }}></div>
-    {centerIcon &&
-  <div className="cc-overlay" style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.42) 100%)' }}></div>}
-    {centerIcon &&
-  <div className="cc-icon" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>{centerIcon}</div>}
     <div style={{ position: 'absolute', bottom: 24, left: 24, right: 24, color: '#fff' }}>
       <div className="serif" style={{ fontSize: 26, fontWeight: 500 }}>{title}</div>
     </div>
