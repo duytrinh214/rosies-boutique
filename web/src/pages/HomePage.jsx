@@ -261,8 +261,23 @@ const HomePage = () => {
         )}
       </div>
 
-      {/* Editorial split */}
+      {/* Customer reviews */}
       <section style={{ padding: '100px 0', background: 'var(--bg-pink)' }}>
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <span className="eyebrow muted">Kind words</span>
+              <h2>Loved by our <span className="italic">customers</span></h2>
+            </div>
+          </div>
+          <div className="grid-4">
+            {REVIEWS.map((r) => <ReviewCard key={r.name} text={r.text} name={r.name} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial split */}
+      <section style={{ padding: '100px 0', background: 'var(--bg-cream)' }}>
         <div className="container g-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
           <div className="img-elevated" style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', aspectRatio: '1/1', background: '#fff', boxShadow: '0 20px 40px -18px rgba(43,29,24,0.28), 0 50px 90px -40px rgba(43,29,24,0.18)', padding: "6px" }}>
             <img src="/products/atelier-watercolor.jpg"
@@ -284,7 +299,7 @@ const HomePage = () => {
       </section>
 
       {/* Newsletter */}
-      <section style={{ padding: '90px 0', background: 'var(--bg-cream)' }}>
+      <section style={{ padding: '90px 0', background: 'var(--bg-pink)' }}>
         <div className="container text-center" style={{ maxWidth: 680, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 56, fontWeight: 500, margin: '0 0 18px', letterSpacing: '-0.02em' }}>
             Letters from <span className="italic">us</span>
@@ -304,6 +319,26 @@ const ValueProp = ({ icon, title, body }) =>
     </div>
     <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 6 }}>{title}</div>
     <p style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5, margin: 0, maxWidth: 240 }}>{body}</p>
+  </div>;
+
+
+// =========================================================
+// CUSTOMER REVIEWS
+// =========================================================
+const REVIEWS = [
+{ text: 'Absolutely stunning arrangement, lasted beautifully for years. Everyone asks where I got it!', name: 'Sarah M.' },
+{ text: "Ordered for my mum's birthday. She cried happy tears. Worth every cent.", name: 'Jessica T.' },
+{ text: "The most realistic silk flowers I've ever seen. My guests thought they were real!", name: 'Emma R.' },
+{ text: 'Fast delivery, beautifully packaged, stunning quality. Will order again.', name: 'Olivia K.' }];
+
+
+const ReviewCard = ({ text, name }) =>
+<div className="review-card">
+    <div className="review-stars" aria-label="Rated 5 out of 5 stars">
+      {[0, 1, 2, 3, 4].map((i) => <Icon key={i} name="star" size={16} />)}
+    </div>
+    <p className="serif review-text">&ldquo;{text}&rdquo;</p>
+    <div className="review-name">&mdash; {name}</div>
   </div>;
 
 

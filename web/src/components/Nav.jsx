@@ -72,7 +72,6 @@ const Nav = ({ current, navigate }) => {
   const items = [
     { id: 'home', label: 'Home' },
     { id: 'shop', label: 'Shop' },
-    { id: 'reviews', label: 'Reviews' },
   ];
 
   const go = (page, params) => {
