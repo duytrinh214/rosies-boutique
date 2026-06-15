@@ -142,7 +142,7 @@ button { font-family: inherit; }
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 26px 56px;
-  gap: 48px;
+  gap: 28px;
   max-width: 1440px;
   margin: 0 auto;
 }
@@ -177,12 +177,12 @@ button { font-family: inherit; }
 }
 .nav-links {
   display: flex;
-  gap: 52px;
+  gap: 26px;
   justify-content: center;
 }
 .nav-link {
   font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  font-size: 21px;
+  font-size: 16px;
   letter-spacing: 0.01em;
   color: var(--ink);
   text-decoration: none;
@@ -1048,7 +1048,7 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 .nav-burger { display: none; }
 .nav-mobile, .nav-mobile-backdrop { display: none; }
 
-@media (max-width: 880px) {
+@media (max-width: 1100px) {
   .nav { padding: 18px 20px; gap: 14px; }
   .nav .logo-img img { width: 104px; height: 54px; }
   .nav-links { display: none; }
