@@ -4,6 +4,7 @@ import Icon from '../components/Icon';
 import { useProducts, DiscountStore } from '../lib/stores';
 import { CollectionCard, CollectionCarousel } from './ShopPage';
 import { DRAG_ROWS } from '../lib/collections';
+import { fetchGoogleReviews, isGoogleReviewsConfigured } from '../lib/googleReviews';
 
 // =========================================================
 // CURTAIN DIVIDER — draped fabric transition pink → white
@@ -168,6 +169,21 @@ export const NewsletterSignup = () => {
 const HomePage = () => {
   const { navigate } = useNav();
   const products = useProducts();
+  const [reviews, setReviews] = useState(REVIEWS);
+  const [fromGoogle, setFromGoogle] = useState(false);
+
+  useEffect(() => {
+    if (!isGoogleReviewsConfigured) return;
+    let alive = true;
+    fetchGoogleReviews().then((r) => {
+      if (alive && r && r.length) {
+        setReviews(r.slice(0, 4));
+        setFromGoogle(true);
+      }
+    });
+    return () => {alive = false;};
+  }, []);
+
   return (
     <div className="page-fade">
       {/* HERO */}
@@ -268,10 +284,15 @@ const HomePage = () => {
             <div>
               <span className="eyebrow muted">Kind words</span>
               <h2>Loved by our <span className="italic">customers</span></h2>
+              {fromGoogle &&
+              <div className="review-source"><Icon name="google" size={15} /> Verified reviews from Google</div>
+              }
             </div>
           </div>
           <div className="grid-4">
-            {REVIEWS.map((r) => <ReviewCard key={r.name} text={r.text} name={r.name} />)}
+            {reviews.map((r, i) =>
+            <ReviewCard key={(r.name || 'review') + i} text={r.text} name={r.name} rating={r.rating} photo={r.photo} time={r.time} url={r.url} />
+            )}
           </div>
         </div>
       </section>
@@ -332,14 +353,34 @@ const REVIEWS = [
 { text: 'Fast delivery, beautifully packaged, stunning quality. Will order again.', name: 'Olivia K.' }];
 
 
-const ReviewCard = ({ text, name }) =>
-<div className="review-card">
-    <div className="review-stars" aria-label="Rated 5 out of 5 stars">
-      {[0, 1, 2, 3, 4].map((i) => <Icon key={i} name="star" size={16} />)}
-    </div>
-    <p className="serif review-text">&ldquo;{text}&rdquo;</p>
-    <div className="review-name">&mdash; {name}</div>
-  </div>;
+const ReviewCard = ({ text, name, rating = 5, photo, time, url }) => {
+  const full = Math.round(rating);
+  return (
+    <div className="review-card">
+      <div className="review-stars" aria-label={`Rated ${full} out of 5 stars`}>
+        {[0, 1, 2, 3, 4].map((i) =>
+        <span key={i} style={{ color: i < full ? 'var(--accent)' : 'var(--hairline-strong)' }}>
+            <Icon name="star" size={16} />
+          </span>
+        )}
+      </div>
+      <p className="serif review-text">&ldquo;{text}&rdquo;</p>
+      <div className="review-author">
+        {photo &&
+        <img className="review-avatar" src={photo} alt="" referrerPolicy="no-referrer" loading="lazy"
+        onError={(e) => {e.target.style.display = 'none';}} />
+        }
+        <div className="review-meta">
+          {url ?
+          <a className="review-name" href={url} target="_blank" rel="noopener noreferrer">{name}</a> :
+          <span className="review-name">{photo ? name : <>&mdash; {name}</>}</span>
+          }
+          {time && <span className="review-time">{time}</span>}
+        </div>
+      </div>
+    </div>);
+
+};
 
 
 export default HomePage;
