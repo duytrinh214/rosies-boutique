@@ -4,7 +4,6 @@ import Icon from '../components/Icon';
 import { useProducts, DiscountStore } from '../lib/stores';
 import { CollectionCard, CollectionCarousel } from './ShopPage';
 import { DRAG_ROWS } from '../lib/collections';
-import { fetchGoogleReviews, isGoogleReviewsConfigured } from '../lib/googleReviews';
 
 // =========================================================
 // CURTAIN DIVIDER — draped fabric transition pink → white
@@ -169,21 +168,6 @@ export const NewsletterSignup = () => {
 const HomePage = () => {
   const { navigate } = useNav();
   const products = useProducts();
-  const [reviews, setReviews] = useState(REVIEWS);
-  const [fromGoogle, setFromGoogle] = useState(false);
-
-  useEffect(() => {
-    if (!isGoogleReviewsConfigured) return;
-    let alive = true;
-    fetchGoogleReviews().then((r) => {
-      if (alive && r && r.length) {
-        setReviews(r.slice(0, 4));
-        setFromGoogle(true);
-      }
-    });
-    return () => {alive = false;};
-  }, []);
-
   return (
     <div className="page-fade">
       {/* HERO */}
@@ -280,19 +264,30 @@ const HomePage = () => {
       {/* Customer reviews */}
       <section style={{ padding: '100px 0', background: 'var(--bg-pink)' }}>
         <div className="container">
-          <div className="section-head">
-            <div>
-              <span className="eyebrow muted">Kind words</span>
-              <h2>Loved by our <span className="italic">customers</span></h2>
-              {fromGoogle &&
-              <div className="review-source"><Icon name="google" size={15} /> Verified reviews from Google</div>
-              }
-            </div>
+          <div className="text-center" style={{ maxWidth: 720, margin: '0 auto 36px' }}>
+            <h2 className="serif" style={{ fontSize: 'clamp(30px, 5vw, 46px)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.08, margin: 0 }}>
+              What our customers are <span className="italic" style={{ color: '#5a4a40', fontWeight: 400 }}>saying</span>
+            </h2>
           </div>
-          <div className="grid-4">
-            {reviews.map((r, i) =>
-            <ReviewCard key={(r.name || 'review') + i} text={r.text} name={r.name} rating={r.rating} photo={r.photo} time={r.time} url={r.url} />
-            )}
+
+          <div className="g-rating-card">
+            <div className="g-rating-info">
+              <div className="g-rating-top">
+                <Icon name="google" size={24} />
+                <span className="g-rating-score">5.0</span>
+              </div>
+              <div className="review-stars" aria-label="Rated 5 out of 5 stars">
+                {[0, 1, 2, 3, 4].map((i) => <span key={i} style={{ color: 'var(--accent)' }}><Icon name="star" size={18} /></span>)}
+              </div>
+              <span className="g-rating-label">Google Reviews</span>
+            </div>
+            <a className="btn btn-primary" href="https://maps.app.goo.gl/4yWNDwCp4kXbbrBFA" target="_blank" rel="noopener noreferrer">
+              Write a review
+            </a>
+          </div>
+
+          <div className="reviews-row">
+            {REVIEWS.map((r) => <ReviewCard key={r.name} name={r.name} date={r.date} text={r.text} />)}
           </div>
         </div>
       </section>
@@ -347,40 +342,26 @@ const ValueProp = ({ icon, title, body }) =>
 // CUSTOMER REVIEWS
 // =========================================================
 const REVIEWS = [
-{ text: 'Absolutely stunning arrangement, lasted beautifully for years. Everyone asks where I got it!', name: 'Sarah M.' },
-{ text: "Ordered for my mum's birthday. She cried happy tears. Worth every cent.", name: 'Jessica T.' },
-{ text: "The most realistic silk flowers I've ever seen. My guests thought they were real!", name: 'Emma R.' },
-{ text: 'Fast delivery, beautifully packaged, stunning quality. Will order again.', name: 'Olivia K.' }];
+{ name: 'Sarah M.', date: '2 weeks ago', text: "Absolutely stunning arrangement — I've had it for over a year and it still looks as fresh as the day it arrived. Everyone asks if they're real!" },
+{ name: 'Jessica T.', date: '1 month ago', text: "Ordered for my mum's birthday and she cried happy tears. The quality is incredible and the packaging was so beautiful." },
+{ name: 'Emma R.', date: '3 weeks ago', text: 'My guests genuinely thought these were real flowers. The attention to detail is extraordinary. Will be ordering again!' },
+{ name: 'Olivia K.', date: '2 months ago', text: 'Fast delivery, beautifully packaged and the arrangement is even more stunning in person. Absolutely love it.' }];
 
 
-const ReviewCard = ({ text, name, rating = 5, photo, time, url }) => {
-  const full = Math.round(rating);
-  return (
-    <div className="review-card">
-      <div className="review-stars" aria-label={`Rated ${full} out of 5 stars`}>
-        {[0, 1, 2, 3, 4].map((i) =>
-        <span key={i} style={{ color: i < full ? 'var(--accent)' : 'var(--hairline-strong)' }}>
-            <Icon name="star" size={16} />
-          </span>
-        )}
+const ReviewCard = ({ name, date, text }) =>
+<div className="review-card">
+    <div className="review-head">
+      <div className="review-avatar-initial" aria-hidden="true">{name.trim().charAt(0)}</div>
+      <div className="review-meta">
+        <div className="review-name">{name}</div>
+        <div className="review-time">{date}</div>
       </div>
-      <p className="serif review-text">&ldquo;{text}&rdquo;</p>
-      <div className="review-author">
-        {photo &&
-        <img className="review-avatar" src={photo} alt="" referrerPolicy="no-referrer" loading="lazy"
-        onError={(e) => {e.target.style.display = 'none';}} />
-        }
-        <div className="review-meta">
-          {url ?
-          <a className="review-name" href={url} target="_blank" rel="noopener noreferrer">{name}</a> :
-          <span className="review-name">{photo ? name : <>&mdash; {name}</>}</span>
-          }
-          {time && <span className="review-time">{time}</span>}
-        </div>
-      </div>
-    </div>);
-
-};
+    </div>
+    <div className="review-stars" aria-label="Rated 5 out of 5 stars">
+      {[0, 1, 2, 3, 4].map((i) => <span key={i} style={{ color: 'var(--accent)' }}><Icon name="star" size={15} /></span>)}
+    </div>
+    <p className="review-text">{text}</p>
+  </div>;
 
 
 export default HomePage;
