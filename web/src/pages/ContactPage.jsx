@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
 import { getSupabase } from '../lib/supabase';
 import { InfoHero, ContactLine, INFO_INK } from './info-shared';
 
 const ERR_RED = '#c0473a';
+const EMAILJS_SERVICE_ID = 'service_753npkh';
+const EMAILJS_TEMPLATE_ID = 'template_b2xthgg';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YXCIZg2Db_HAB5cel';
 
 // Labelled field matching the shared Field style, with an optional required
 // asterisk and an inline validation error.
@@ -65,6 +69,14 @@ const ContactForm = () => {
         list.push({ ...form, created_at: new Date().toISOString() });
         localStorage.setItem('rb_contact_messages', JSON.stringify(list));
       }
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        { name: form.name.trim(), email: form.email.trim(), phone: form.phone.trim() || '', message: form.message.trim() },
+        EMAILJS_PUBLIC_KEY,
+      );
+
       setSent(true);
       setForm({ name: '', phone: '', email: '', message: '' });
     } catch (e2) {
