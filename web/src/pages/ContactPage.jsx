@@ -91,7 +91,7 @@ const ContactForm = () => {
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
         </div>
         <div className="serif" style={{ fontSize: 24, fontWeight: 500, color: INFO_INK, marginBottom: 8 }}>Message sent</div>
-        <p style={{ fontSize: 15, color: 'var(--ink-soft)', margin: '0 0 22px' }}>Thank you! We'll be in touch within 1-2 business days.</p>
+        <p style={{ fontSize: 15, color: 'var(--ink-soft)', margin: '0 0 22px' }}>Thank you! We'll be in touch within 1–3 business days.</p>
         <button className="btn btn-secondary" onClick={() => setSent(false)}>Send another</button>
       </div>);
 

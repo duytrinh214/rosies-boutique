@@ -69,7 +69,7 @@ const FooterContactForm = () => {
     return (
       <div style={{ padding: '20px 0 4px', fontSize: 14, color: '#e9d8c9', lineHeight: 1.6 }}>
         <strong style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Message sent!</strong>
-        A real florist will reply within one business day.
+        A real florist will reply within 1–3 business days.
         <div>
           <a onClick={() => setSent(false)} style={{ display: 'inline', color: '#f6ddd0', textDecoration: 'underline', cursor: 'pointer', marginTop: 10 }}>Send another message</a>
         </div>
