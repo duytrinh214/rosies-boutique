@@ -6,8 +6,7 @@ import { FALLBACK_BG } from '../lib/products';
 
 const DELIVERY_LABELS = {
   standard: 'Standard delivery · 2–4 business days',
-  express: 'Express delivery · next-day before 2pm',
-  same: 'Same-day courier · order before 2pm' };
+  express: 'Express delivery · next-day before 2pm' };
 
 // =========================================================
 // CART / CHECKOUT
@@ -16,7 +15,7 @@ const CartPage = () => {
   const { navigate } = useNav();
   const cart = useCart();
   const [step, setStep] = useState('cart'); // cart → shipping → payment → done
-  const [shipping, setShipping] = useState({ firstName: '', lastName: '', email: '', phone: '', address: '', unit: '', suburb: '', state: '', postcode: '', instructions: '', method: 'express' });
+  const [shipping, setShipping] = useState({ firstName: '', lastName: '', email: '', phone: '', address: '', unit: '', suburb: '', state: '', postcode: '', instructions: '', method: 'standard' });
   const [payment, setPayment] = useState('card');
   const [processing, setProcessing] = useState(false);
   const [payError, setPayError] = useState('');
@@ -45,7 +44,7 @@ const CartPage = () => {
   const subtotal = cart.total;
   const discountAmount = appliedDiscount ? Math.round(subtotal * appliedDiscount.percent / 100) : 0;
   const taxBase = Math.max(0, subtotal - discountAmount);
-  const shippingCost = shipping.method === 'express' ? 12 : shipping.method === 'standard' ? 0 : 24;
+  const shippingCost = shipping.method === 'express' ? 12 : 0;
   const tax = Math.round(taxBase * 0.08);
   const total = taxBase + shippingCost + tax;
 
@@ -454,8 +453,7 @@ const ShippingForm = ({ shipping, setShipping }) => {
       <div style={{ display: 'grid', gap: 10 }}>
         {[
         { id: 'standard', label: 'Standard delivery', sub: '2–4 business days', price: 'Free' },
-        { id: 'express', label: 'Express delivery', sub: 'Next-day before 2pm', price: '$12' },
-        { id: 'same', label: 'Same-day courier', sub: 'Within the metro area · order before 2pm', price: '$24' }].
+        { id: 'express', label: 'Express delivery', sub: 'Next-day before 2pm', price: '$12' }].
         map((m) =>
         <label key={m.id} style={{
           display: 'flex', alignItems: 'center', gap: 16, padding: '16px 18px',

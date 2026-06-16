@@ -5,7 +5,6 @@ import { InfoHero, InfoBlock, InfoCTA, INFO_INK } from './info-shared';
 // SHIPPING
 // ============================================================
 const SHIPPING_TIERS = [
-{ name: 'Same-day express', area: 'Within Melbourne metro', time: 'Ordered before 12pm · delivered by evening', price: '$12' },
 { name: 'Standard delivery', area: 'Nationwide · Australia', time: '2 – 4 working days', price: '$9' },
 { name: 'Free shipping', area: 'Orders over $150', time: 'Standard nationwide', price: 'Free' }];
 
@@ -44,7 +43,7 @@ const ShippingPage = () => {
             <InfoBlock icon="clock" title="Processing time"
               body="Ready-made bouquets are dispatched within 24 hours. Made-to-order and wedding pieces are crafted by hand and take 3 – 7 days before they ship — we will email you a dispatch date at checkout." />
             <InfoBlock icon="truck" title="Tracking"
-              body="As soon as your order leaves the atelier you will receive an email and SMS with a live tracking link. Same-day couriers share a real-time map so you can watch your flowers travel to the door." />
+              body="As soon as your order leaves the atelier you will receive an email and SMS with a live tracking link so you can follow your flowers every step of the way." />
             <InfoBlock icon="shield" title="Safe packaging"
               body="Stems are secured in a moulded kraft cradle and double-boxed so not a single petal shifts in transit. Our packaging is plastic-free and fully recyclable." />
             <InfoBlock icon="leaf" title="International"
