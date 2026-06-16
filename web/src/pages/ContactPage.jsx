@@ -107,6 +107,7 @@ const ContactForm = () => {
       </ContactField>
       <ContactField label="Email" required error={errors.email}>
         <input className={'info-input' + (errors.email ? ' input-error' : '')} type="email" placeholder="jane@email.com" value={form.email} onChange={set('email')} />
+        <span style={{ fontSize: 12, color: 'var(--muted)' }}>Please double-check your email — we'll reply here.</span>
       </ContactField>
       <ContactField label="Message" required error={errors.message}>
         <textarea className={'info-input' + (errors.message ? ' input-error' : '')} rows="4" placeholder="How can we help?" value={form.message} onChange={set('message')} style={{ resize: 'vertical' }}></textarea>

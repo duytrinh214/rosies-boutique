@@ -87,6 +87,7 @@ const FooterContactForm = () => {
       <div>
         <input className={'footer-input' + (errors.email ? ' footer-input-error' : '')} type="email" placeholder="Email *" value={form.email} onChange={set('email')} />
         {errors.email && <div style={{ fontSize: 12, color: '#e6a395', marginTop: 4 }}>{errors.email}</div>}
+        <div style={{ fontSize: 12, color: '#b6a08f', marginTop: 4 }}>Please double-check your email — we'll reply here.</div>
       </div>
       <div>
         <textarea className={'footer-input' + (errors.message ? ' footer-input-error' : '')} rows="3" placeholder="Your message *" value={form.message} onChange={set('message')} style={{ resize: 'vertical' }}></textarea>
