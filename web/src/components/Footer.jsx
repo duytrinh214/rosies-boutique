@@ -1,28 +1,63 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import Icon from './Icon';
 import { getSupabase } from '../lib/supabase';
 
+const EMAILJS_SERVICE_ID = 'service_753npkh';
+const EMAILJS_TEMPLATE_ID = 'template_b2xthgg';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YXCIZg2Db_HAB5cel';
+
 const FooterContactForm = () => {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState('');
 
-  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set = (key) => (e) => {
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+    if (errors[key]) setErrors((er) => { const n = { ...er }; delete n[key]; return n; });
+  };
+
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = 'Name is required';
+    if (!form.email.trim()) e.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = 'Enter a valid email';
+    if (!form.message.trim()) e.message = 'Message is required';
+    return e;
+  };
 
   const submit = async (e) => {
     e.preventDefault();
+    const errs = validate();
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
+
     setErr(''); setBusy(true);
     try {
       const sb = getSupabase();
-      if (!sb) throw new Error('Messaging is temporarily unavailable — please email us directly.');
-      const { error } = await sb.from('contact_messages').insert({
-        name: form.name.trim(),
-        phone: form.phone.trim() || null,
-        email: form.email.trim(),
-        message: form.message.trim(),
-      });
-      if (error) throw error;
+      if (sb) {
+        const { error } = await sb.from('contact_messages').insert({
+          name: form.name.trim(),
+          phone: form.phone.trim() || null,
+          email: form.email.trim(),
+          message: form.message.trim(),
+        });
+        if (error) throw error;
+      } else {
+        const list = JSON.parse(localStorage.getItem('rb_contact_messages') || '[]');
+        list.push({ ...form, created_at: new Date().toISOString() });
+        localStorage.setItem('rb_contact_messages', JSON.stringify(list));
+      }
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        { name: form.name.trim(), email: form.email.trim(), phone: form.phone.trim() || '', message: form.message.trim() },
+        EMAILJS_PUBLIC_KEY,
+      );
+
       setSent(true);
       setForm({ name: '', phone: '', email: '', message: '' });
     } catch (e2) {
@@ -33,7 +68,7 @@ const FooterContactForm = () => {
   if (sent) {
     return (
       <div style={{ padding: '20px 0 4px', fontSize: 14, color: '#e9d8c9', lineHeight: 1.6 }}>
-        <strong style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Thank you for writing.</strong>
+        <strong style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Message sent!</strong>
         A real florist will reply within one business day.
         <div>
           <a onClick={() => setSent(false)} style={{ display: 'inline', color: '#f6ddd0', textDecoration: 'underline', cursor: 'pointer', marginTop: 10 }}>Send another message</a>
@@ -43,11 +78,20 @@ const FooterContactForm = () => {
   }
 
   return (
-    <form onSubmit={submit} className="footer-contact-form" style={{ display: 'grid', gap: 12, maxWidth: 360 }}>
-      <input className="footer-input" type="text" required placeholder="Name" value={form.name} onChange={set('name')} />
+    <form onSubmit={submit} noValidate className="footer-contact-form" style={{ display: 'grid', gap: 12, maxWidth: 360 }}>
+      <div>
+        <input className={'footer-input' + (errors.name ? ' footer-input-error' : '')} type="text" placeholder="Name *" value={form.name} onChange={set('name')} />
+        {errors.name && <div style={{ fontSize: 12, color: '#e6a395', marginTop: 4 }}>{errors.name}</div>}
+      </div>
       <input className="footer-input" type="tel" placeholder="Phone number" value={form.phone} onChange={set('phone')} />
-      <input className="footer-input" type="email" required placeholder="Email" value={form.email} onChange={set('email')} />
-      <textarea className="footer-input" rows="3" required placeholder="Your message" value={form.message} onChange={set('message')} style={{ resize: 'vertical' }}></textarea>
+      <div>
+        <input className={'footer-input' + (errors.email ? ' footer-input-error' : '')} type="email" placeholder="Email *" value={form.email} onChange={set('email')} />
+        {errors.email && <div style={{ fontSize: 12, color: '#e6a395', marginTop: 4 }}>{errors.email}</div>}
+      </div>
+      <div>
+        <textarea className={'footer-input' + (errors.message ? ' footer-input-error' : '')} rows="3" placeholder="Your message *" value={form.message} onChange={set('message')} style={{ resize: 'vertical' }}></textarea>
+        {errors.message && <div style={{ fontSize: 12, color: '#e6a395', marginTop: 4 }}>{errors.message}</div>}
+      </div>
       {err && <div style={{ fontSize: 12.5, color: '#e6a395' }}>{err}</div>}
       <button type="submit" className="btn btn-primary" disabled={busy} style={{ justifyContent: 'center' }}>
         {busy ? 'Sending…' : 'Send'} <Icon name="arrow-right" size={15} />
