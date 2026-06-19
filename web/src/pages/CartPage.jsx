@@ -14,9 +14,8 @@ const DELIVERY_LABELS = {
 const CartPage = () => {
   const { navigate } = useNav();
   const cart = useCart();
-  const [step, setStep] = useState('cart'); // cart → shipping → payment → done
+  const [step, setStep] = useState('cart'); // cart → shipping → done
   const [shipping, setShipping] = useState({ firstName: '', lastName: '', email: '', phone: '', address: '', unit: '', suburb: '', state: '', postcode: '', instructions: '', method: 'standard' });
-  const [payment, setPayment] = useState('card');
   const [processing, setProcessing] = useState(false);
   const [payError, setPayError] = useState('');
   const [order, setOrder] = useState(null);
@@ -70,7 +69,6 @@ const CartPage = () => {
               <div>
                 {step === 'cart' && <CartItems cart={cart} navigate={navigate} />}
                 {step === 'shipping' && <ShippingForm shipping={shipping} setShipping={setShipping} />}
-                {step === 'payment' && <PaymentForm payment={payment} setPayment={setPayment} total={total} />}
               </div>
 
               {/* RIGHT — summary */}
@@ -193,8 +191,7 @@ const CartPage = () => {
 
                   <div style={{ marginTop: 18 }}>
                     {step === 'cart' && <button className="btn btn-primary btn-block" onClick={() => setStep('shipping')}>Continue to shipping <Icon name="arrow-right" size={16} /></button>}
-                    {step === 'shipping' && <button className="btn btn-primary btn-block" onClick={() => setStep('payment')}>Continue to payment <Icon name="arrow-right" size={16} /></button>}
-                    {step === 'payment' &&
+                    {step === 'shipping' &&
                   <Fragment>
                         {payError &&
                     <div style={{ marginBottom: 12, padding: '11px 14px', background: '#fbeae5', border: '1px solid #f0c9bf', borderRadius: 10, fontSize: 13, color: '#a8463b', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -225,11 +222,11 @@ const CartPage = () => {
                       }
                     }}>
                           {processing ?
-                      <Fragment><span className="spinner" /> Processing payment…</Fragment> :
-                      <Fragment>Pay ${total} <Icon name="arrow-right" size={16} /></Fragment>
+                      <Fragment><span className="spinner" /> Redirecting to payment…</Fragment> :
+                      <Fragment>Continue to payment <Icon name="arrow-right" size={16} /></Fragment>
                       }
                         </button>
-                        <div style={{ marginTop: 10, fontSize: 11.5, color: 'var(--muted)', textAlign: 'center' }}>By paying you agree to our terms. You can cancel within 1 hour of ordering.</div>
+                        <div style={{ marginTop: 10, fontSize: 11.5, color: 'var(--muted)', textAlign: 'center' }}>You'll be taken to Stripe's secure checkout to complete payment.</div>
                       </Fragment>
                   }
                   </div>
@@ -253,8 +250,7 @@ const CartPage = () => {
 const Stepper = ({ step, setStep }) => {
   const steps = [
   { id: 'cart', label: 'Bag' },
-  { id: 'shipping', label: 'Shipping' },
-  { id: 'payment', label: 'Payment' }];
+  { id: 'shipping', label: 'Shipping' }];
 
   const idx = steps.findIndex((s) => s.id === step);
   return (
