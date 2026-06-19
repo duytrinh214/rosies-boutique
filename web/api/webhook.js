@@ -129,6 +129,88 @@ export default async function handler(req, res) {
         console.error('Email send failed:', emailErr);
       }
     }
+
+    // Email thông báo order mới cho chủ shop
+    try {
+      const customerPhone = session.metadata?.customer_phone || 'N/A';
+      const deliveryInstructions = session.metadata?.delivery_instructions || 'None';
+
+      await resend.emails.send({
+        from: 'Rosie\'s Boutique <orders@rosiesboutique.com.au>',
+        to: 'enquiry.rosiesboutique@outlook.com',
+        subject: `🛍️ New Order · ${orderRef} · $${total} AUD`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f9f5f3;font-family:Arial,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;background:#fff;padding:32px;">
+
+    <h2 style="margin:0 0 24px;color:#2b1d18;font-size:22px;">🛍️ New Order Received</h2>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8ddd8;border-radius:10px;overflow:hidden;">
+      <tr style="background:#f9f5f3;">
+        <td style="padding:12px 16px;font-size:12px;color:#9a7d6e;letter-spacing:0.1em;text-transform:uppercase;">Order Reference</td>
+        <td style="padding:12px 16px;font-size:12px;color:#9a7d6e;letter-spacing:0.1em;text-transform:uppercase;text-align:right;">Total</td>
+      </tr>
+      <tr>
+        <td style="padding:12px 16px;font-size:20px;font-weight:700;color:#2b1d18;">${orderRef}</td>
+        <td style="padding:12px 16px;font-size:20px;font-weight:700;color:#2b1d18;text-align:right;">$${total} AUD</td>
+      </tr>
+    </table>
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:20px;">
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0e8e4;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Customer</span><br>
+          <span style="font-size:15px;color:#2b1d18;">${customerName}</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0e8e4;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Email</span><br>
+          <a href="mailto:${customerEmail}" style="font-size:15px;color:#2b1d18;">${customerEmail}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0e8e4;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Phone</span><br>
+          <a href="tel:${customerPhone}" style="font-size:15px;color:#2b1d18;">${customerPhone}</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0e8e4;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Delivery Address</span><br>
+          <span style="font-size:15px;color:#2b1d18;">${shippingAddress}</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0e8e4;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Delivery Method</span><br>
+          <span style="font-size:15px;color:#2b1d18;">${shippingMethod}</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;">
+          <span style="font-size:12px;color:#9a7d6e;text-transform:uppercase;letter-spacing:0.1em;">Delivery Instructions</span><br>
+          <span style="font-size:15px;color:#2b1d18;">${deliveryInstructions}</span>
+        </td>
+      </tr>
+    </table>
+
+    <div style="margin-top:24px;padding:16px;background:#e8f5e9;border-radius:8px;text-align:center;">
+      <span style="font-size:14px;color:#2e7d32;font-weight:600;">✅ Payment confirmed by Stripe</span>
+    </div>
+
+  </div>
+</body>
+</html>
+        `,
+      });
+      console.log('Owner notification sent');
+    } catch (emailErr) {
+      console.error('Owner email failed:', emailErr);
+    }
   }
 
   return res.status(200).json({ received: true });
