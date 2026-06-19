@@ -52,6 +52,7 @@ export default async function handler(req, res) {
         await resend.emails.send({
           from: 'Rosie\'s Boutique <orders@rosiesboutique.com.au>',
           to: customerEmail,
+          reply_to: 'enquiry.rosiesboutique@outlook.com',
           subject: `Order confirmed · ${orderRef}`,
           html: `
 <!DOCTYPE html>
