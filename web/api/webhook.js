@@ -52,7 +52,6 @@ export default async function handler(req, res) {
         await resend.emails.send({
           from: 'Rosie\'s Boutique <orders@rosiesboutique.com.au>',
           to: customerEmail,
-          reply_to: 'enquiry.rosiesboutique@outlook.com',
           subject: `Order confirmed · ${orderRef}`,
           html: `
 <!DOCTYPE html>
@@ -104,10 +103,10 @@ export default async function handler(req, res) {
       </div>
 
       <p style="font-size:14px;color:#6b5548;line-height:1.6;font-family:Arial,sans-serif;">
-        Questions about your order? Reply to this email or contact us at
-        <a href="mailto:enquiry.rosiesboutique@outlook.com" style="color:#2b1d18;">enquiry.rosiesboutique@outlook.com</a>
-        or call <a href="tel:0434513180" style="color:#2b1d18;">0434 513 180</a>.
-      </p>
+            This is an automated email. If you have any questions about your order, please contact us at
+            <a href="mailto:enquiry.rosiesboutique@outlook.com" style="color:#2b1d18;">enquiry.rosiesboutique@outlook.com</a>
+            or call <a href="tel:0434513180" style="color:#2b1d18;">0434 513 180</a>.
+          </p>
     </div>
 
     <!-- Footer -->
