@@ -3,7 +3,6 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -31,7 +30,7 @@ export default async function handler(req, res) {
           name: item.name,
           description: item.size ? `Size: ${item.size}` : undefined,
         },
-        unit_amount: Math.round(item.price * 100), // cents
+        unit_amount: Math.round(item.price * 100),
       },
       quantity: item.qty,
     }));
@@ -42,7 +41,7 @@ export default async function handler(req, res) {
         price_data: {
           currency: 'aud',
           product_data: { name: 'Express Delivery (next-day before 2pm)' },
-          unit_amount: 1200, // $12.00
+          unit_amount: 1200,
         },
         quantity: 1,
       });
@@ -60,17 +59,15 @@ export default async function handler(req, res) {
       });
     }
 
-    // Build origin for redirect URLs
     const origin = req.headers.origin || `https://${req.headers.host}`;
 
-    // Prefill customer email if provided
     const sessionParams = {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: `${origin}/order-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/bag`,
-      automatic_tax: { enabled: false }, // We handle GST manually in display
+      automatic_tax: { enabled: false },
       metadata: {
         shipping_method: shipping?.method || 'standard',
         shipping_address: shipping
@@ -84,8 +81,27 @@ export default async function handler(req, res) {
       },
     };
 
+    // Prefill email so khach khong can nhap lai
     if (shipping?.email) {
       sessionParams.customer_email = shipping.email;
+    }
+
+    // Prefill shipping address vao payment_intent_data
+    if (shipping?.address && shipping?.suburb && shipping?.state && shipping?.postcode) {
+      sessionParams.payment_intent_data = {
+        shipping: {
+          name: `${shipping.firstName || ''} ${shipping.lastName || ''}`.trim() || 'Customer',
+          phone: shipping.phone || undefined,
+          address: {
+            line1: shipping.address,
+            line2: shipping.unit || undefined,
+            city: shipping.suburb,
+            state: shipping.state,
+            postal_code: shipping.postcode,
+            country: 'AU',
+          },
+        },
+      };
     }
 
     const session = await stripe.checkout.sessions.create(sessionParams);
