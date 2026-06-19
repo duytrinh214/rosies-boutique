@@ -202,16 +202,27 @@ const CartPage = () => {
                             {payError}
                           </div>
                     }
-                        <button className="btn btn-primary btn-block" disabled={processing} style={processing ? { opacity: 0.75, cursor: 'wait' } : undefined} onClick={() => {
-                      // Simulates stripe.confirmPayment({ elements, clientSecret }).
-                      // In production: POST /create-payment-intent → confirmPayment → await result;
-                      // fulfilment happens server-side on the payment_intent.succeeded webhook.
-                      setPayError('');setProcessing(true);
-                      setTimeout(() => {
-                        setOrder({ total, subtotal, shipping, payment, ref: 'RB-' + Math.floor(100000 + Math.random() * 900000) });
+                        <button className="btn btn-primary btn-block" disabled={processing} style={processing ? { opacity: 0.75, cursor: 'wait' } : undefined} onClick={async () => {
+                      setPayError(''); setProcessing(true);
+                      try {
+                        const res = await fetch('/api/create-checkout-session', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            items: cart.items,
+                            shipping,
+                            discountCode: appliedDiscount?.code || null,
+                            discountAmount: discountAmount || 0,
+                          }),
+                        });
+                        const data = await res.json();
+                        if (!res.ok || !data.url) throw new Error(data.error || 'Could not create checkout session');
                         if (appliedDiscount) DiscountStore.markUsed(appliedDiscount.code);
-                        cart.clear();setProcessing(false);setStep('done');
-                      }, 1700);
+                        window.location.href = data.url;
+                      } catch (err) {
+                        setPayError(err.message || 'Payment failed. Please try again.');
+                        setProcessing(false);
+                      }
                     }}>
                           {processing ?
                       <Fragment><span className="spinner" /> Processing payment…</Fragment> :
