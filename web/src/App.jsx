@@ -17,6 +17,7 @@ import FaqPage from './pages/FaqPage';
 import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminPage from './pages/AdminPage';
+import OrderSuccessPage from './pages/OrderSuccessPage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -50,6 +51,8 @@ const App = () => (
       <Route path="/story" element={<SiteChrome><StoryPage /></SiteChrome>} />
       <Route path="/product/:id" element={<SiteChrome><ProductPage /></SiteChrome>} />
       <Route path="/cart" element={<SiteChrome><CartPage /></SiteChrome>} />
+      <Route path="/bag" element={<SiteChrome><CartPage /></SiteChrome>} />
+      <Route path="/order-success" element={<SiteChrome><OrderSuccessPage /></SiteChrome>} />
       <Route path="/reviews" element={<SiteChrome><ReviewsPage /></SiteChrome>} />
       <Route path="/shipping" element={<SiteChrome><ShippingPage /></SiteChrome>} />
       <Route path="/returns" element={<SiteChrome><ReturnsPage /></SiteChrome>} />
