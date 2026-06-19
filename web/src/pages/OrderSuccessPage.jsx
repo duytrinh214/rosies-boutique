@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
+import { useCart } from '../lib/stores';
 
 const OrderSuccessPage = () => {
   const { navigate } = useNav();
+  const cart = useCart();
   const [sessionId, setSessionId] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const sid = params.get('session_id');
-    if (sid) setSessionId(sid);
+    if (sid) {
+      setSessionId(sid);
+      cart.clear(); // clear giỏ hàng sau khi thanh toán thành công
+    }
   }, []);
 
   // Generate a display order ref from session_id suffix
