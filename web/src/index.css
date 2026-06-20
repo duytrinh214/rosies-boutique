@@ -147,7 +147,6 @@ button { font-family: inherit; }
   margin: 0 auto;
   background: var(--bg-cream);
 }
-.site-header > .header-curtain-strip,
 .site-header > .header-logo-row,
 .site-header > .nav {
   max-width: 1440px;
@@ -155,15 +154,16 @@ button { font-family: inherit; }
   margin-right: auto;
 }
 
-/* Decorative curtain + chandelier + roses. Anchored to the header but
-   sized to drape dramatically down the page — the tall side panels reach
-   well past the hero into the section below, matching the reference.
-   Sits behind page content (z-index 1), ignores pointer events. */
+/* Decorative curtain + chandelier + roses, anchored to the full viewport
+   width so the panels sit flush in the very top-left and top-right corners.
+   Sized to drape dramatically down past the hero, matching the reference.
+   Sits over page content (high z-index), ignores pointer events. */
 .header-curtain-strip {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: 0; /* zero-height anchor; the images overflow out of it */
   pointer-events: none;
   overflow: visible;
@@ -172,20 +172,20 @@ button { font-family: inherit; }
 .nav-curtain {
   position: absolute;
   top: 0;
-  width: 42vw;
-  max-width: 760px;
-  min-width: 320px;
+  width: 46vw;
+  max-width: 880px;
+  min-width: 340px;
   height: auto;
   object-fit: contain;
   object-position: top center;
   user-select: none;
 }
 .nav-curtain-left {
-  left: 0;
+  left: -20px;
   transform: scaleX(-1); /* source asset is the right-corner version */
 }
 .nav-curtain-right {
-  right: 0;
+  right: -20px;
 }
 
 /* Logo row — centred, sits above the curtain drape */
