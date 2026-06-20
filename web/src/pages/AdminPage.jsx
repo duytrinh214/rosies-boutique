@@ -38,6 +38,25 @@ const AdminPage = () => {
 
   const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 2200); };
 
+  // Category → ID prefix, matching the existing BQ-/LV-/EC-/WH- scheme
+  const CATEGORY_PREFIX = {
+    'Bouquets': 'BQ',
+    'Luxe Vase Arrangements': 'LV',
+    'Event and Corporate Hire': 'EC',
+    'Wedding Hire': 'WH',
+  };
+
+  // Generate the next sequential id for a category, e.g. LV-006,
+  // based on the highest existing number with that prefix in `items`.
+  const nextProductId = (category) => {
+    const prefix = CATEGORY_PREFIX[category] || 'PR';
+    const max = items.reduce((acc, p) => {
+      const m = typeof p.id === 'string' && p.id.match(new RegExp(`^${prefix}-(\\d+)$`));
+      return m ? Math.max(acc, parseInt(m[1], 10)) : acc;
+    }, 0);
+    return `${prefix}-${String(max + 1).padStart(3, '0')}`;
+  };
+
   const load = async () => {
     setLoading(true);
     try {
@@ -82,6 +101,7 @@ const AdminPage = () => {
         showToast('Saved changes.');
       } else {
         const { id, created_at, ...insertRow } = row;
+        insertRow.id = nextProductId(insertRow.category);
         if (sb) {
           const { data, error } = await sb.from('products').insert(insertRow).select().single();
           if (error) { console.error('[admin] insert error:', error.code, error.message, error.details, error.hint); throw error; }
