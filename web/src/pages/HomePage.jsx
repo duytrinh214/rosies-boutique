@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
 import { useProducts, DiscountStore } from '../lib/stores';
@@ -63,31 +63,54 @@ const TornEdge = ({ fromColor, toColor, flip = false }) => {
 };
 
 // =========================================================
-// HERO SLIDESHOW — best-sellers, crossfade + Ken Burns
+// HERO SLIDESHOW — random picks from the product catalogue,
+// crossfade + Ken Burns. Falls back to a few hardcoded shots
+// if the database hasn't loaded any products with images yet.
 // =========================================================
-const HERO_SLIDES = [
+const FALLBACK_HERO_SLIDES = [
 { src: '/products/coral-peony.jpg', name: 'Coral Peony Bloom' },
 { src: '/products/spring-lush.jpg', name: 'Spring Lush' },
 { src: '/products/magenta-garden.jpg', name: 'Magenta Garden' },
 { src: '/products/ivory-tulip.jpg', name: 'Ivory Tulip Pot' },
 { src: '/products/crimson-orchid.jpg', name: 'Crimson & Orchid' }];
 
+// Fisher–Yates shuffle, returns a new array
+const shuffle = (arr) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
-export const HeroSlideshow = () => {
+export const HeroSlideshow = ({ products = [] }) => {
+  // Pick up to 10 random products that actually have an image,
+  // re-shuffled only when the product list itself changes.
+  const slides = useMemo(() => {
+    const withImages = products.filter((p) => p.img);
+    if (withImages.length === 0) return FALLBACK_HERO_SLIDES;
+    return shuffle(withImages).slice(0, 10).map((p) => ({
+      src: /^https?:\/\//.test(p.img) ? p.img : '/' + p.img,
+      name: p.name,
+    }));
+  }, [products]);
+
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  useEffect(() => { setIdx(0); }, [slides]);
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_SLIDES.length), 5400);
+    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5400);
     return () => clearInterval(t);
-  }, [paused]);
+  }, [paused, slides.length]);
 
   return (
     <div className="hero-frame"
     onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} style={{ width: "100%", margin: "0 auto", padding: "5px" }}>
       <div className="hero-window hero-slideshow">
-        {HERO_SLIDES.map((s, i) =>
-        <img key={s.src} src={s.src} alt={s.name}
+        {slides.map((s, i) =>
+        <img key={s.src + i} src={s.src} alt={s.name}
         className={'hero-slide' + (i === idx ? ' active' : '')}
         onError={(e) => {e.target.style.display = 'none';}} />
         )}
@@ -106,12 +129,12 @@ export const HeroSlideshow = () => {
               Nº {String(idx + 1).padStart(2, '0')} · Best-seller
             </span>
           </div>
-          <div className="serif italic" style={{ fontSize: 36, fontWeight: 400, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05 }}>{HERO_SLIDES[idx].name}</div>
+          <div className="serif italic" style={{ fontSize: 36, fontWeight: 400, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05 }}>{slides[idx]?.name}</div>
         </div>
 
         {/* Progress segments — bottom */}
         <div style={{ position: 'absolute', left: 32, right: 32, bottom: 30, display: 'flex', gap: 6, zIndex: 5 }}>
-          {HERO_SLIDES.map((_, i) =>
+          {slides.map((_, i) =>
           <button key={i} onClick={() => setIdx(i)}
           aria-label={`Go to slide ${i + 1}`}
           style={{ flex: 1, height: 2, background: 'rgba(255,255,255,0.35)', border: 'none', padding: 0, cursor: 'pointer', position: 'relative', overflow: 'hidden' }}>
@@ -211,7 +234,7 @@ const HomePage = () => {
           </div>
           {/* Right */}
           <div style={{ position: 'relative' }}>
-            <HeroSlideshow />
+            <HeroSlideshow products={products} />
           </div>
         </div>
       </section>
