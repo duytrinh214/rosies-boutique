@@ -136,12 +136,76 @@ button { font-family: inherit; }
 }
 
 /* ---- Nav ---- */
+/* =========================================================
+   SITE HEADER — curtain strip (full width) → centred logo →
+   nav row (links + icons), stacked vertically like a wedding
+   invitation header rather than a single horizontal bar.
+   ========================================================= */
+.site-header {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Decorative curtain + chandelier + roses, spanning the full header
+   width. Sits behind the logo, ignores pointer events, scales down
+   on narrow screens rather than disappearing. */
+.header-curtain-strip {
+  position: relative;
+  height: 200px;
+  pointer-events: none;
+}
+.nav-curtain {
+  position: absolute;
+  top: 0;
+  width: 38%;
+  max-width: 460px;
+  min-width: 160px;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  user-select: none;
+}
+.nav-curtain-left {
+  left: 0;
+  transform: scaleX(-1); /* source asset is the right-corner version */
+}
+.nav-curtain-right {
+  right: 0;
+}
+
+/* Logo row — centred, overlapping the bottom of the curtain strip */
+.header-logo-row {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: -86px; /* pull up into the curtain strip so it reads as one scene */
+  z-index: 2;
+  pointer-events: none;
+}
+.header-logo-row .logo-img {
+  pointer-events: auto;
+}
+
+@media (max-width: 1100px) {
+  .header-curtain-strip { height: 140px; }
+  .nav-curtain { width: 44%; min-width: 120px; }
+  .header-logo-row { margin-top: -56px; }
+  .header-logo-row .logo-img img { width: 112px; height: 58px; }
+}
+@media (max-width: 640px) {
+  .header-curtain-strip { height: 96px; }
+  .nav-curtain { width: 48%; min-width: 90px; }
+  .header-logo-row { margin-top: -34px; }
+  .header-logo-row .logo-img img { width: 96px !important; height: 50px !important; }
+}
+
 .nav {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  padding: 26px 56px;
+  padding: 8px 56px 22px;
   gap: 28px;
   max-width: 1440px;
   margin: 0 auto;
@@ -153,39 +217,6 @@ button { font-family: inherit; }
   margin: -1px auto 0;
   height: 1px;
   background: linear-gradient(90deg, rgba(43,29,24,0) 0%, rgba(43,29,24,0.45) 50%, rgba(43,29,24,0) 100%);
-}
-/* Decorative curtain + chandelier + roses, draped over both header corners.
-   Sits above the nav content, ignores pointer events. Sized smaller on
-   narrow screens rather than hidden, so the brand feel carries to mobile. */
-.nav-curtain {
-  position: absolute;
-  top: 0;
-  width: 200px;
-  height: 160px;
-  object-fit: contain;
-  object-position: top center;
-  pointer-events: none;
-  z-index: 1;
-  user-select: none;
-}
-.nav-curtain-left {
-  left: 0;
-  transform: scaleX(-1); /* source asset is the right-corner version */
-}
-.nav-curtain-right {
-  right: 0;
-}
-.nav .logo,
-.nav-links,
-.nav-right {
-  position: relative;
-  z-index: 2; /* keep logo/menu/icons clickable above the decorative layer */
-}
-@media (max-width: 1100px) {
-  .nav-curtain { width: 140px; height: 110px; }
-}
-@media (max-width: 640px) {
-  .nav-curtain { width: 96px; height: 80px; }
 }
 
 .nav .logo {
@@ -1086,8 +1117,7 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 .nav-mobile, .nav-mobile-backdrop { display: none; }
 
 @media (max-width: 1100px) {
-  .nav { padding: 18px 20px; gap: 14px; }
-  .nav .logo-img img { width: 104px; height: 54px; }
+  .nav { padding: 8px 20px 18px; gap: 14px; }
   .nav-links { display: none; }
   .nav-right { gap: 10px; }
   .nav-burger { display: inline-flex; position: relative; z-index: 61; }
