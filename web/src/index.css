@@ -155,22 +155,25 @@ button { font-family: inherit; }
   background: linear-gradient(90deg, rgba(43,29,24,0) 0%, rgba(43,29,24,0.45) 50%, rgba(43,29,24,0) 100%);
 }
 /* Decorative curtain + chandelier + roses, draped over both header corners.
-   Sits above the nav content, ignores pointer events, hidden on mobile. */
+   Sits above the nav content, ignores pointer events. Sized smaller on
+   narrow screens rather than hidden, so the brand feel carries to mobile. */
 .nav-curtain {
   position: absolute;
-  top: -26px;
-  width: 260px;
-  height: auto;
+  top: 0;
+  width: 200px;
+  height: 160px;
+  object-fit: contain;
+  object-position: top center;
   pointer-events: none;
   z-index: 1;
   user-select: none;
 }
 .nav-curtain-left {
-  left: -10px;
+  left: 0;
   transform: scaleX(-1); /* source asset is the right-corner version */
 }
 .nav-curtain-right {
-  right: -10px;
+  right: 0;
 }
 .nav .logo,
 .nav-links,
@@ -179,7 +182,10 @@ button { font-family: inherit; }
   z-index: 2; /* keep logo/menu/icons clickable above the decorative layer */
 }
 @media (max-width: 1100px) {
-  .nav-curtain { display: none; }
+  .nav-curtain { width: 140px; height: 110px; }
+}
+@media (max-width: 640px) {
+  .nav-curtain { width: 96px; height: 80px; }
 }
 
 .nav .logo {
