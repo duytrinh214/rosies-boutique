@@ -407,7 +407,7 @@ const ValueProp = ({ icon, title, body }) =>
       <Icon name={icon} size={20} />
     </div>
     <div className="serif" style={{ fontSize: 18, fontWeight: 500, marginBottom: 6 }}>{title}</div>
-    <p style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5, margin: 0,6 maxWidth: 240 }}>{body}</p>
+    <p style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5, margin: '0 6px', maxWidth: 240 }}>{body}</p>
   </div>;
 
 
