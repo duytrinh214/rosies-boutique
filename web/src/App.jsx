@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import FooterSeam from './components/FooterSeam';
 import DiscountPopup from './components/DiscountPopup';
 import { useNav } from './lib/nav';
 
@@ -32,6 +33,7 @@ const SiteChrome = ({ children }) => {
       <Nav current={current} navigate={navigate} />
       <div className="header-rule" aria-hidden="true"></div>
       {children}
+      <FooterSeam />
       <Footer navigate={navigate} />
       <DiscountPopup />
     </div>
