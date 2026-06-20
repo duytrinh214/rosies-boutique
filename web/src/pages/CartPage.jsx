@@ -79,7 +79,7 @@ const CartPage = () => {
                     {cart.items.map((it) =>
                   <div key={it.key} style={{ display: 'flex', gap: 12 }}>
                         <div style={{ width: 56, height: 56, borderRadius: 10, overflow: 'hidden', background: FALLBACK_BG, flexShrink: 0 }}>
-                          <img src={'/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
+                          <img src={/^https?:\/\//.test(it.img) ? it.img : '/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
                         </div>
                         <div style={{ flex: 1, fontSize: 13.5 }}>
                           <div style={{ fontWeight: 500 }}>{it.name}</div>
@@ -298,7 +298,7 @@ const CartItems = ({ cart, navigate }) => {
         padding: 24, borderBottom: i < cart.items.length - 1 ? '1px solid var(--hairline)' : 'none'
       }}>
           <div className="img-elevated-sm cart-item-img" style={{ borderRadius: 14, overflow: 'hidden', background: FALLBACK_BG, flexShrink: 0 }}>
-            <img src={'/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => {e.target.style.display = 'none';}} />
+            <img src={/^https?:\/\//.test(it.img) ? it.img : '/' + it.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => {e.target.style.display = 'none';}} />
           </div>
           <div className="cart-item-body" style={{ minWidth: 0 }}>
             <div className="serif" style={{ fontSize: 20, fontWeight: 500, marginBottom: 4 }}>{it.name}</div>
