@@ -146,7 +146,7 @@ button { font-family: inherit; }
   max-width: 100%;
   margin: 0 auto;
   background: var(--bg-cream);
-  padding-bottom: 110px; /* extend cream area so chandeliers sit on cream; long curtain tails still drape onto the pink hero below */
+  padding-bottom: 64px; /* trimmed cream area — smaller header band */
 }
 .site-header > .header-logo-row,
 .site-header > .nav {
@@ -157,8 +157,8 @@ button { font-family: inherit; }
 
 /* Decorative curtain + chandelier + roses, anchored to the full viewport
    width so the panels sit flush in the very top-left and top-right corners.
-   Sized to drape dramatically down past the hero, matching the reference.
-   Sits over page content (high z-index), ignores pointer events. */
+   Sized to drape dramatically down past the hero, the long tails reaching
+   toward the section below. Sits over page content, ignores pointer events. */
 .header-curtain-strip {
   position: absolute;
   top: 0;
@@ -173,9 +173,9 @@ button { font-family: inherit; }
 .nav-curtain {
   position: absolute;
   top: 0;
-  width: 34vw;
-  max-width: 600px;
-  min-width: 280px;
+  width: 30vw;
+  max-width: 720px;
+  min-width: 300px;
   height: auto;
   object-fit: contain;
   object-position: top center;
@@ -194,7 +194,7 @@ button { font-family: inherit; }
   position: relative;
   display: flex;
   justify-content: center;
-  padding-top: 96px; /* push logo below the top swag of the curtain */
+  padding-top: 80px; /* push logo below the top swag of the curtain */
   z-index: 3;
   pointer-events: none;
 }
@@ -203,25 +203,33 @@ button { font-family: inherit; }
 }
 
 @media (max-width: 1100px) {
-  .nav-curtain { width: 40vw; min-width: 180px; max-width: 380px; }
-  .header-logo-row { padding-top: 60px; }
+  .nav-curtain { width: 38vw; min-width: 180px; max-width: 360px; }
+  .header-logo-row { padding-top: 56px; }
   .header-logo-row .logo-img img { width: 112px; height: 58px; }
 }
 @media (max-width: 640px) {
   .nav-curtain { width: 44vw; min-width: 130px; max-width: 260px; }
-  .header-logo-row { padding-top: 38px; }
+  .header-logo-row { padding-top: 36px; }
   .header-logo-row .logo-img img { width: 96px !important; height: 50px !important; }
 }
 
 .nav {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 8px 56px 22px;
-  gap: 28px;
+  padding: 6px 56px 18px;
+  gap: 20px;
   max-width: 1440px;
   margin: 0 auto;
+}
+.nav .nav-links {
+  grid-column: 2;
+  justify-self: center;
+}
+.nav .nav-right {
+  grid-column: 3;
+  justify-self: end;
 }
 /* hairline below the header — fades out at both ends, matching the editorial divider */
 .header-rule {
