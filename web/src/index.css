@@ -189,6 +189,30 @@ button { font-family: inherit; }
   right: 0;
 }
 
+/* Tail extension — a stretched strip of the falling fabric, nailed to the
+   bottom of the main curtain image so the tail can be lengthened on its own
+   without enlarging the swag/chandelier above. Main image aspect ≈ 1086/808
+   = 1.344, so its rendered height = width × 1.344; we offset the tail by that.
+   The tail strip shares the main image's width and column alignment, so the
+   fabric lines up seamlessly. Height is set independently to reach downward. */
+.nav-curtain-tail {
+  position: absolute;
+  width: 30vw;
+  max-width: 720px;
+  min-width: 300px;
+  height: 240px;          /* independent tail length */
+  top: calc(min(30vw, 720px) * 1.344 - 4px);
+  object-fit: fill;       /* stretch the thin strip vertically */
+  user-select: none;
+}
+.nav-curtain-tail-left {
+  left: 0;
+  transform: scaleX(-1);
+}
+.nav-curtain-tail-right {
+  right: 0;
+}
+
 /* Logo row — centred, sits above the curtain drape */
 .header-logo-row {
   position: relative;
@@ -204,11 +228,13 @@ button { font-family: inherit; }
 
 @media (max-width: 1100px) {
   .nav-curtain { width: 38vw; min-width: 180px; max-width: 360px; }
+  .nav-curtain-tail { width: 38vw; min-width: 180px; max-width: 360px; height: 160px; top: calc(min(38vw, 360px) * 1.344 - 4px); }
   .header-logo-row { padding-top: 56px; }
   .header-logo-row .logo-img img { width: 112px; height: 58px; }
 }
 @media (max-width: 640px) {
   .nav-curtain { width: 44vw; min-width: 130px; max-width: 260px; }
+  .nav-curtain-tail { width: 44vw; min-width: 130px; max-width: 260px; height: 110px; top: calc(min(44vw, 260px) * 1.344 - 4px); }
   .header-logo-row { padding-top: 36px; }
   .header-logo-row .logo-img img { width: 96px !important; height: 50px !important; }
 }
