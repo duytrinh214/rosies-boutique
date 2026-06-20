@@ -173,9 +173,9 @@ button { font-family: inherit; }
 .nav-curtain {
   position: absolute;
   top: 0;
-  width: 42vw;
-  max-width: 760px;
-  min-width: 320px;
+  width: 34vw;
+  max-width: 600px;
+  min-width: 280px;
   height: auto;
   object-fit: contain;
   object-position: top center;
@@ -203,12 +203,12 @@ button { font-family: inherit; }
 }
 
 @media (max-width: 1100px) {
-  .nav-curtain { width: 46vw; min-width: 200px; max-width: 440px; }
+  .nav-curtain { width: 40vw; min-width: 180px; max-width: 380px; }
   .header-logo-row { padding-top: 60px; }
   .header-logo-row .logo-img img { width: 112px; height: 58px; }
 }
 @media (max-width: 640px) {
-  .nav-curtain { width: 50vw; min-width: 140px; max-width: 300px; }
+  .nav-curtain { width: 44vw; min-width: 130px; max-width: 260px; }
   .header-logo-row { padding-top: 38px; }
   .header-logo-row .logo-img img { width: 96px !important; height: 50px !important; }
 }
