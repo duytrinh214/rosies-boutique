@@ -62,7 +62,7 @@ const ProductPage = () => {
                 const img = e.currentTarget.querySelector('img');
                 if (img) { img.style.transform = 'scale(1)'; }
               }}>
-              <img src={'/' + gallery[imgIdx]} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { e.target.style.display = 'none'; }} />
+              <img src={/^https?:\/\//.test(gallery[imgIdx]) ? gallery[imgIdx] : '/' + gallery[imgIdx]} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { e.target.style.display = 'none'; }} />
               {product.tag && <span className="tag" style={{ position: 'absolute', top: 22, left: 22, background: '#fff', padding: '8px 14px', borderRadius: 9999, fontSize: 10.5, letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>{product.tag}</span>}
             </div>
 
