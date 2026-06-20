@@ -30,6 +30,21 @@ const Nav = ({ current, navigate }) => {
 
   return (
     <nav className="nav">
+      {/* Decorative curtain swag + chandelier + roses, both corners.
+          Purely decorative — pointer-events disabled so clicks pass through
+          to the logo/menu underneath. Hidden on small screens to avoid
+          crowding the mobile header. */}
+      <img
+        src="/images/hero-corner-curtain.png"
+        alt=""
+        aria-hidden="true"
+        className="nav-curtain nav-curtain-left" />
+      <img
+        src="/images/hero-corner-curtain.png"
+        alt=""
+        aria-hidden="true"
+        className="nav-curtain nav-curtain-right" />
+
       <a className="logo logo-img" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
         <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
       </a>
