@@ -63,50 +63,6 @@ const TornEdge = ({ fromColor, toColor, flip = false }) => {
 };
 
 // =========================================================
-// FLORAL FOOTER BORDER — decorative dried-flower sprigs
-// =========================================================
-const FloralFooterBorder = () =>
-<svg viewBox="0 0 1440 90" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: 'auto' }} aria-hidden="true">
-    <g opacity="0.9">
-      {/* left sprig cluster */}
-      <g transform="translate(70,18)" stroke="#8a6a52" strokeWidth="1.2" fill="none" strokeLinecap="round">
-        <path d="M0 60 C2 40 8 24 18 8" />
-        <path d="M8 28 C2 24 -4 24 -10 30" />
-        <path d="M12 18 C18 14 24 15 28 20" />
-        <ellipse cx="18" cy="8" rx="7" ry="9" fill="#c98a72" stroke="none" transform="rotate(-18 18 8)" />
-        <ellipse cx="-10" cy="30" rx="5" ry="6" fill="#e3b8a0" stroke="none" transform="rotate(40 -10 30)" />
-        <ellipse cx="28" cy="20" rx="5" ry="6" fill="#d99e84" stroke="none" transform="rotate(-30 28 20)" />
-      </g>
-      <g transform="translate(150,30)" stroke="#8a6a52" strokeWidth="1" fill="none" strokeLinecap="round">
-        <path d="M0 45 C1 28 5 16 12 4" />
-        <circle cx="12" cy="4" r="5" fill="#f0d8c4" stroke="none" />
-        <circle cx="12" cy="4" r="2" fill="#c98a72" stroke="none" />
-      </g>
-      {/* right sprig cluster */}
-      <g transform="translate(1370,18) scale(-1,1)" stroke="#8a6a52" strokeWidth="1.2" fill="none" strokeLinecap="round">
-        <path d="M0 60 C2 40 8 24 18 8" />
-        <path d="M8 28 C2 24 -4 24 -10 30" />
-        <path d="M12 18 C18 14 24 15 28 20" />
-        <ellipse cx="18" cy="8" rx="7" ry="9" fill="#c98a72" stroke="none" transform="rotate(-18 18 8)" />
-        <ellipse cx="-10" cy="30" rx="5" ry="6" fill="#e3b8a0" stroke="none" transform="rotate(40 -10 30)" />
-        <ellipse cx="28" cy="20" rx="5" ry="6" fill="#d99e84" stroke="none" transform="rotate(-30 28 20)" />
-      </g>
-      <g transform="translate(1290,30) scale(-1,1)" stroke="#8a6a52" strokeWidth="1" fill="none" strokeLinecap="round">
-        <path d="M0 45 C1 28 5 16 12 4" />
-        <circle cx="12" cy="4" r="5" fill="#f0d8c4" stroke="none" />
-        <circle cx="12" cy="4" r="2" fill="#c98a72" stroke="none" />
-      </g>
-      {/* small scattered leaves along the line */}
-      <g fill="#a8c89a" stroke="none" opacity="0.7">
-        <ellipse cx="400" cy="55" rx="6" ry="3" transform="rotate(20 400 55)" />
-        <ellipse cx="650" cy="62" rx="5" ry="2.5" transform="rotate(-15 650 62)" />
-        <ellipse cx="900" cy="50" rx="6" ry="3" transform="rotate(35 900 50)" />
-        <ellipse cx="1080" cy="60" rx="5" ry="2.5" transform="rotate(-10 1080 60)" />
-      </g>
-    </g>
-  </svg>;
-
-// =========================================================
 // HERO SLIDESHOW — best-sellers, crossfade + Ken Burns
 // =========================================================
 const HERO_SLIDES = [
@@ -389,14 +345,6 @@ const HomePage = () => {
           <NewsletterSignup />
         </div>
       </section>
-
-      {/* Torn edge into footer, with decorative floral sprigs along the seam */}
-      <div style={{ position: 'relative', background: 'var(--bg-pink)' }} aria-hidden="true">
-        <TornEdge fromColor="var(--bg-pink)" toColor="var(--ink)" />
-        <div style={{ position: 'absolute', left: 0, right: 0, top: -6, pointerEvents: 'none' }}>
-          <FloralFooterBorder />
-        </div>
-      </div>
     </div>);
 
 };
