@@ -154,6 +154,34 @@ button { font-family: inherit; }
   height: 1px;
   background: linear-gradient(90deg, rgba(43,29,24,0) 0%, rgba(43,29,24,0.45) 50%, rgba(43,29,24,0) 100%);
 }
+/* Decorative curtain + chandelier + roses, draped over both header corners.
+   Sits above the nav content, ignores pointer events, hidden on mobile. */
+.nav-curtain {
+  position: absolute;
+  top: -26px;
+  width: 260px;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+.nav-curtain-left {
+  left: -10px;
+  transform: scaleX(-1); /* source asset is the right-corner version */
+}
+.nav-curtain-right {
+  right: -10px;
+}
+.nav .logo,
+.nav-links,
+.nav-right {
+  position: relative;
+  z-index: 2; /* keep logo/menu/icons clickable above the decorative layer */
+}
+@media (max-width: 1100px) {
+  .nav-curtain { display: none; }
+}
+
 .nav .logo {
   font-family: var(--font-serif);
   font-size: 28px;
