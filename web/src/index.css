@@ -146,7 +146,7 @@ button { font-family: inherit; }
   max-width: 100%;
   margin: 0 auto;
   background: var(--bg-cream);
-  padding-bottom: 80px; /* extend cream area so chandeliers sit on cream, not pink */
+  padding-bottom: 110px; /* extend cream area so chandeliers sit on cream; long curtain tails still drape onto the pink hero below */
 }
 .site-header > .header-logo-row,
 .site-header > .nav {
@@ -173,20 +173,20 @@ button { font-family: inherit; }
 .nav-curtain {
   position: absolute;
   top: 0;
-  width: 38vw;
-  max-width: 680px;
-  min-width: 300px;
+  width: 42vw;
+  max-width: 760px;
+  min-width: 320px;
   height: auto;
   object-fit: contain;
   object-position: top center;
   user-select: none;
 }
 .nav-curtain-left {
-  left: -10px;
+  left: 0;
   transform: scaleX(-1); /* source asset is the right-corner version */
 }
 .nav-curtain-right {
-  right: -10px;
+  right: 0;
 }
 
 /* Logo row — centred, sits above the curtain drape */
