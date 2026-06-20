@@ -155,27 +155,30 @@ button { font-family: inherit; }
   margin-right: auto;
 }
 
-/* Decorative curtain + chandelier + roses, spanning the full header
-   width. Sized to drape dramatically — overflows down past the header
-   into the hero section below, matching the reference. Sits behind the
-   logo and hero content (z-index 1), ignores pointer events. */
+/* Decorative curtain + chandelier + roses. Anchored to the header but
+   sized to drape dramatically down the page — the tall side panels reach
+   well past the hero into the section below, matching the reference.
+   Sits behind page content (z-index 1), ignores pointer events. */
 .header-curtain-strip {
-  position: relative;
-  height: 170px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0; /* zero-height anchor; the images overflow out of it */
   pointer-events: none;
   overflow: visible;
+  z-index: 20; /* drape over the hero section backgrounds below */
 }
 .nav-curtain {
   position: absolute;
-  top: -8px;
-  width: 30vw;
-  max-width: 620px;
-  min-width: 260px;
+  top: 0;
+  width: 42vw;
+  max-width: 760px;
+  min-width: 320px;
   height: auto;
   object-fit: contain;
   object-position: top center;
   user-select: none;
-  z-index: 1;
 }
 .nav-curtain-left {
   left: 0;
@@ -185,12 +188,12 @@ button { font-family: inherit; }
   right: 0;
 }
 
-/* Logo row — centred, overlapping the bottom of the curtain strip */
+/* Logo row — centred, sits above the curtain drape */
 .header-logo-row {
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: -70px; /* pull up into the curtain strip so it reads as one scene */
+  padding-top: 96px; /* push logo below the top swag of the curtain */
   z-index: 3;
   pointer-events: none;
 }
@@ -199,15 +202,13 @@ button { font-family: inherit; }
 }
 
 @media (max-width: 1100px) {
-  .header-curtain-strip { height: 120px; }
-  .nav-curtain { width: 38vw; min-width: 170px; max-width: 360px; }
-  .header-logo-row { margin-top: -48px; }
+  .nav-curtain { width: 46vw; min-width: 200px; max-width: 440px; }
+  .header-logo-row { padding-top: 60px; }
   .header-logo-row .logo-img img { width: 112px; height: 58px; }
 }
 @media (max-width: 640px) {
-  .header-curtain-strip { height: 78px; }
-  .nav-curtain { width: 44vw; min-width: 120px; max-width: 240px; }
-  .header-logo-row { margin-top: -28px; }
+  .nav-curtain { width: 50vw; min-width: 140px; max-width: 300px; }
+  .header-logo-row { padding-top: 38px; }
   .header-logo-row .logo-img img { width: 96px !important; height: 50px !important; }
 }
 
