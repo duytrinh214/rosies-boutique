@@ -31,10 +31,14 @@ const Nav = ({ current, navigate }) => {
   return (
     <header className="site-header">
       {/* Decorative curtain swag + chandelier + roses, spanning the full
-          header width behind the centred logo — purely decorative. */}
+          header width behind the centred logo — purely decorative.
+          The tail is a separate layer so it can be lengthened independently
+          of the swag/chandelier above. */}
       <div className="header-curtain-strip" aria-hidden="true">
         <img src="/images/hero-corner-curtain.png" alt="" className="nav-curtain nav-curtain-left" />
         <img src="/images/hero-corner-curtain.png" alt="" className="nav-curtain nav-curtain-right" />
+        <img src="/images/hero-corner-curtain-tail.png" alt="" className="nav-curtain-tail nav-curtain-tail-left" />
+        <img src="/images/hero-corner-curtain-tail.png" alt="" className="nav-curtain-tail nav-curtain-tail-right" />
       </div>
 
       {/* Logo row — centred, sits above the curtain drape */}
