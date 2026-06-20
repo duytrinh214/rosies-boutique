@@ -39,7 +39,7 @@ const ProductCard = ({ product, navigate, reveal, index = 0 }) => {
       onClick={() => navigate('product', { id: product.id })}>
       <div className="photo" style={!product.img ? { background: FALLBACK_BG } : undefined}>
         {product.img && (
-          <img src={'/' + product.img} alt={product.name} loading="lazy"
+          <img src={/^https?:\/\//.test(product.img) ? product.img : '/' + product.img} alt={product.name} loading="lazy"
             onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.style.background = FALLBACK_BG; }} />
         )}
         <button className={'heart' + (liked ? ' active' : '')}
