@@ -198,7 +198,7 @@ const ReviewCard = ({ review }) =>
   <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
         {review.photos.map((p, i) =>
     <div key={i} className="img-elevated-sm" style={{ width: 80, height: 80, borderRadius: 10, overflow: 'hidden', background: FALLBACK_BG }}>
-            <img src={'/' + p} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
+            <img src={/^https?:\/\//.test(p) ? p : '/' + p} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => {e.target.style.display = 'none';}} />
           </div>
     )}
       </div>
