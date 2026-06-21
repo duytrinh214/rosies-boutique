@@ -31,7 +31,6 @@ const SiteChrome = ({ children }) => {
   return (
     <div className="page-bg">
       <Nav current={current} navigate={navigate} />
-      <div className="header-rule" aria-hidden="true"></div>
       {children}
       <FooterSeam />
       <Footer navigate={navigate} />
