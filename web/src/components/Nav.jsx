@@ -30,18 +30,7 @@ const Nav = ({ current, navigate }) => {
 
   return (
     <header className="site-header">
-      {/* Decorative curtain swag + chandelier + roses, spanning the full
-          header width behind the centred logo — purely decorative.
-          The tail is a separate layer so it can be lengthened independently
-          of the swag/chandelier above. */}
-      <div className="header-curtain-strip" aria-hidden="true">
-        <img src="/images/hero-corner-curtain.png" alt="" className="nav-curtain nav-curtain-left" />
-        <img src="/images/hero-corner-curtain.png" alt="" className="nav-curtain nav-curtain-right" />
-        <img src="/images/hero-corner-curtain-tail.png" alt="" className="nav-curtain-tail nav-curtain-tail-left" />
-        <img src="/images/hero-corner-curtain-tail.png" alt="" className="nav-curtain-tail nav-curtain-tail-right" />
-      </div>
-
-      {/* Logo row — centred, sits above the curtain drape */}
+      {/* Logo row — centred */}
       <div className="header-logo-row">
         <a className="logo logo-img" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
           <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
@@ -89,6 +78,13 @@ const Nav = ({ current, navigate }) => {
         </div>
         {menuOpen && <div className="nav-mobile-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true"></div>}
       </nav>
+
+      {/* Torn-paper edge transitioning from the cream header into the pink page */}
+      <div className="header-torn-edge" aria-hidden="true">
+        <svg viewBox="0 0 1440 40" preserveAspectRatio="none">
+          <path d="M0,18 L48,9 L96,22 L144,5 L192,16 L240,3 L288,20 L336,8 L384,24 L432,6 L480,17 L528,2 L576,21 L624,9 L672,15 L720,4 L768,19 L816,7 L864,23 L912,10 L960,16 L1008,3 L1056,20 L1104,8 L1152,14 L1200,5 L1248,18 L1296,9 L1344,22 L1392,6 L1440,16 L1440,40 L0,40 Z" fill="var(--bg-pink)" />
+        </svg>
+      </div>
     </header>
   );
 };
