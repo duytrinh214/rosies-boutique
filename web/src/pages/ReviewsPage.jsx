@@ -10,9 +10,9 @@ import { PRODUCTS, FALLBACK_BG } from '../lib/products';
 // `profileUrl` opens the public profile; `writeReviewUrl` deep-links straight to the
 // "write a review" composer for the "Write a review" CTA below.
 const GOOGLE_BUSINESS = {
-  placeId: 'YOUR_GOOGLE_PLACE_ID',
-  profileUrl: 'https://www.google.com/maps/search/?api=1&query=Rosie%27s+Boutique',
-  writeReviewUrl: 'https://search.google.com/local/writereview?placeid=YOUR_GOOGLE_PLACE_ID'
+  placeId: 'ChIJcx1ml0_11moRlHCNketlykk',
+  profileUrl: 'https://www.google.com/maps/search/?api=1&query=Rosie%27s+Boutique&query_place_id=ChIJcx1ml0_11moRlHCNketlykk',
+  writeReviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJcx1ml0_11moRlHCNketlykk'
 };
 
 const ReviewsPage = () => {
