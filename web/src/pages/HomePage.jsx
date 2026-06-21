@@ -323,7 +323,7 @@ const HomePage = () => {
               </div>
               <span className="g-rating-label">Google Reviews</span>
             </div>
-            <a className="btn btn-primary" href="https://maps.app.goo.gl/4yWNDwCp4kXbbrBFA" target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-primary" href="https://search.google.com/local/writereview?placeid=ChIJcx1ml0_11moRlHCNketlykk" target="_blank" rel="noopener noreferrer">
               Write a review
             </a>
           </div>
