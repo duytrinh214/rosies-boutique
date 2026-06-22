@@ -30,15 +30,11 @@ const Nav = ({ current, navigate }) => {
 
   return (
     <header className="site-header">
-      {/* Logo row — centred */}
-      <div className="header-logo-row">
-        <a className="logo logo-img" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
-          <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
-        </a>
-      </div>
-
-      <nav className="nav">
-        {/* Mobile: hamburger LEFT */}
+      {/* Single compact bar: burger | logo | cart
+          On desktop this expands to a full nav row beneath the logo.
+          On mobile the logo stays centred between the two icon buttons. */}
+      <div className="header-bar">
+        {/* Burger — left */}
         <button
           className={'icon-btn nav-burger' + (menuOpen ? ' active' : '')}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -47,6 +43,20 @@ const Nav = ({ current, navigate }) => {
           <Icon name={menuOpen ? 'close' : 'menu'} />
         </button>
 
+        {/* Logo — centre */}
+        <a className="logo logo-img header-logo" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
+          <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
+        </a>
+
+        {/* Cart — right */}
+        <button className="icon-btn header-cart" aria-label="Bag" onClick={() => navigate('cart')}>
+          <Icon name="bag" />
+          {cart.count > 0 && <span className="badge">{cart.count}</span>}
+        </button>
+      </div>
+
+      {/* Desktop nav links row (hidden on mobile) */}
+      <nav className="nav">
         <div className="nav-links" style={{ fontFamily: '"Playfair Display"' }}>
           {NAV_ITEMS.map((it) => (
             <button
@@ -57,30 +67,28 @@ const Nav = ({ current, navigate }) => {
             </button>
           ))}
         </div>
-
-        {/* Mobile: cart RIGHT */}
         <div className="nav-right">
-          <button className="icon-btn" aria-label="Bag" onClick={() => navigate('cart')}>
+          <button className="icon-btn desktop-cart" aria-label="Bag" onClick={() => navigate('cart')}>
             <Icon name="bag" />
             {cart.count > 0 && <span className="badge">{cart.count}</span>}
           </button>
         </div>
-
-        {/* Mobile slide-down menu */}
-        <div className={'nav-mobile' + (menuOpen ? ' is-open' : '')} role="menu" aria-label="Mobile navigation">
-          <div className="nav-mobile-links">
-            {NAV_ITEMS.map((it) => (
-              <button
-                key={it.label}
-                className={'nav-mobile-link' + (isActive(it) ? ' active' : '')}
-                onClick={() => onItem(it)}>
-                {it.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        {menuOpen && <div className="nav-mobile-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true"></div>}
       </nav>
+
+      {/* Mobile slide-down menu */}
+      <div className={'nav-mobile' + (menuOpen ? ' is-open' : '')} role="menu" aria-label="Mobile navigation">
+        <div className="nav-mobile-links">
+          {NAV_ITEMS.map((it) => (
+            <button
+              key={it.label}
+              className={'nav-mobile-link' + (isActive(it) ? ' active' : '')}
+              onClick={() => onItem(it)}>
+              {it.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      {menuOpen && <div className="nav-mobile-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true"></div>}
 
       {/* Torn-paper edge transitioning from the cream header into the pink page */}
       <div className="header-torn-edge" aria-hidden="true">
