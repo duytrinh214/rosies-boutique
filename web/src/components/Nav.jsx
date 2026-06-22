@@ -55,6 +55,13 @@ const Nav = ({ current, navigate }) => {
         </button>
       </div>
 
+      {/* Desktop: Logo row centred above nav links */}
+      <div className="header-logo-row">
+        <a className="logo logo-img" onClick={(e) => { e.preventDefault(); go('home'); }} href="#home" aria-label="Rosie's Boutique">
+          <img src="/logo.png" alt="Rosie's Boutique" style={{ width: '138px', height: '72px' }} />
+        </a>
+      </div>
+
       {/* Desktop nav links row (hidden on mobile) */}
       <nav className="nav">
         <div className="nav-links" style={{ fontFamily: '"Playfair Display"' }}>
