@@ -20,7 +20,6 @@ import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminPage from './pages/AdminPage';
 import OrderSuccessPage from './pages/OrderSuccessPage';
-import WeddingHirePage from './pages/WeddingHirePage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -62,7 +61,6 @@ const App = () => (
       <Route path="/returns" element={<SiteChrome><ReturnsPage /></SiteChrome>} />
       <Route path="/faq" element={<SiteChrome><FaqPage /></SiteChrome>} />
       <Route path="/contact" element={<SiteChrome><ContactPage /></SiteChrome>} />
-      <Route path="/wedding-hire" element={<SiteChrome><WeddingHirePage /></SiteChrome>} />
       <Route path="*" element={<SiteChrome><HomePage /></SiteChrome>} />
     </Routes>
   </>
