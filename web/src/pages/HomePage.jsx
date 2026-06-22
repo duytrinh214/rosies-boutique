@@ -215,7 +215,7 @@ const HomePage = () => {
           <div>
             <span className="pill" style={{ textAlign: "left", flexDirection: "row" }}><span className="pill-dot"></span>Rosie's Boutique · Melbourne</span>
             <h1 className="serif" style={{ lineHeight: 1.02, margin: '36px 0 28px', fontWeight: 500, letterSpacing: '-0.02em', fontSize: "clamp(44px, 11vw, 120px)" }}>
-              Everlasting,<br />
+              Everlasting{' '}
               <span className="italic" style={{ color: '#5a4a40', fontWeight: 400, fontSize: "clamp(36px, 9vw, 100px)" }}>Floral.</span>
             </h1>
             <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.55, maxWidth: 460, margin: '0 0 38px' }}>
