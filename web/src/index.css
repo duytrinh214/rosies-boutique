@@ -115,6 +115,41 @@ button { font-family: inherit; }
 .btn-block { width: 100%; justify-content: center; }
 .btn-sm { padding: 10px 18px; font-size: 13px; }
 
+/* ---- Back to top floating button ---- */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(43, 29, 24, 0.12);
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 14px 30px -10px rgba(43, 29, 24, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 280ms ease, transform 280ms ease, visibility 280ms, background 180ms ease;
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover { background: #1a100c; }
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top { transition: opacity 200ms ease, visibility 200ms; transform: none; }
+}
+@media (max-width: 640px) {
+  .back-to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+}
+
 /* ---- Pill / Badge ---- */
 .pill {
   display: inline-flex;
