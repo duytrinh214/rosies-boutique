@@ -172,26 +172,17 @@ button { font-family: inherit; }
 
 /* ---- Nav ---- */
 /* =========================================================
-   SITE HEADER — curtain strip (full width) → centred logo →
-   nav row (links + icons), stacked vertically like a wedding
-   invitation header rather than a single horizontal bar.
+   SITE HEADER
+   Desktop: logo row centred above nav links row (editorial)
+   Mobile/tablet: single compact bar — burger | logo | cart
    ========================================================= */
 .site-header {
   position: relative;
   max-width: 100%;
-  margin: 0 auto;
   background: var(--bg-cream);
-  padding-bottom: 0;
-}
-.site-header > .header-logo-row,
-.site-header > .nav {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Torn-paper edge at the bottom of the cream header, transitioning into the
-   pink page below — same jagged style used between homepage sections. */
+/* Torn-paper edge */
 .header-torn-edge {
   position: relative;
   display: block;
@@ -205,7 +196,12 @@ button { font-family: inherit; }
   height: 26px;
 }
 
-/* Logo row — centred */
+/* ---- Compact single-row bar (burger | logo | cart) ---- */
+.header-bar {
+  display: none; /* shown only on mobile/tablet */
+}
+
+/* ---- Desktop: logo row centred ---- */
 .header-logo-row {
   position: relative;
   display: flex;
@@ -214,35 +210,71 @@ button { font-family: inherit; }
   z-index: 3;
 }
 
+/* Desktop nav links row */
 .nav {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto; /* burger | links | cart */
+  grid-template-columns: 1fr auto;
   align-items: center;
   padding: 6px 56px 18px;
   gap: 20px;
   max-width: 1440px;
   margin: 0 auto;
 }
-.nav .nav-burger {
-  grid-column: 1;
-  display: none; /* hidden on desktop */
-}
 .nav .nav-links {
-  grid-column: 2;
   justify-self: center;
 }
 .nav .nav-right {
-  grid-column: 3;
   justify-self: end;
 }
-/* hairline below the header — fades out at both ends, matching the editorial divider */
+
+/* Desktop: hide mobile-only cart in header-bar, show desktop cart in nav-right */
+.header-cart { display: none; }
+.desktop-cart { display: inline-flex; }
+
+/* hairline */
 .header-rule {
   width: 100%;
   max-width: 1440px;
   margin: -1px auto 0;
   height: 1px;
   background: linear-gradient(90deg, rgba(43,29,24,0) 0%, rgba(43,29,24,0.45) 50%, rgba(43,29,24,0) 100%);
+}
+
+/* =========================================================
+   MOBILE / TABLET  (≤1100px)
+   Switch to the compact single bar
+   ========================================================= */
+@media (max-width: 1100px) {
+  /* Show compact bar, hide desktop rows */
+  .header-bar {
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
+    padding: 10px 16px;
+    position: relative;
+    z-index: 62;
+  }
+  .header-logo-row { display: none; }
+  .nav { display: none; }         /* desktop nav hidden */
+  .header-cart { display: inline-flex; justify-self: end; }
+  .desktop-cart { display: none; }
+
+  /* Logo centred in the bar */
+  .header-logo {
+    justify-self: center;
+    display: inline-flex;
+    line-height: 0;
+  }
+  .header-logo img { width: 110px; height: 57px; }
+
+  /* Burger left */
+  .nav-burger {
+    display: inline-flex;
+    justify-self: start;
+    position: relative;
+    z-index: 61;
+  }
 }
 
 .nav .logo {
@@ -1143,30 +1175,6 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 .nav-mobile, .nav-mobile-backdrop { display: none; }
 
 @media (max-width: 1100px) {
-  /* Shrink cream header area */
-  .header-logo-row { padding-top: 10px; }
-  .header-logo-row .logo-img img { width: 110px; height: 57px; }
-
-  /* Nav row: burger left | gap | cart right */
-  .nav {
-    grid-template-columns: auto 1fr auto;
-    padding: 6px 16px 10px;
-    gap: 0;
-  }
-  .nav-links { display: none; }
-  .nav .nav-burger {
-    display: inline-flex;
-    grid-column: 1;
-    justify-self: start;
-    position: relative;
-    z-index: 61;
-  }
-  .nav .nav-right {
-    grid-column: 3;
-    justify-self: end;
-    gap: 0;
-  }
-
   .nav-mobile {
     display: block;
     position: absolute;
