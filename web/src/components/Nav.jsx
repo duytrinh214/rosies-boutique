@@ -38,6 +38,15 @@ const Nav = ({ current, navigate }) => {
       </div>
 
       <nav className="nav">
+        {/* Mobile: hamburger LEFT */}
+        <button
+          className={'icon-btn nav-burger' + (menuOpen ? ' active' : '')}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}>
+          <Icon name={menuOpen ? 'close' : 'menu'} />
+        </button>
+
         <div className="nav-links" style={{ fontFamily: '"Playfair Display"' }}>
           {NAV_ITEMS.map((it) => (
             <button
@@ -48,18 +57,12 @@ const Nav = ({ current, navigate }) => {
             </button>
           ))}
         </div>
+
+        {/* Mobile: cart RIGHT */}
         <div className="nav-right">
-          <button className="icon-btn" aria-label="Search"><Icon name="search" /></button>
           <button className="icon-btn" aria-label="Bag" onClick={() => navigate('cart')}>
             <Icon name="bag" />
             {cart.count > 0 && <span className="badge">{cart.count}</span>}
-          </button>
-          <button
-            className={'icon-btn nav-burger' + (menuOpen ? ' active' : '')}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}>
-            <Icon name={menuOpen ? 'close' : 'menu'} />
           </button>
         </div>
 
