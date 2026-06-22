@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import FooterSeam from './components/FooterSeam';
 import DiscountPopup from './components/DiscountPopup';
+import BackToTop from './components/BackToTop';
 import { useNav } from './lib/nav';
 
 import HomePage from './pages/HomePage';
@@ -19,6 +20,7 @@ import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminPage from './pages/AdminPage';
 import OrderSuccessPage from './pages/OrderSuccessPage';
+import WeddingHirePage from './pages/WeddingHirePage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -35,6 +37,7 @@ const SiteChrome = ({ children }) => {
       <FooterSeam />
       <Footer navigate={navigate} />
       <DiscountPopup />
+      <BackToTop />
     </div>
   );
 };
@@ -59,6 +62,7 @@ const App = () => (
       <Route path="/returns" element={<SiteChrome><ReturnsPage /></SiteChrome>} />
       <Route path="/faq" element={<SiteChrome><FaqPage /></SiteChrome>} />
       <Route path="/contact" element={<SiteChrome><ContactPage /></SiteChrome>} />
+      <Route path="/wedding-hire" element={<SiteChrome><WeddingHirePage /></SiteChrome>} />
       <Route path="*" element={<SiteChrome><HomePage /></SiteChrome>} />
     </Routes>
   </>
