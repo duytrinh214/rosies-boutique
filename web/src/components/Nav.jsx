@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { label: 'Bouquets', collection: 'bouquets' },
   { label: 'Luxe Vase Arrangements', collection: 'luxe-vase-arrangements' },
   { label: 'Event and Corporate Hire', collection: 'event-corporate-hire' },
-  { label: 'Wedding Hire', page: 'wedding-hire' },
+  { label: 'Wedding Hire', collection: 'wedding-hire' },
 ];
 
 const Nav = ({ current, navigate }) => {
