@@ -248,29 +248,29 @@ button { font-family: inherit; }
 @media (max-width: 1100px) {
   /* Show compact bar, hide desktop rows */
   .header-bar {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 48px 1fr 48px;
     align-items: center;
-    padding: 10px 16px;
+    padding: 8px 16px;
     position: relative;
     z-index: 62;
   }
-  .header-logo-row { display: none; }
-  .nav { display: none; }         /* desktop nav hidden */
-  .header-cart { display: inline-flex; justify-self: end; }
-  .desktop-cart { display: none; }
+  .header-logo-row { display: none !important; }
+  .nav { display: none !important; }
+  .header-cart { display: inline-flex !important; justify-self: end; }
+  .desktop-cart { display: none !important; }
 
   /* Logo centred in the bar */
   .header-logo {
     justify-self: center;
-    display: inline-flex;
+    display: inline-flex !important;
     line-height: 0;
   }
-  .header-logo img { width: 110px; height: 57px; }
+  .header-logo img { width: 110px !important; height: 57px !important; }
 
   /* Burger left */
   .nav-burger {
-    display: inline-flex;
+    display: inline-flex !important;
     justify-self: start;
     position: relative;
     z-index: 61;
@@ -1171,10 +1171,13 @@ select.info-input { cursor: pointer; -webkit-appearance: none; appearance: none;
 /* =========================================================
    Mobile navigation — hamburger + slide-down panel
    ========================================================= */
+/* nav-burger only visible on mobile (shown via @media above) */
 .nav-burger { display: none; }
+/* nav-mobile hidden by default, shown on mobile via @media */
 .nav-mobile, .nav-mobile-backdrop { display: none; }
 
 @media (max-width: 1100px) {
+  /* nav-mobile anchors to site-header, not .nav */
   .nav-mobile {
     display: block;
     position: absolute;
