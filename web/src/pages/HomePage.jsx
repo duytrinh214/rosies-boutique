@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
-import { useProducts, DiscountStore } from '../lib/stores';
+import { useProducts } from '../lib/stores';
 import { CollectionCard, CollectionCarousel } from './ShopPage';
 import { DRAG_ROWS } from '../lib/collections';
 
@@ -152,10 +152,11 @@ export const HeroSlideshow = ({ products = [] }) => {
 // =========================================================
 export const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
+  const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(null); // { code, email }
   const [error, setError] = useState('');
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const val = email.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
@@ -163,8 +164,22 @@ export const NewsletterSignup = () => {
       return;
     }
     setError('');
-    const entry = DiscountStore.issue(val, 10);
-    setSent({ code: entry.code, email: val });
+    setBusy(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      // Code is sent via email — show confirmation without exposing code on screen
+      setSent({ email: val });
+    } catch (err) {
+      setError(err.message || 'Could not subscribe — please try again.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   if (sent) {
@@ -174,29 +189,23 @@ export const NewsletterSignup = () => {
           <Icon name="check" size={26} />
         </div>
         <div style={{ fontSize: 11.5, letterSpacing: '0.24em', textTransform: 'uppercase', fontWeight: 600, color: 'var(--muted)', marginBottom: 12 }}>Welcome gift sent</div>
-        <h3 className="serif" style={{ fontSize: 30, fontWeight: 500, margin: '0 0 12px', letterSpacing: '-0.01em' }}>Here's your $10 off</h3>
+        <h3 className="serif" style={{ fontSize: 30, fontWeight: 500, margin: '0 0 12px', letterSpacing: '-0.01em' }}>Check your inbox!</h3>
         <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, margin: '0 0 22px' }}>
-          A confirmation with your code is on its way to<br /><strong style={{ color: 'var(--ink)' }}>{sent.email}</strong>.
+          Your $10 discount code is on its way to<br /><strong style={{ color: 'var(--ink)' }}>{sent.email}</strong>.
         </p>
-        <div style={{ border: '1px dashed var(--hairline-strong)', borderRadius: 14, padding: '18px 20px', background: 'var(--bg-cream)', marginBottom: 22 }}>
-          <div style={{ fontSize: 11.5, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>Your code</div>
-          <div className="serif" style={{ fontSize: 30, fontWeight: 600, letterSpacing: '0.04em', color: 'var(--ink)' }}>{sent.code}</div>
-          <div style={{ fontSize: 12.5, color: 'var(--muted)', marginTop: 8 }}>Use it at checkout · $10 off your first order</div>
-        </div>
         <p style={{ fontSize: 14.5, color: 'var(--ink-soft)', lineHeight: 1.65, margin: '0 0 4px' }}>
           Thank you for joining us. We can't wait to place a little something by hand, just for you.
         </p>
         <p className="serif italic" style={{ fontSize: 16, color: '#5a4a40', margin: '6px 0 0' }}>With love, the team at Rosie's Boutique</p>
       </div>);
-
   }
 
   return (
     <>
       <form onSubmit={submit} style={{ display: 'flex', gap: 10, maxWidth: 480, margin: '0 auto' }}>
         <input className="input" type="email" placeholder="your@email.com" value={email}
-        onChange={(e) => {setEmail(e.target.value);if (error) setError('');}} style={{ background: '#fff' }} />
-        <button className="btn btn-primary" type="submit">Subscribe</button>
+        onChange={(e) => {setEmail(e.target.value);if (error) setError('');}} style={{ background: '#fff' }} required />
+        <button className="btn btn-primary" type="submit" disabled={busy}>{busy ? 'Sending…' : 'Subscribe'}</button>
       </form>
       {error && <p style={{ color: '#a8584a', fontSize: 13.5, marginTop: 12 }}>{error}</p>}
     </>);
