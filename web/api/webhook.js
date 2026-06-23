@@ -1,8 +1,13 @@
 import Stripe from 'stripe';
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 export const config = { api: { bodyParser: false } };
 
@@ -46,6 +51,21 @@ export default async function handler(req, res) {
     const shippingMethod = session.metadata?.shipping_method === 'express'
       ? 'Express delivery · next-day before 2pm'
       : 'Standard delivery · 2–4 business days';
+
+    // Mark discount code as used if one was applied
+    const discountCode = session.metadata?.discount_code;
+    if (discountCode) {
+      try {
+        await supabase
+          .from('discount_codes')
+          .update({ used: true, used_at: new Date().toISOString() })
+          .eq('code', discountCode)
+          .eq('used', false);
+        console.log('Discount code marked used:', discountCode);
+      } catch (dcErr) {
+        console.error('Failed to mark discount used:', dcErr);
+      }
+    }
 
     if (customerEmail) {
       try {
