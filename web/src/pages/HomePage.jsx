@@ -174,14 +174,14 @@ export const NewsletterSignup = () => {
           <Icon name="check" size={26} />
         </div>
         <div style={{ fontSize: 11.5, letterSpacing: '0.24em', textTransform: 'uppercase', fontWeight: 600, color: 'var(--muted)', marginBottom: 12 }}>Welcome gift sent</div>
-        <h3 className="serif" style={{ fontSize: 30, fontWeight: 500, margin: '0 0 12px', letterSpacing: '-0.01em' }}>Here's your 10% off</h3>
+        <h3 className="serif" style={{ fontSize: 30, fontWeight: 500, margin: '0 0 12px', letterSpacing: '-0.01em' }}>Here's your $10 off</h3>
         <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, margin: '0 0 22px' }}>
           A confirmation with your code is on its way to<br /><strong style={{ color: 'var(--ink)' }}>{sent.email}</strong>.
         </p>
         <div style={{ border: '1px dashed var(--hairline-strong)', borderRadius: 14, padding: '18px 20px', background: 'var(--bg-cream)', marginBottom: 22 }}>
           <div style={{ fontSize: 11.5, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 8 }}>Your code</div>
           <div className="serif" style={{ fontSize: 30, fontWeight: 600, letterSpacing: '0.04em', color: 'var(--ink)' }}>{sent.code}</div>
-          <div style={{ fontSize: 12.5, color: 'var(--muted)', marginTop: 8 }}>Use it at checkout · 10% off your first order</div>
+          <div style={{ fontSize: 12.5, color: 'var(--muted)', marginTop: 8 }}>Use it at checkout · $10 off your first order</div>
         </div>
         <p style={{ fontSize: 14.5, color: 'var(--ink-soft)', lineHeight: 1.65, margin: '0 0 4px' }}>
           Thank you for joining us. We can't wait to place a little something by hand, just for you.
@@ -364,7 +364,7 @@ const HomePage = () => {
           <h2 className="serif" style={{ fontSize: 56, fontWeight: 500, margin: '0 0 18px', letterSpacing: '-0.02em' }}>
             Letters from <span className="italic">us</span>
           </h2>
-          <p style={{ fontSize: 16, color: 'var(--ink-soft)', marginBottom: 32 }}>Seasonal stories, new arrivals and a 10% welcome gift.</p>
+          <p style={{ fontSize: 16, color: 'var(--ink-soft)', marginBottom: 32 }}>Seasonal stories, new arrivals and a $10 welcome gift.</p>
           <NewsletterSignup />
         </div>
       </section>
