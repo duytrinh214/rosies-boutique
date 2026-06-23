@@ -27,6 +27,11 @@ const CartPage = () => {
   const applyDiscount = async (e) => {
     if (e) e.preventDefault();
     if (!discountInput.trim()) return;
+    // Guard: only 1 code per cart
+    if (appliedDiscount) {
+      setDiscountError('Only one discount code can be applied per order.');
+      return;
+    }
     setDiscountBusy(true);
     setDiscountError('');
     try {
