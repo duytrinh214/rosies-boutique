@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { useNav } from '../lib/nav';
 import Icon from '../components/Icon';
-import { useCart, DiscountStore } from '../lib/stores';
+import { useCart } from '../lib/stores';
 import { FALLBACK_BG } from '../lib/products';
 
 const DELIVERY_LABELS = {
@@ -22,26 +22,42 @@ const CartPage = () => {
   const [discountInput, setDiscountInput] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [discountError, setDiscountError] = useState('');
+  const [discountBusy, setDiscountBusy] = useState(false);
 
-  const applyDiscount = (e) => {
+  const applyDiscount = async (e) => {
     if (e) e.preventDefault();
-    const entry = DiscountStore.validate(discountInput);
-    if (!entry) {
-      setDiscountError('That code isn\'t recognised or has already been used.');
-      setAppliedDiscount(null);
-      return;
-    }
-    setAppliedDiscount(entry);
+    if (!discountInput.trim()) return;
+    setDiscountBusy(true);
     setDiscountError('');
-    setDiscountInput('');
+    try {
+      const res = await fetch('/api/validate-discount', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: discountInput.trim().toUpperCase() }),
+      });
+      const data = await res.json();
+      if (!data.valid) {
+        setDiscountError(data.error || 'That code isn\'t recognised or has already been used.');
+        setAppliedDiscount(null);
+      } else {
+        setAppliedDiscount({ code: data.code, percent: data.percent });
+        setDiscountError('');
+        setDiscountInput('');
+      }
+    } catch {
+      setDiscountError('Could not validate code — please try again.');
+    } finally {
+      setDiscountBusy(false);
+    }
   };
+
   const removeDiscount = () => {
     setAppliedDiscount(null);
     setDiscountError('');
   };
 
   const subtotal = cart.total;
-  const discountAmount = appliedDiscount ? Math.round(subtotal * appliedDiscount.percent / 100) : 0;
+  const discountAmount = appliedDiscount ? 10 : 0; // flat $10 off
   const taxBase = Math.max(0, subtotal - discountAmount);
   const shippingCost = shipping.method === 'express' ? 12 : 0;
   const tax = Math.round(taxBase * 0.10 * 100) / 100;
@@ -145,7 +161,7 @@ const CartPage = () => {
                           </span>
                           <div style={{ flex: 1, minWidth: 0, lineHeight: 1.25 }}>
                             <div style={{ fontSize: 13.5, fontWeight: 600, letterSpacing: '0.04em', color: 'var(--ink)' }}>{appliedDiscount.code}</div>
-                            <div style={{ fontSize: 11.5, color: 'var(--muted)' }}>{appliedDiscount.percent}% off applied</div>
+                            <div style={{ fontSize: 11.5, color: 'var(--muted)' }}>$10 off applied</div>
                           </div>
                           <button onClick={removeDiscount} aria-label="Remove code"
                       style={{ background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: 4, display: 'inline-flex' }}>
@@ -171,8 +187,8 @@ const CartPage = () => {
                           textTransform: 'uppercase'
                         }} />
 
-                            <button type="submit" className="btn btn-secondary" style={{ padding: '11px 18px', fontSize: 13 }}>
-                              Apply
+                            <button type="submit" className="btn btn-secondary" style={{ padding: '11px 18px', fontSize: 13 }} disabled={discountBusy}>
+                              {discountBusy ? '...' : 'Apply'}
                             </button>
                           </div>
                           {discountError &&
@@ -214,7 +230,7 @@ const CartPage = () => {
                         });
                         const data = await res.json();
                         if (!res.ok || !data.url) throw new Error(data.error || 'Could not create checkout session');
-                        if (appliedDiscount) DiscountStore.markUsed(appliedDiscount.code);
+                        // Discount code will be marked as used automatically by Stripe webhook
                         window.location.href = data.url;
                       } catch (err) {
                         setPayError(err.message || 'Payment failed. Please try again.');
