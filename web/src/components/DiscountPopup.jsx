@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Icon from './Icon';
-import { getSupabase } from '../lib/supabase';
 
 const SEEN_KEY = 'rosie_discount_popup_seen';
 
@@ -14,14 +13,13 @@ const DiscountModal = ({ onClose }) => {
     e.preventDefault();
     setErr(''); setBusy(true);
     try {
-      const sb = getSupabase();
-      if (!sb) throw new Error('Sign-up is temporarily unavailable — please try again later.');
-      const { error } = await sb.from('subscribers').insert({
-        name: form.name.trim() || null,
-        email: form.email.trim(),
-        source: 'discount_popup',
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name.trim(), email: form.email.trim() }),
       });
-      if (error) throw error;
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not save your details — please try again.');
       setDone(true);
     } catch (e2) {
       setErr(e2.message || 'Could not save your details — please try again.');
