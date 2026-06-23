@@ -86,7 +86,7 @@ export default async function handler(req, res) {
       name: name?.trim() || null,
       email: emailLower,
       source: 'discount_popup',
-    }).catch(() => {}); // ignore if already exists
+    });
 
     // Send discount email via Resend
     await sendDiscountEmail({ name, email: emailLower, code, resend });
