@@ -48,12 +48,11 @@ export default async function handler(req, res) {
       .single();
 
     if (existing) {
-      if (existing.used) {
-        return res.status(409).json({ error: 'This email has already used its discount.' });
-      }
-      // Re-send the existing code
-      await sendDiscountEmail({ name, email: emailLower, code: existing.code, resend });
-      return res.status(200).json({ success: true, message: 'Code resent!' });
+      // Email đã đăng ký rồi — chặn, KHÔNG gửi thêm code nào nữa
+      const msg = existing.used
+        ? 'This email has already used its discount.'
+        : "You're already subscribed — your $10 code is already in your inbox. 🌸";
+      return res.status(409).json({ error: msg });
     }
 
     // Generate a unique code
