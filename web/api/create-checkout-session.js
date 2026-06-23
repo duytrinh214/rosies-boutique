@@ -78,6 +78,7 @@ export default async function handler(req, res) {
           : '',
         customer_phone: shipping?.phone || '',
         delivery_instructions: shipping?.instructions || '',
+        discount_code: discountCode || '',
       },
     };
 
