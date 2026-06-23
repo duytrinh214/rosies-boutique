@@ -65,8 +65,7 @@ const CartPage = () => {
   const discountAmount = appliedDiscount ? 10 : 0; // flat $10 off
   const taxBase = Math.max(0, subtotal - discountAmount);
   const shippingCost = shipping.method === 'express' ? 12 : 0;
-  const tax = Math.round(taxBase * 0.10 * 100) / 100;
-  const total = taxBase + shippingCost + tax;
+  const total = taxBase + shippingCost;
 
   return (
     <div className="page-fade">
@@ -120,7 +119,6 @@ const CartPage = () => {
 
                 <>
                       <SummaryRow label={`Shipping (${shipping.method})`} value={shippingCost === 0 ? 'Free' : `$${shippingCost}`} />
-                      <SummaryRow label="GST (10%)" value={`$${tax.toFixed(2)}`} />
                       <hr className="divider" />
                       <SummaryRow label="Total" value={`$${total.toFixed(2)}`} bold large />
                     </>
