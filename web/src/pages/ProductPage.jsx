@@ -167,7 +167,7 @@ const ProductPage = () => {
                     Buy now <Icon name="arrow-right" size={16} />
                   </button>
                 </>
-              )}>
+              )}
 
               {/* Trust strip */}
               <div style={{ marginTop: 32, padding: '20px 0', borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)', display: 'flex', gap: 32 }}>
