@@ -32,8 +32,7 @@ const ProductPage = () => {
     return [product.img, ...others.slice(0, 3)];
   }, [product, products]);
 
-  const description = product.description || "A botanically-accurate silk floral arrangement, hand-tied in our atelier. Designed to last a lifetime — no water, no wilting, just timeless beauty.";
-  const details = product.details || ['Hand-tied silk stems', 'Wrapped in raw silk ribbon', 'Approx. 30 × 26 cm', 'Made to last 5+ years'];
+  const description = product.description || '';
 
   const onAdd = () => {
     cart.add(product, qty, size);
@@ -112,7 +111,7 @@ const ProductPage = () => {
               {!isEnquiry && (
                 <div className="serif" style={{ fontSize: 36, fontWeight: 600, marginBottom: 28 }}>${product.price}</div>
               )}
-              <p style={{ fontSize: 16, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 32 }}>{description}</p>
+              {description && <p style={{ fontSize: 16, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 32 }}>{description}</p>}
 
               {isEnquiry ? (
                 enqSent ? (
