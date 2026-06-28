@@ -167,8 +167,8 @@ const ProductPage = () => {
                   </button>
                 </>
               )}
-
-              
+            </div>
+          </div>
 
           {/* Related */}
           <div style={{ marginTop: 100 }}>
