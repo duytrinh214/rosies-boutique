@@ -16,7 +16,6 @@ const ProductPage = () => {
   const product = products.find(p => p.id === params.id) || products[0] || PRODUCTS[0];
   const [size] = useState((product.sizes && product.sizes[1]) || 'Standard');
   const [qty, setQty] = useState(1);
-  const [tab, setTab] = useState('details');
   const [imgIdx] = useState(0);
   const [added, setAdded] = useState(false);
   const cart = useCart();
@@ -169,40 +168,7 @@ const ProductPage = () => {
                 </>
               )}
 
-              {/* Trust strip */}
-              <div style={{ marginTop: 32, padding: '20px 0', borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)', display: 'flex', gap: 32 }}>
-                <TrustLine icon="truck" label="Free shipping over $80" />
-                <TrustLine icon="shield" label="Lifetime atelier guarantee" />
-                <TrustLine icon="leaf" label="Plastic-free packaging" />
-              </div>
-
-              {/* Tabs */}
-              <div style={{ marginTop: 32 }}>
-                <div style={{ display: 'flex', gap: 32, borderBottom: '1px solid var(--hairline)', marginBottom: 20 }}>
-                  {['details', 'care', 'shipping'].map(t => (
-                    <button key={t} onClick={() => setTab(t)}
-                      style={{
-                        background: 'none', border: 'none', padding: '12px 0',
-                        borderBottom: tab === t ? '2px solid var(--ink)' : '2px solid transparent',
-                        cursor: 'pointer', textTransform: 'capitalize', fontSize: 14,
-                        fontWeight: tab === t ? 600 : 400, color: 'var(--ink)', fontFamily: 'inherit'
-                      }}>{t}</button>
-                  ))}
-                </div>
-                {tab === 'details' && (
-                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 10 }}>
-                    {details.map((d, i) => (
-                      <li key={i} style={{ display: 'flex', gap: 12, fontSize: 14, color: 'var(--ink-soft)' }}>
-                        <Icon name="check" size={16} /> {d}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {tab === 'care' && <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>Dust with a soft brush every few weeks. Keep out of direct sunlight to preserve the dyed petals. Refresh with the atelier annually — free for life.</p>}
-                {tab === 'shipping' && <p style={{ fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.6, margin: 0 }}>Same-day delivery within the city (orders before 2pm). 2–4 business days nationwide. Free shipping on orders over $80. All pieces ship in custom protective packaging.</p>}
-              </div>
-            </div>
-          </div>
+              
 
           {/* Related */}
           <div style={{ marginTop: 100 }}>
@@ -219,10 +185,6 @@ const ProductPage = () => {
   );
 };
 
-const TrustLine = ({ icon, label }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--ink-soft)' }}>
-    <Icon name={icon} size={18} /> {label}
-  </div>
-);
+
 
 export default ProductPage;
