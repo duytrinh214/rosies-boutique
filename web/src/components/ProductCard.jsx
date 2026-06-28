@@ -51,7 +51,10 @@ const ProductCard = ({ product, navigate, reveal, index = 0 }) => {
         <div className="name">{product.name}</div>
         <div className="sub">{product.category}</div>
         <div className="price-row">
-          <span className="price">${product.price}</span>
+          {product.category !== 'Event and Corporate Hire' && product.category !== 'Wedding Hire'
+            ? <span className="price">${product.price}</span>
+            : <span style={{ fontSize: 13, color: 'var(--muted)', fontStyle: 'italic' }}>Enquire for pricing</span>
+          }
           <span className="rating">
             <Icon name="star" size={12} /> {product.rating}
             <span className="muted" style={{ marginLeft: 4 }}>({product.reviews})</span>
