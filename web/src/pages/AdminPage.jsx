@@ -628,10 +628,12 @@ const ProductEditor = ({ initial, onClose, onSave }) => {
               {['Bouquets', 'Luxe Vase Arrangements', 'Event and Corporate Hire', 'Wedding Hire'].map(c => <option key={c}>{c}</option>)}
             </select>
           </div>
-          <div>
-            <label className="input-label">Price (USD)</label>
-            <input className="input" type="number" min="0" step="0.01" required value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="89" />
-          </div>
+          {form.category !== 'Event and Corporate Hire' && form.category !== 'Wedding Hire' && (
+            <div>
+              <label className="input-label">Price (AUD)</label>
+              <input className="input" type="number" min="0" step="0.01" required value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="89" />
+            </div>
+          )}
           <div>
             <label className="input-label">Image URL</label>
             <input className="input" value={form.image_url} onChange={(e) => set('image_url', e.target.value)} placeholder="https://…" />
