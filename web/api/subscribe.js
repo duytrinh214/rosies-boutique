@@ -134,7 +134,7 @@ async function sendDiscountEmail({ name, email, code, resend }) {
       </p>
     </div>
     <p style="text-align:center;font-size:12px;color:#b09a90;margin-top:24px;">
-      Rosie's Boutique · 87 President Rd, Albanvale VIC 3021<br/>
+      Rosie's Boutique · ABN 77 921 915 641 · <br/>
       Questions? <a href="mailto:enquiry.rosiesboutique@outlook.com" style="color:#9b7c6e;">enquiry.rosiesboutique@outlook.com</a><br/>
       <a href="https://www.rosiesboutique.com.au/api/unsubscribe?email=${encodeURIComponent(email)}" style="color:#b09a90;">Unsubscribe from future offers</a>
     </p>
