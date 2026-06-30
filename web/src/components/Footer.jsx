@@ -13,6 +13,7 @@ const FooterContactForm = () => {
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState('');
+  const [consent, setConsent] = useState(false);
 
   const set = (key) => (e) => {
     setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -60,6 +61,7 @@ const FooterContactForm = () => {
 
       setSent(true);
       setForm({ name: '', phone: '', email: '', message: '' });
+      setConsent(false);
     } catch (e2) {
       setErr(e2.message || 'Could not send your message — please try again.');
     } finally { setBusy(false); }
@@ -93,8 +95,12 @@ const FooterContactForm = () => {
         <textarea className={'footer-input' + (errors.message ? ' footer-input-error' : '')} rows="3" placeholder="Your message *" value={form.message} onChange={set('message')} style={{ resize: 'vertical' }}></textarea>
         {errors.message && <div style={{ fontSize: 12, color: '#e6a395', marginTop: 4 }}>{errors.message}</div>}
       </div>
+      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12, color: '#b6a08f', lineHeight: 1.5, cursor: 'pointer' }}>
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} style={{ marginTop: 2 }} />
+        I agree to be contacted by email regarding my enquiry.
+      </label>
       {err && <div style={{ fontSize: 12.5, color: '#e6a395' }}>{err}</div>}
-      <button type="submit" className="btn btn-primary" disabled={busy} style={{ justifyContent: 'center' }}>
+      <button type="submit" className="btn btn-primary" disabled={busy || !consent} style={{ justifyContent: 'center' }}>
         {busy ? 'Sending…' : 'Send'} <Icon name="arrow-right" size={15} />
       </button>
     </form>
