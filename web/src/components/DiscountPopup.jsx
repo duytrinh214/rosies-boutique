@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Icon from './Icon';
+import { getSupabase } from '../lib/supabase';
 
 const SEEN_KEY = 'rosie_discount_popup_seen';
 
@@ -8,7 +9,15 @@ const DiscountModal = ({ onClose }) => {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [err, setErr] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [imgUrl, setImgUrl] = useState('/products/sunset-atelier.jpg');
 
+  useEffect(() => {
+    const sb = getSupabase();
+    if (!sb) return;
+    sb.from('products').select('image_url').eq('id', 'BQ-003').single()
+      .then(({ data }) => { if (data?.image_url) setImgUrl(data.image_url); });
+  }, []);
   const submit = async (e) => {
     e.preventDefault();
     setErr(''); setBusy(true);
@@ -62,8 +71,12 @@ const DiscountModal = ({ onClose }) => {
                   onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} style={{ background: '#fff' }} />
                 <input className="input" type="email" required placeholder="your@email.com" value={form.email}
                   onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} style={{ background: '#fff' }} />
+                <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 12.5, color: 'var(--ink-soft)', lineHeight: 1.5, cursor: 'pointer' }}>
+                  <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} style={{ marginTop: 2 }} />
+                  I agree to receive my $10 discount code and occasional offers from Rosie's Boutique by email.
+                </label>
                 {err && <div style={{ fontSize: 13, color: '#a8584a' }}>{err}</div>}
-                <button type="submit" className="btn btn-primary btn-block" disabled={busy} style={{ marginTop: 4 }}>
+                <button type="submit" className="btn btn-primary btn-block" disabled={busy || !consent} style={{ marginTop: 4 }}>
                   {busy ? 'Submitting…' : 'Unlock your discount'} <Icon name="arrow-right" size={16} />
                 </button>
               </form>
@@ -76,7 +89,7 @@ const DiscountModal = ({ onClose }) => {
 
         {/* Image side */}
         <div className="discount-modal-image" style={{ position: 'relative', minHeight: 320, background: 'var(--bg-pink)' }}>
-          <img src="/products/sunset-atelier.jpg" alt="A Rosie's Boutique floral arrangement"
+          <img src={imgUrl} alt="A Rosie's Boutique floral arrangement"
             style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
             onError={(e) => { e.target.style.display = 'none'; }} />
         </div>
