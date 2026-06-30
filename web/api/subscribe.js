@@ -133,8 +133,11 @@ async function sendDiscountEmail({ name, email, code, resend }) {
         Not valid with other offers.
       </p>
     </div>
-    <p style="text-align:center;font-size:12px;color:#b09a90;margin-top:24px;">
-      Rosie's Boutique · ABN 77 921 915 641 · <br/>
+    <p style="text-align:center;font-size:11px;color:#c4b3a6;margin-top:14px;">
+      This is an automated message — please don't reply directly to this email.
+    </p>
+    <p style="text-align:center;font-size:12px;color:#b09a90;margin-top:14px;">
+      Rosie's Boutique · ABN 77 921 915 641 · 87 President Rd, Albanvale VIC 3021<br/>
       Questions? <a href="mailto:enquiry.rosiesboutique@outlook.com" style="color:#9b7c6e;">enquiry.rosiesboutique@outlook.com</a><br/>
       <a href="https://www.rosiesboutique.com.au/api/unsubscribe?email=${encodeURIComponent(email)}" style="color:#b09a90;">Unsubscribe from future offers</a>
     </p>
